@@ -92,6 +92,8 @@
 
 - **Favorite stations now play from anywhere.** A saved local station keeps playing after you leave its area, with no fade or static.
 
+- **Manassas, Virginia is now a freight city.** I-66 connects its real FedEx Freight and US Foods facilities to Washington and Winchester.
+
 ### Changed
 
 - **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
