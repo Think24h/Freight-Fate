@@ -26,6 +26,7 @@ mod data_leg_road_agreement;
 mod data_limit_artifacts;
 mod data_local_approaches;
 mod data_local_geometry;
+mod data_nj_truck_routes;
 mod data_regions;
 mod data_service_plazas;
 mod data_stop_access;
