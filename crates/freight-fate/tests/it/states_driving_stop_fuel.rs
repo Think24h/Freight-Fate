@@ -165,3 +165,46 @@ fn test_arriving_at_a_weigh_station_is_left_alone() {
     assert!(joined.contains("Inspection station."), "{joined}");
     assert!(!joined.contains("fuel"), "{joined}");
 }
+
+fn public_rest_area(at_mi: f64) -> RoadStop {
+    let mut stop = RoadStop::new("Lone Tree Rest Area", at_mi, "public_rest_area");
+    stop.actions = ["park", "save", "break", "sleep"]
+        .iter()
+        .map(|a| a.to_string())
+        .collect();
+    stop.parking = "confirmed".to_string();
+    stop
+}
+
+#[test]
+fn test_stops_nobody_fuels_at_say_nothing_about_fuel() {
+    // A rest area or a repair shop never had pumps to miss: "No fuel." at
+    // every one would be noise the driver sits through.
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    let mut d = a_drive(&mut app);
+    d.trip.stops = vec![public_rest_area(3.0)];
+    d.trip.announced_stops.clear();
+    app.clear_speech();
+
+    roll_to(&mut app, &mut d, &clock, 0.0);
+
+    let said: Vec<String> = app
+        .event_lines()
+        .into_iter()
+        .filter(|line| line.contains("Lone Tree"))
+        .collect();
+    assert_eq!(said.len(), 1, "{:?}", app.event_lines());
+    assert!(!said[0].to_lowercase().contains("fuel"), "{said:?}");
+    drop(d);
+    drop(app);
+
+    let joined = arrive_at(public_rest_area(0.0)).join(" ");
+    assert!(!joined.contains("No fuel"), "{joined}");
+
+    let mut shop = RoadStop::new("Front Range Truck Repair", 0.0, "repair_shop");
+    shop.actions = vec!["park".into(), "save".into(), "repair".into()];
+    assert_eq!(shop.fuel_callout(), None);
+    let joined = arrive_at(shop).join(" ");
+    assert!(!joined.contains("No fuel"), "{joined}");
+}

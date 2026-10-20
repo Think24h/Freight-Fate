@@ -21,18 +21,20 @@ mod deadline;
 pub mod hos_stops;
 pub mod relay;
 #[cfg(test)]
+mod team_tests;
+#[cfg(test)]
 mod tests;
 
 pub use board::{reachable_cities, JobBoard, OfferOptions};
 pub use deadline::{
-    curve_ceilings, dispatch_deadline_hours, fair_active_deadline, minimum_pay_for_level, plan_hos,
-    remaining_route_hos_plan, required_hours, route_drive_hours, route_drive_hours_over,
-    route_planning_limit, route_required_hours, segment_hours, CurveBand, HosPlan,
-    ACTIVE_TRIP_FAIRNESS_SLACK, DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H,
-    DEADLINE_DISPATCH_SLACK_RANGE, DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR,
-    DEADLINE_SAMPLE_MI, DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE,
-    LONG_HAUL_MINIMUM_RATE_BY_LEVEL, SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL,
-    SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
+    curve_ceilings, departure_deadline_hours, dispatch_deadline_hours, fair_active_deadline,
+    minimum_pay_for_level, plan_hos, remaining_route_hos_plan, required_hours, route_drive_hours,
+    route_drive_hours_over, route_planning_limit, route_required_hours, segment_hours,
+    team_deadline_hours, team_required_hours, CurveBand, HosPlan, ACTIVE_TRIP_FAIRNESS_SLACK,
+    DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H, DEADLINE_DISPATCH_SLACK_RANGE,
+    DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR, DEADLINE_SAMPLE_MI,
+    DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE, LONG_HAUL_MINIMUM_RATE_BY_LEVEL,
+    SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL, SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
 };
 
 mod catalog;
@@ -139,6 +141,9 @@ pub struct Job {
     // have needed one). Spoken so the long number reads as the law, not
     // dispatcher generosity.
     pub deadline_covers_rest: bool,
+    /// A team load: booked for a driver and a co-driver taking turns, so its
+    /// deadline allows no 10-hour break and it pays more.
+    pub team: bool,
 }
 
 /// The keyword arguments of `Job.describe`, each with its Python default.
@@ -191,6 +196,7 @@ impl Job {
             origin_spoken: String::new(),
             destination_spoken: String::new(),
             deadline_covers_rest: false,
+            team: false,
         }
     }
 
@@ -236,7 +242,7 @@ impl Job {
         };
         let condition = market_condition(self.market_mult);
         let market = if condition != "steady" {
-            format!(" Lane note: Market is {condition}.")
+            format!(" Market {condition}.")
         } else {
             String::new()
         };
@@ -250,36 +256,44 @@ impl Job {
         } else {
             format!(" Requires {}.", credentials_clause(self.cargo.credentials))
         };
-        let origin = format!("from {}", self.origin_offer_text());
-        let dest = format!("to {}", self.destination_offer_text());
+        // Whole sentences, so a catalog has each one with its words: the
+        // load, the pay and the deadline are each a line of their own.
+        let tons = fmt_f(self.weight_tons, 0);
+        let cargo = self.cargo.label;
+        let pickup = self.origin_offer_text();
+        let dropoff = self.destination_offer_text();
+        let load = format!("{tons} tons of {cargo} from {pickup} to {dropoff}.");
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
             format!(" {}", opts.trailer_note)
         };
-        let pay = opts.display_pay.unwrap_or(self.pay);
-        let pay_label = if opts.pay_label.is_empty() {
-            "Pays"
-        } else {
-            opts.pay_label
+        let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
+        let pay_text = match opts.pay_label {
+            "" | "Pays" => format!("Pays {pay} dollars."),
+            "Carrier gross" => format!("Carrier gross {pay} dollars."),
+            "Direct gross" => format!("Direct gross {pay} dollars."),
+            "Gross revenue" => format!("Gross revenue {pay} dollars."),
+            other => format!("{other} {pay} dollars."),
         };
         let distance = if opts.distance_text.is_empty() {
             format!("{} miles", fmt_f(self.distance_mi, 0))
         } else {
             opts.distance_text.to_string()
         };
-        let rest = if self.deadline_covers_rest {
-            ", planned around the 10-hour rest your hours will force. "
+        let hours = fmt_f(self.deadline_game_h, 0);
+        let deadline = if self.team {
+            format!(
+                "Deadline {hours} hours. Team load: you and a co-driver take turns at the wheel."
+            )
+        } else if self.deadline_covers_rest {
+            format!("Deadline {hours} hours, includes a 10-hour rest.")
         } else {
-            ". "
+            format!("Deadline {hours} hours.")
         };
+        let equipment = self.cargo.equipment_text();
         format!(
-            "{prefix}{} tons of {} {origin} {dest}. {distance}. {pay_label} {} dollars. Deadline {} hours{rest}Equipment: {}.{trailer}{preview}{market}{endorsement}",
-            fmt_f(self.weight_tons, 0),
-            self.cargo.label,
-            fmt_grouped(pay, 0),
-            fmt_f(self.deadline_game_h, 0),
-            self.cargo.equipment_text(),
+            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{preview}{market}{endorsement}"
         )
     }
 
@@ -468,6 +482,7 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
         "bobtail": job.bobtail,
         "assigned": job.assigned,
         "deadline_covers_rest": job.deadline_covers_rest,
+        "team": job.team,
     });
     match value {
         Value::Object(map) => map,
@@ -541,6 +556,7 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
     job.origin_spoken = str_or(data, "origin_spoken", "");
     job.destination_spoken = str_or(data, "destination_spoken", "");
     job.deadline_covers_rest = data.get("deadline_covers_rest").is_some_and(py_truthy);
+    job.team = data.get("team").is_some_and(py_truthy);
     Some(job)
 }
 
