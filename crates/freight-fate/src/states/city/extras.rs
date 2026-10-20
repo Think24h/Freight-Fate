@@ -30,6 +30,11 @@ impl BobtailDestState {
     }
 
     fn start(&mut self, ctx: &mut GameContext, dest: &str) {
+        if let Some(line) = crate::states::city::cdl_drive_refusal(ctx) {
+            ctx.audio.play("ui/error");
+            ctx.say(&line);
+            return;
+        }
         let world = ctx.world;
         let (job, route) = {
             let p = profile(ctx);
@@ -49,8 +54,7 @@ impl BobtailDestState {
         profile_mut(ctx).dispatch_board_cache = None;
         let spoken_dest = job.spoken_destination().to_string();
         let line = format!(
-            "Bobtailing empty to {spoken_dest}, {} on {}. No load and no pay. The \
-             {spoken_dest} dispatch board opens on arrival.",
+            "Bobtail to {spoken_dest}, {} on {}. No pay.",
             ctx.settings.distance_text(route.miles(), false),
             route.highways().first().cloned().unwrap_or_default()
         );
@@ -160,8 +164,7 @@ impl PayDebtState {
             // driving_rest_states.py.
             ctx.pop_state();
             ctx.say(&format!(
-                "Paid {} and your account is clear. Every settlement reaches you whole. You \
-                 have {}.",
+                "Paid {}. Account clear. You have {}.",
                 solvency::money_text(paid),
                 solvency::money_text(money)
             ));

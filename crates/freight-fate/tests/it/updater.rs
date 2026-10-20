@@ -580,6 +580,91 @@ fn test_19_snapshot_rebuilt_under_the_same_tag_is_offered_by_commit() {
 }
 
 #[test]
+fn test_19_snapshot_with_no_user_facing_changes_is_not_offered_over_its_stable() {
+    // 2026-10-07: the nightly cut 1.9-tester-20261007 four hours after v1.9.3
+    // with only a build-timeout change on top, and a 1.9.3 copy on the
+    // snapshot channel was offered it as an update to the same game.
+    const QUIET: &str = "Preview snapshot for players.\n\n\
+        ## Changes since the previous snapshot\n\n- No user-facing changes\n";
+    let quiet = release_with(
+        "1.9-tester-20261007",
+        true,
+        QUIET,
+        "2026-10-07T04:15:32Z",
+        &ALL_ASSETS,
+    );
+    let stable = release_with(
+        "v1.9.3",
+        false,
+        "## Fixes\n- **Snow chains stay on.**",
+        "2026-10-07T00:04:35Z",
+        &ALL_ASSETS,
+    );
+    let older = release_with(
+        "1.9-tester-20261006",
+        true,
+        "## Added\n- **LWorks Radio.**",
+        "2026-10-06T04:16:00Z",
+        &ALL_ASSETS,
+    );
+    let oldest = release_with(
+        "1.9-tester-20261005",
+        true,
+        "## Fixed\n- **Scales.**",
+        "2026-10-05T04:16:00Z",
+        &ALL_ASSETS,
+    );
+    let releases = vec![quiet.clone(), stable.clone(), older, oldest];
+
+    let on_stable = BuildInfo::new("v1.9.3", "dev", "2026-10-07");
+    assert!(snapshot_update_from(&releases, Some(&on_stable), "1.9.3", None, &env()).is_none());
+
+    // A copy from before the stable release still lacks its fixes, which the
+    // quiet snapshot's notes leave out because 1.9.3 listed them.
+    let before = BuildInfo::new("1.9-tester-20261006", "dev", "2026-10-06");
+    let info = snapshot_update_from(&releases, Some(&before), "1.9.0", None, &env())
+        .expect("the stable's fixes arrive through the snapshot");
+    assert_eq!(info.tag, "1.9-tester-20261007");
+    // What's new reads what this copy is getting, not "No user-facing changes".
+    assert_eq!(
+        info.notes,
+        [
+            "Freight Fate version 1.9.3",
+            "Fixes",
+            "Snow chains stay on."
+        ]
+    );
+
+    let further_back = BuildInfo::new("1.9-tester-20261005", "dev", "2026-10-05");
+    let info = snapshot_update_from(&releases, Some(&further_back), "1.9.0", None, &env())
+        .expect("the snapshot still carries the stable");
+    assert_eq!(
+        info.notes,
+        [
+            "Freight Fate version 1.9.3",
+            "Fixes",
+            "Snow chains stay on.",
+            "Freight Fate 1.9 tester snapshot 2026-10-06",
+            "Added",
+            "LWorks Radio.",
+        ]
+    );
+
+    // A later snapshot with real changes is offered over the stable as before.
+    let real = release_with(
+        "1.9-tester-20261008",
+        true,
+        "## Fixed\n- **A real fix.**",
+        "2026-10-08T04:15:00Z",
+        &ALL_ASSETS,
+    );
+    let releases = vec![real, quiet, stable];
+    let info = snapshot_update_from(&releases, Some(&on_stable), "1.9.3", None, &env())
+        .expect("a snapshot with changes");
+    assert_eq!(info.tag, "1.9-tester-20261008");
+}
+
+#[test]
 fn test_19_snapshot_channel_skips_newest_tester_without_windows_archive() {
     let releases = vec![
         release_with("1.9-tester-20260829", true, "", "", &["-macos.zip"]),
@@ -1014,10 +1099,7 @@ fn test_manual_update_check_explains_source_builds() {
         check.message.clone()
     };
     assert!(message.contains("This copy runs from source; update it with git."));
-    assert_eq!(
-        app.main_lines(),
-        vec![format!("{message} Escape goes back.")]
-    );
+    assert_eq!(app.main_lines(), vec![message]);
     app.shutdown();
 }
 
@@ -1064,6 +1146,7 @@ fn test_startup_update_prompt_respects_skipped_version() {
         asset_url: "https://example.test/FreightFate.zip".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let mut app = TestApp::new();
     app.ctx.settings.skipped_update = "v1.6.1".to_string();
@@ -1117,6 +1200,7 @@ fn test_remind_later_help_describes_terminal_exit_check() {
         asset_url: "https://example.test/FreightFate.zip".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let mut state = UpdatePromptState::new(info);
     let items = state.build_items(&mut app.ctx);
@@ -1510,6 +1594,7 @@ fn test_download_state_parks_update_when_not_auto_appliable() {
         asset_url: "https://example.test/a".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let new_root = tmp.path().join(&info.asset_name);
     fs::write(&new_root, b"new").unwrap();
@@ -1555,6 +1640,7 @@ fn test_update_info_is_plain_data() {
         asset_url: "https://example.test/a".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     assert_eq!(info.clone(), info);
 }

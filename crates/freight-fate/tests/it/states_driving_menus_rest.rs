@@ -17,7 +17,9 @@ use freight_fate::controller::ControllerButton;
 
 use ff_core::sim::roadside_inspection::{InspectionLevel, DECAL_VALID_HOURS, OUT_OF_SERVICE_FINE};
 use freight_fate::app::testing::TestApp;
+use freight_fate::app::{share, SharedState};
 use freight_fate::states::base::{InputEvent, Menu};
+use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{
     FIELD_REPAIR_DAMAGE_PCT, INSPECTION_MIN, MECHANIC_WAIT_MIN, ROAD_BRAKE_COST_PER_PCT,
     ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_SPECIALIST_COST_PER_PCT, WALK_AROUND_MIN, WAVE_THROUGH_MIN,
@@ -29,6 +31,7 @@ use freight_fate::states::driving_pause_states::{
 use freight_fate::states::driving_rest_states::{
     LoyaltyRewardsState, ParkingFullState, RestStopState, ShoulderSleepConfirmationState,
 };
+use std::rc::Rc;
 
 use crate::states_driving_menus_support::*;
 
@@ -449,7 +452,7 @@ fn first_letter_navigation_withdraws_sleep_confirmation_before_selecting_again()
     app.clear_speech();
     Menu::activate(&mut state, &mut app.ctx);
     let said = app.main_lines().join(" ");
-    assert!(said.contains("Preview: sleep 10 hours"), "{said}");
+    assert!(said.contains("Sleep 10 hours at"), "{said}");
     assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), before_time);
     let profile = app.ctx.profile.as_ref().unwrap();
     assert_eq!(profile.hos, before_hos);
@@ -482,7 +485,7 @@ fn controller_navigation_cancels_sleep_preview_and_a_second_select_confirms() {
     state.handle_controller(&mut app.ctx, &InputEvent::button(ControllerButton::A));
     assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), before);
     let said = app.main_lines().join(" ");
-    assert!(said.contains("Select this choice again to sleep"), "{said}");
+    assert!(said.contains("Select again to sleep"), "{said}");
     state.handle_controller(&mut app.ctx, &InputEvent::button(ControllerButton::A));
     assert!(with_drive(&drive, |d| d.trip.game_minutes) > before);
 }
@@ -881,6 +884,213 @@ fn test_hanging_chains_leaves_the_pause_menu_with_its_rows() {
     );
 }
 
+#[test]
+fn test_a_snapped_set_of_chains_is_not_offered_again_on_the_same_drive() {
+    // Player report, 2026-10-14: in a Colorado chain zone the set snapped,
+    // the pause menu offered it again, it snapped as soon as the truck
+    // rolled, and round it went until the chain-law ticket. The profile's
+    // wear meter only catches up at a stop, so it still read the set as whole.
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    with_drive(&drive, |d| {
+        d.trip.truck.surface = "snow".to_string();
+        d.trip.truck.chain_wear_pct = 100.0;
+    });
+    {
+        let profile = app.ctx.profile.as_mut().expect("a career");
+        profile.set_chains_owned(true);
+        profile.set_chain_wear_pct(0.0);
+    }
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        !rows.iter().any(|row| row.contains("snow chains")),
+        "{rows:?}"
+    );
+}
+
+/// A stopped drive with a chain set aboard at `wear`, on or off.
+fn chain_drive(
+    app: &mut TestApp,
+    wear: f64,
+    on: bool,
+    links: i64,
+) -> freight_fate::app::SharedState {
+    let drive = a_drive(app);
+    {
+        let profile = app.ctx.profile.as_mut().expect("a career");
+        profile.set_chains_owned(true);
+        profile.set_chain_wear_pct(wear);
+        profile.set_chain_repair_links(links);
+    }
+    with_drive(&drive, |d| {
+        d.trip.truck.surface = "snow".to_string();
+        d.trip.truck.chain_wear_pct = wear;
+        d.trip.truck.chains_on = on;
+        d.trip.truck.velocity_mps = 0.0;
+    });
+    drive
+}
+
+#[test]
+fn test_a_broken_chain_is_repaired_with_a_spare_link() {
+    let mut app = TestApp::new();
+    let drive = chain_drive(&mut app, 100.0, false, 2);
+    let before = with_drive(&drive, |d| d.trip.game_minutes);
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        rows.iter()
+            .any(|row| row == "Repair the broken chain: about 15 minutes"),
+        "{rows:?}"
+    );
+    app.clear_speech();
+    activate(&mut state, &mut app.ctx, "Repair the broken chain");
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 80.0);
+    assert!(with_drive(&drive, |d| d.trip.truck.chains_on));
+    // Under the slap threshold: no slap line straight after the repair.
+    drive_and_ctx(&drive, &mut app, |d, ctx| d.update_traction_cues(ctx));
+    app.ctx.run_deferred();
+    assert!(
+        !app.event_lines().iter().any(|s| s.contains("slapping")),
+        "{:?}",
+        app.event_lines()
+    );
+    assert_eq!(app.ctx.profile.as_ref().unwrap().chain_repair_links(), 1);
+    let minutes = with_drive(&drive, |d| d.trip.game_minutes) - before;
+    assert!((minutes - 15.0).abs() < 0.5, "{minutes}");
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|s| s.starts_with("Chain repaired with a spare link.")),
+        "{:?}",
+        app.main_lines()
+    );
+}
+
+#[test]
+fn test_no_repair_links_leaves_the_chain_off() {
+    let mut app = TestApp::new();
+    let drive = chain_drive(&mut app, 100.0, false, 0);
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    app.clear_speech();
+    activate(&mut state, &mut app.ctx, "Repair the broken chain");
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 100.0);
+    assert!(!with_drive(&drive, |d| d.trip.truck.chains_on));
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|s| s == "No repair links left. The chain stays off."),
+        "{:?}",
+        app.main_lines()
+    );
+}
+
+#[test]
+fn test_a_slapping_chain_warns_once_before_it_breaks() {
+    let mut app = TestApp::new();
+    let drive = chain_drive(&mut app, 84.0, true, 2);
+    app.clear_speech();
+    drive_and_ctx(&drive, &mut app, |d, ctx| d.update_traction_cues(ctx));
+    assert!(app.event_lines().is_empty(), "{:?}", app.event_lines());
+    with_drive(&drive, |d| d.trip.truck.chain_wear_pct = 86.0);
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.update_traction_cues(ctx);
+        d.update_traction_cues(ctx);
+    });
+    app.ctx.run_deferred();
+    let slaps = app
+        .event_lines()
+        .into_iter()
+        .filter(|s| s == "A chain is slapping the fender. Stop soon and tighten it.")
+        .count();
+    assert_eq!(slaps, 1);
+    assert!(with_drive(&drive, |d| d.trip.truck.chains_on));
+}
+
+#[test]
+fn test_tightening_a_slapping_chain_buys_back_wear_once() {
+    let mut app = TestApp::new();
+    let drive = chain_drive(&mut app, 90.0, true, 2);
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    activate(&mut state, &mut app.ctx, "Tighten chains");
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 85.0);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        !rows.iter().any(|row| row.starts_with("Tighten chains")),
+        "{rows:?}"
+    );
+}
+
+/// Save the drive mid-run and resume it onto the stack, the way quitting and
+/// continuing does, with the profile's meter still at its last-stop value.
+fn resume_with_chain_wear(app: &mut TestApp, truck_wear: f64, profile_wear: f64) -> SharedState {
+    let drive = a_drive(app);
+    {
+        let profile = app.ctx.profile.as_mut().expect("a career");
+        profile.set_chains_owned(true);
+        profile.set_chain_wear_pct(profile_wear);
+    }
+    let snap = drive_and_ctx(&drive, app, |d, ctx| {
+        d.trip.truck.surface = "snow".to_string();
+        d.trip.truck.chain_wear_pct = truck_wear;
+        d.trip.truck.chains_on = false;
+        d.snapshot(ctx)
+    });
+    assert_eq!(snap["chain_wear_pct"], truck_wear);
+    let mut resumed =
+        DrivingState::from_snapshot(&mut app.ctx, &snap).expect("the snapshot resumes");
+    resumed.trip.truck.surface = "snow".to_string();
+    let shared = share(resumed);
+    app.ctx.push_shared_with(Rc::clone(&shared), false);
+    shared
+}
+
+#[test]
+fn test_a_snapped_set_stays_snapped_after_quit_and_resume() {
+    let mut app = TestApp::new();
+    let drive = resume_with_chain_wear(&mut app, 100.0, 40.0);
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 100.0);
+    assert!(!with_drive(&drive, |d| d.trip.truck.chains_on));
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        !rows
+            .iter()
+            .any(|row| row.starts_with("Install snow chains")),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_chain_wear_since_the_last_stop_survives_quit_and_resume() {
+    let mut app = TestApp::new();
+    let drive = resume_with_chain_wear(&mut app, 40.0, 10.0);
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 40.0);
+}
+
+#[test]
+fn test_an_older_save_without_chain_wear_keeps_the_profile_meter() {
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    app.ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .set_chain_wear_pct(40.0);
+    let mut snap = drive_and_ctx(&drive, &mut app, |d, ctx| d.snapshot(ctx));
+    snap.as_object_mut()
+        .expect("a snapshot object")
+        .remove("chain_wear_pct");
+    let resumed = DrivingState::from_snapshot(&mut app.ctx, &snap).expect("the snapshot resumes");
+    assert_eq!(resumed.trip.truck.chain_wear_pct, 40.0);
+}
+
 // -- a rebuild that cannot reach the drive ----------------------------------------------------
 //
 // When a rebuild misses the drive, these screens used to show nothing at all,
@@ -954,6 +1164,15 @@ fn a_scale_stop(at_mi: f64) -> RoadStop {
     stop
 }
 
+/// Open today: a check-in at a closed scale only says it is closed.
+fn open_the_scale(drive: &freight_fate::app::SharedState, stop: &RoadStop) {
+    with_drive(drive, |d| {
+        let mut post = EnforcementPost::new(stop.at_mi, KIND_FIXED_SCALE);
+        post.anchor = stop.key();
+        d.trip.posts = vec![post];
+    });
+}
+
 /// Back to the road at an open scale runs the check-in first (owner ruling,
 /// 2026-09-28): leaving used to skip the inspection.
 #[test]
@@ -973,7 +1192,7 @@ fn test_leaving_an_open_scale_runs_the_check_in_first() {
     state.go_back(&mut app.ctx);
     let said = app.main_lines().join(" ");
     assert!(said.contains("Inspection check-in complete"), "{said}");
-    assert!(said.contains("Back on the road"), "{said}");
+    assert!(said.to_lowercase().contains("parking brake set."), "{said}");
     assert!(with_drive(&drive, |d| d.stop_visit(&stop).inspected));
 }
 
@@ -991,7 +1210,7 @@ fn test_leaving_a_closed_scale_only_leaves() {
     state.go_back(&mut app.ctx);
     let said = app.main_lines().join(" ");
     assert!(!said.contains("Inspection check-in complete"), "{said}");
-    assert!(said.contains("Back on the road"), "{said}");
+    assert!(said.to_lowercase().contains("parking brake set."), "{said}");
     assert!(!with_drive(&drive, |d| d.stop_visit(&stop).inspected));
     assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), before);
 }
@@ -1009,8 +1228,8 @@ fn test_leaving_a_stop_with_the_engine_running_does_not_ask_to_start_it() {
     app.clear_speech();
     state.go_back(&mut app.ctx);
     let said = app.main_lines().join(" ");
-    assert!(said.contains("Back on the road"), "{said}");
-    assert!(!said.contains("starts the engine"), "{said}");
+    assert!(said.contains("Parking brake set."), "{said}");
+    assert!(!said.contains("Engine off"), "{said}");
 }
 
 #[test]
@@ -1021,6 +1240,7 @@ fn test_scale_wave_through_is_two_minutes_not_fifteen() {
     let drive = a_wear_drive(&mut app, COMPANY_DRIVER);
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let stop = a_scale_stop(at);
+    open_the_scale(&drive, &stop);
     let selected = drive_and_ctx(&drive, &mut app, |d, ctx| {
         d.scale_selects_driver(ctx, &stop)
     });
@@ -1052,6 +1272,7 @@ fn test_scale_check_in_is_removed_after_one_completed_inspection() {
     let drive = a_wear_drive(&mut app, COMPANY_DRIVER);
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let stop = a_scale_stop(at);
+    open_the_scale(&drive, &stop);
     let mut state = rest_stop_at(&mut app, &drive, stop);
 
     activate(&mut state, &mut app.ctx, "Check in at inspection station");
@@ -1077,6 +1298,7 @@ fn test_a_targeted_record_takes_the_inspection_lane() {
     with_drive(&drive, |d| d.trip.truck.damage_pct = 70.0);
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let stop = a_scale_stop(at);
+    open_the_scale(&drive, &stop);
     let before = with_drive(&drive, |d| d.trip.game_minutes);
     let mut state = rest_stop_at(&mut app, &drive, stop);
     app.clear_speech();
@@ -1121,6 +1343,7 @@ fn test_bald_tires_in_the_lane_are_out_of_service_until_replaced() {
     let money_before = app.ctx.profile.as_ref().unwrap().money();
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let stop = a_scale_stop(at);
+    open_the_scale(&drive, &stop);
     let mut state = rest_stop_at(&mut app, &drive, stop);
     app.clear_speech();
     activate(&mut state, &mut app.ctx, "Check in at inspection station");
@@ -1170,6 +1393,7 @@ fn test_a_clean_level_one_earns_a_decal_that_waves_the_next_scale_through() {
 
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let stop = a_scale_stop(at);
+    open_the_scale(&drive, &stop);
     let before = with_drive(&drive, |d| d.trip.game_minutes);
     let mut state = rest_stop_at(&mut app, &drive, stop);
     app.clear_speech();
@@ -1338,4 +1562,65 @@ fn test_a_break_burns_idle_fuel_only_with_the_engine_running() {
             assert_eq!(fuel, 100.0);
         }
     }
+}
+
+/// One lamp, one citation. A player was written up for the same light at
+/// post after post with no way to fix it before the next shop (report,
+/// 2026-10-17).
+#[test]
+fn test_a_fault_already_written_up_is_not_cited_again_this_drive() {
+    use ff_core::sim::enforcement_posts::{build_post, KIND_CMV};
+    let mut app = TestApp::new();
+    let (drive, defect) = a_drive_with_a_lamp_out(&mut app);
+    app.seasoned_driver();
+    with_drive(&drive, |d| {
+        d.trip.truck.tire_wear_pct = 80.0; // past the citation line, short of parked
+        d.trip.truck.brake_wear_pct = 0.0;
+        d.trip.truck.damage_pct = 0.0;
+    });
+    let first = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        let report = d.inspection_report(ctx, InspectionLevel::WalkAround);
+        assert!(
+            report.findings.iter().any(|f| f.what == defect),
+            "{:?}",
+            report.findings
+        );
+        d.settle_inspection(ctx, &report)
+    });
+    assert!(first.contains("Fined"), "{first}");
+    let money = app.ctx.profile.as_ref().unwrap().money();
+
+    let (second, sample) = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        let report = d.inspection_report(ctx, InspectionLevel::Full);
+        assert!(report.clean(), "{:?}", report.findings);
+        let said = d.settle_inspection(ctx, &report);
+        d.refresh_visible_trailer_defect(ctx);
+        let post = build_post(
+            d.trip.position_mi,
+            KIND_CMV,
+            0,
+            None,
+            1.0,
+            "",
+            Some(true),
+            1.0,
+        );
+        (said, d.road_sample(&post))
+    });
+    assert!(second.contains("Nothing new to write up"), "{second}");
+    assert!(!second.contains("decal"), "{second}");
+    assert_eq!(app.ctx.profile.as_ref().unwrap().money(), money);
+    assert!(
+        sample.trailer_defect.is_empty(),
+        "{:?}",
+        sample.trailer_defect
+    );
+    assert_eq!(sample.tire_wear_pct, 0.0);
+
+    // A fault that parks the truck still counts.
+    let parked = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.trip.truck.tire_wear_pct = 95.0;
+        d.inspection_report(ctx, InspectionLevel::WalkAround)
+    });
+    assert!(parked.out_of_service(), "{:?}", parked.findings);
 }

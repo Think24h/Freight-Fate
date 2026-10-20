@@ -41,10 +41,286 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Translations (owner, 2026-10-11): every spoken line is translated
+      where it leaves for the speech channels, from gettext PO files in
+      `lang/` matched as templates, so the code stays English. Settings,
+      Speech, Language picks the language (Automatic follows the system on
+      a fresh install; an existing settings file keeps English). Radio and
+      recordings stay English. `lang/README.md` is the translator's guide;
+      corrections come as pull requests or the Translation correction issue
+      form. Languages land one pull request each. A language added as a
+      `.po` file alone, built in or dropped into `saves/lang/`, is offered
+      by its `X-Language-Autonym` header with no code change; it gets two
+      plural forms and English number separators until a maintainer adds
+      its rules to `l10n::plural`. The translator's kit (`lang/`: template,
+      language files, glossaries, guide) is its own release asset,
+      `FreightFate-<tag>-translation-kit.zip` (2026-10-17; it had been a
+      `translations` folder in every archive). Only a catalog that translates
+      something is compiled into the game, so the empty language files cost
+      the executable nothing until a translator fills one.
+- [x] Team driving (owner design, 2026-10-17): on a delivery whose rest
+      would need a ten-hour break, the pause menu hands the wheel to a
+      co-driver from the Great Lakes training class, to ride along or sleep
+      through their shift. The co-driver drives through the player's own
+      controls with every assist on, fuels, crosses open scales, pulls over
+      for troopers, and hands back at the end of their hours, at the
+      receiver's gate, or on anything only the driver should decide. Their
+      miles pay half (an owner-operator pays 30 percent) and earn half the
+      experience, and count as sleeper-berth time for the player. The
+      logbooks swap, so every hours rule reads the clock of whoever drives.
+      The pickup menu offers the same handover from the dock, with the
+      pairing and the terms in the rows' help. About three in ten loads that
+      need a ten-hour break alone are drawn as team loads: 35 percent more
+      pay, and a deadline that allows a half-hour driver change where a solo
+      driver sleeps. The co-driver hands back at the next stop with parking
+      once the player's ten-hour rest is in, or at the end of their own
+      hours if those run out first (2026-10-19), and plans their 30-minute
+      break at a rest area. C, the Driver screen and the Take the wheel back
+      row say how much of the rest is in and when they hand back. The first
+      offer of a co-driver in a career explains it once, and job details
+      say when a load can be shared. Co-driver miles earn no
+      driving-skill badges, the road journal names who drove, and the
+      Meridian classmate and Ray each carry a hidden badge. Sleeping
+      through the shift passes it as time (owner, 2026-10-18): the road,
+      fuel and the break are worked out at once, the radio is left alone,
+      and the player wakes parked at a stop, in under a second of real time
+      on an agent drive. Only the merge and the receiver's exit and gate
+      still run live, sped up. At any stop the co-driver fuels and takes the
+      break without the stop's menu: the pump sound and a line in the
+      message log. The owner's listening pass on ride along and the wake-up
+      summary is his to do. Career stats gains a Co-drivers list once a
+      career has teamed (2026-10-19): each classmate's loads together, the
+      owner-operator's hire, and their bio, read only when opened.
+- [x] Co-driver and assist realism (owner, 2026-10-19): lane keeping on
+      full goes around anything sitting in the lane (debris, a car on the
+      shoulder, a closure) when a lane is open, and holds
+      the passing lane until the truck is by it. Automatic braking slows
+      firmly in the lane for an animal, to 35, never swerving and never
+      with the emergency brake: the call names it and asks for nothing. A
+      truck still above 35 at the deadline takes a seeded roll, better the
+      slower it is going, for whether the animal got across or was struck
+      (damage by the animal's size and the truck's speed). In
+      weather that takes grip or sight, things that cover the road brake to
+      the weather's safe speed less five (floor 25, ceiling 45), and a
+      mattress, a tarp or standing water brake to
+      their own speed, not to 25. The co-driver skips every stop menu: a
+      green transponder verdict passes the scale, a red one or none is a
+      check-in worked without a screen, a trooper's stop is settled and
+      noted, a full lot is driven on from, and chains go on at a
+      checkpoint. Their menu sounds are muted. What they do goes to a
+      Co-driver category in the message review; riding along, the player
+      hears it and the hazard calls, and asleep, the fines, inspections
+      and strikes ride the wake-up summary. Their pedals stay off while a
+      hazard or a chain stop is live, they bring the truck up to the
+      weather's safe speed rather than the posted limit, and damage is
+      measured from the handover, not the trip's start.
+- [x] Music streamed from disk (Pranav435, PR 441, 2026-10-18):
+      `music.pak` opens like `channel3000.pak`, reading only its directory
+      at launch and each track from its offset when it starts; `sounds.pak`
+      stays in memory. About 480 MB less memory at the title screen on an
+      M4 Mac. Cherry-picked ahead of the rest of PR 441's visual display.
+- [x] Places visited (player request, 2026-10-14): Career stats counts the
+      states and cities delivered to and lists each state's cities; the
+      public profile on orinks.net and the in-game driver profile list them
+      too, from the snapshot's `visitedPlaces`, which a career gains at its
+      next backup. Only delivery destinations count, as the counts always
+      did (`cities_delivered`).
+- [ ] (Found along the way) Lines the game assembles from pieces the
+      extractor cannot see (turn-by-turn street instructions, some stop
+      announcements) stay partly English until each shape is added to
+      `lang/extra.pot`. `FREIGHT_FATE_L10N_MISSES` lists them from a drive.
+- [ ] (Found along the way) A fluent player's review of each machine-made
+      translation, starting with whichever language players ask for first.
+- [ ] (Found along the way) The separate event voice keeps the system's
+      default voice; a player hearing a translation through it may need to
+      pick a voice in that language under Settings, Speech.
+
+- [x] Plainer driving speech (player report, bscross32, 2026-10-14): Space
+      is three short sentences (gauges, speed control, air) and leaves out
+      normal air and brake states and the default open-road target. The
+      cruise and keeper "losing the grade" lines, descent control's and the
+      keeper's brake calls, and the missed exit and gate loop-backs say
+      the same facts in fewer words. The downhill grade call's engine brake
+      advice retires once J has been used three times (`spoken_advice`); the
+      uphill call lost "Expect to lose speed." Exit calls no longer narrate
+      how cruise takes the ramp, and spoken weather leaves out the live
+      observation's age, which stays on the Weather app (owner, same day).
+      Exit, destination and rest stop calls name the stop and the driver's
+      own job only; what lane keeping and stopping assistance do is the
+      manual's. Space gives RPM only with a manual transmission and air or
+      brakes only when they need attention; Tab keeps the full reading.
+      Then a whole-game pass (owner, same day): driving, the terminal,
+      dispatch board, pickup and career lines drop key reminders, assist
+      explanations, restated facts and coaching prose; explanations a
+      player may still need moved to the screen's F1 help. Cruise eases and
+      builds for hills in silence. Spanish carries the new lines.
+- [x] Live weather unavailable while another NWS app worked (owner,
+      2026-10-19): the feeds tier's total deadline rose from 8 to 20
+      seconds, NWS fetches run at most three at a time across the game
+      (route planning used to ask for every city at once), `/points` asks
+      for the address NWS serves without a redirect, and a failure logs the
+      step, the request and the server's reason once per stretch instead of
+      a bare sentence every minute.
+      A tester's log the same day showed an NWS observation outage: every
+      station on the route stuck on one reading for 40 minutes, ages
+      climbing 123 to 162 minutes, then all fresh at once. The game had
+      swapped clear skies for simulated storms; observations past the
+      two-hour cutoff but under six hours now serve as last-known live
+      weather (`OUTAGE_HOLD_MAX_AGE_S`).
+- [ ] (Found along the way) Each drive and each live-weather setting
+      change builds a new weather provider with an empty station cache,
+      so every drive repeats the NWS discovery calls; the drive could share
+      the session provider. Same report.
+- [ ] (Found along the way) The advise-only follow-up to a turn the route
+      already named ("Advise 11 miles per hour.") is queued on the droppable
+      default, so busy street speech can drop it; a player heard the advise
+      speed only sometimes. Same report.
+- [ ] (Found along the way) The turn chime sounds at the corner, panned to
+      the side just taken, and the next corner's call can follow within a
+      second, so the chime reads as a cue for the next turn on the other
+      side. Same report.
+- [ ] (Found along the way) The same player asks for turn calls with enough
+      lead to brake by ear at street speeds, a speed-dependent countdown into
+      steep grades instead of a distance, and automatic gear choice that
+      skips gears when lightly loaded. Design calls for the owner.
+- [ ] (Found along the way) Context-sensitive help on F1: what the assist,
+      control or call in front of the driver does, now that the spoken
+      calls no longer explain it (owner, 2026-10-14, "should implement that
+      one later").
+- [ ] (Found along the way) Layered readout keys in the style of Talking
+      Flight Monitor or MSFS Blind Assist, so the dash is split across a
+      key layer instead of one long Space readout (owner, 2026-10-14).
+
+- [x] Main menu ambience (owner, 2026-10-12): an ElevenLabs bed under the
+      main menu and the screens opened from it, picked like the music by
+      the career it would load. After dark it is a truck stop lot. By day an
+      owner-operator hears a rig idling in the yard, and a company driver or
+      a new driver hears the dispatch office. It is on the Gameplay cues
+      volume. The owner picked the takes; the terminal, docks and rest stops
+      already had their own beds. At launch the bed used to wait for the
+      next screen change, because the menu asks for it before the sound
+      device has opened; the device now starts every bed still asked for
+      when it arrives (owner report, 2026-10-12).
+
+- [x] Facility streets setting (owner, 2026-10-11, for players who want the
+      1.8 arrival): Settings, Gameplay, World and traffic. Off skips the
+      facility street chains both ways (the destination ramp ends at the
+      gate, with no light or stop sign at its end; a loaded run leaves
+      straight onto the highway) and gives a pickup in town the single
+      synthetic access-road leg. On by default; a drive and its save keep
+      the value it started with.
+- [x] Controller radio controls: the right stick tunes stations and changes volume; right-bumper combinations manage playback, categories, and radio information.
+
+- [x] Favorites play from anywhere (Orinks, 2026-10-12): a saved ranged
+      station keeps its real signal while it is clean, and past that it plays
+      its stream at full strength, spoken "streaming", so it never fades,
+      crackles or hands the dial over (`RadioState::reception`). A streamed
+      favorite is not counted as the strongest signal here when another
+      station fades out. The Tab Radio screen's favorites count opens the
+      same favorites list as the Radio app (Orinks, 2026-10-13).
+- [x] Call dispatch, a 2.0 teaser for 1.9.4 (owner, 2026-10-10): the pause
+      menu offers Call dispatch while the truck is stopped, with local answers
+      about the delivery window, hours, the road ahead, truck trouble (which
+      can authorize the roadside mechanic) and load trouble. Ported unchanged
+      from `feat/career-2.0` (`7da21287`); routing calls to a remote
+      dispatcher stays 2.0 work.
+- [x] Traffic sounds (owner, 2026-10-08: "the sounds aren't synced with the
+      NPC traffic"): the three nearest NPC vehicles each run a steady class
+      loop whose level, pan and pitch are set every frame from where the
+      vehicle is, mainline and ramp-end cross traffic alike, replacing the
+      bumper-crossing whooshes and the timed crossing one-shots (whose
+      recordings peaked anywhere from 0.1 s to 1.7 s in, and whose cooldown
+      dropped most passes). On an exit ramp the mainline sits to the left and
+      fades down the ramp instead of passing through the cab. Interstates and
+      divided multi-lane highways carry a distant-traffic bed at the road's
+      real presence, and the road bed is 6 dB louder. Loops rendered with
+      genny (`sound-test/traffic_sounds.json`); levels in `docs/audio-levels.md`.
+- [x] Owner listening pass on the traffic sounds (2026-10-09, four drives on
+      I-65): no single vehicle could be heard, the bed "sounds like an
+      ocean", and the slow-vehicle callout still played a pass whoosh. Loops
+      now carry 1,500 feet at 3 dB a doubling, lifted out of the engine's
+      band; the bed is steady shaped noise (`sound-test/highway_bed.py`); the
+      callout plays the slowing-traffic earcon. Owner: "way better, still not
+      perfect" (see the next two items).
+- [x] Busy freeways carry company in the lanes beside the truck: each new
+      freeway cell gives every lane left of the right lane a chance (30
+      percent of the road's density) at a passer placed 0.6 to 0.9 miles
+      behind the truck, past the no-spawn clear air (`traffic_manager/beside.rs`).
+      Cells are drawn three miles ahead, so a truck at road speed only ever
+      met slower traffic: two vehicles heard through the I-65 rush zone.
+      The vehicle ahead in the truck's lane, the one callouts name, is heard
+      to half a mile and always takes a sound first.
+- [ ] (Found along the way) Callouts name a slow vehicle up to 2.2 miles
+      ahead, beyond any hearing; whether the warning should wait until it is
+      audible is a design call for the owner.
+- [ ] (Found along the way) A second owner listening pass on traffic after
+      the denser freeways: per-class loudness, `TRAFFIC_BED_PEAK`, and
+      whether the right lane needs company too (it is left empty because a
+      vehicle there is a slowdown the driver must answer).
+- [ ] (Found along the way) Bubble vehicles in one lane pass through each
+      other: there is no NPC-to-NPC following, which more vehicles per mile
+      make more likely to be heard as two sounds in one place.
+- [x] Lane keeping no longer passes into an oncoming passing lane (player
+      report relayed by the owner, 2026-10-13: "the cruise control swerves
+      you right into oncoming cars", three damaged loads). The lane bake
+      stores OSM `lanes:forward`/`lanes:backward` relative to the way's
+      drawing direction and never compared it with the leg's, so on a
+      two-lane road with a passing lane one way the truck was given the
+      other direction's lane about half the time, and full lane keeping
+      pulled out into it. An uneven undivided split now gives the smaller
+      side both ways (`LaneSegment::your_side`); it costs the real passing
+      lane where it is ours.
+- [x] Lane keeping watches the lane it is moving into for the whole move
+      (same player, 2026-10-13: after a pass it moved back right into a box
+      truck that had just come off a ramp, and a pass begun where two lanes
+      became one was billed as a sideswipe of the car being passed). A move
+      lane keeping chose re-reads the lane-gap clearance every frame and is
+      called off, with a spoken line, if the lane fills, closes or ends
+      (`hold_keeping_lane_change`); a move whose lane ends on the way no
+      longer runs the arrival check; the right lane's clearance counts a
+      vehicle on the ramp beside it; and a ramp vehicle relabelled cruising
+      at road speed now joins the lane instead of riding the ramp for good.
+- [x] Traffic in the open lane of a lane closure lets the truck in (player
+      report relayed by the owner, 2026-10-16: with the right lane coned off,
+      cars in the left lane kept the truck stopped dead in the closed one, and
+      "Left lane open" read from the stop led to a sideswipe once the truck
+      got rolling). While the truck is in the coned-off lane, vehicles behind
+      the sideswipe window in the lane beside it ease in and wait outside the
+      window the L key reads, at the truck's pace; past the merge, the one open lane
+      queues behind the truck the way a one-lane road does
+      (`traffic_manager/work_zone.rs`).
+- [ ] (Found along the way) Bubble vehicles in a coned-off lane drive on
+      through the closure instead of merging out of it.
+- [ ] (Found along the way) Re-bake the lane segments with each matched
+      way's direction against the leg's, so a passing lane our side comes
+      back (`tools/bake_lane_segments.py`; needs the Overpass corridor
+      query again).
+- [ ] (Found along the way) 49 non-interstate legs with no divided flag
+      fall back to the leg's two lanes a side over about 390 miles with no
+      lane segment. That count comes from the traffic-volume bake, which
+      assumes two when the survey has none; where the road is really two
+      lanes total, the second lane is the oncoming one. Check those legs.
+- [x] The radio status screen names the Playlists folder's full location
+      while no personal playlist is on the dial and streamer-safe mode is
+      off (issue #289: a player saw the shuffle setting and could not find
+      how to add music at all).
+
 - [x] Channel 3000 on 87.7 (owner, 2026-10-06): the owner's TV programming on
       a daypart schedule by the truck's local hour, from its own
       `channel3000.pak`, opened on first tune-in; off the dial without the
       pack, and in no changelog or manual (`ff_core::channel3000`).
+- [x] Channel 3000 moved to the end of the Freight Fate stations (owner,
+      2026-10-13): with no call sign it sorted ahead of FFN and FFR, so the
+      category jump landed on it. Stations without a call sign now follow
+      the lettered ones in their dial group.
+- [x] Channel 3000 levelled to the other stations (owner, 2026-10-09, a
+      player found it hard to hear): its shows had one static gain to -18
+      LUFS integrated, which the loud themes and stings set, so the talk
+      sat 2 to 4 dB under every other station (median 3 s short-term -19 to
+      -25 LUFS against about -18 for music.pak's songs, hosts and ads). Every
+      clip but the Grimatonics songs now goes through a slow leveller and a
+      true-peak limiter (`tools/level_channel3000.py`); the talk's median
+      is -18 like the rest of the radio.
 
 - [x] Billboards that notice the drive (owner, 2026-09-30): when an
       everyday pool sign comes up, Big Jim answers a collision, a citation
@@ -126,6 +402,17 @@ bookmarks usable.
       and automatic) sit 5 to 11 dB under their siblings by momentary
       loudness, with peaks too close to full scale for static gain. Needs a
       peak limiter or replacement takes.
+- [x] Street corners, from a player report (bscross32, 2026-10-13): every
+      corner is now called at its window with its advise speed, also when
+      the truck is already under it, and terse keeps the number. The turn
+      chime plays with the first words that name the corner, not as the
+      truck takes it, so a chime can no longer sit beside the next turn's
+      call. A miss goes around the block (8 game minutes) and carries on
+      forward; the loop-back onto the approach and its escalation are gone.
+- [ ] (Found along the way) Street corner calls still come only from the
+      cab's own call and the route's call at the corner; a short countdown
+      to the corner itself, as the player asked for, is not built.
+
 - [x] New installs start on All assists (owner, 2026-09-30): first drives kept
       going wrong at the wheel, city street corners above all, so the truck
       steers until the driver steps down to Balanced. Saved settings keep
@@ -402,16 +689,246 @@ Everything found before 2026-09-25 moved to
       out makes no sound, and quiet says cruise, keeper and work zone
       updates short. Urgent only now says when a work zone turns cruise off.
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
+- [ ] A listening pass by the owner on a ride-along shift: the co-driver's
+      notes, the hazard calls, and how often they speak.
+- [ ] The co-driver ignores descent control's "can't hold this grade.
+      Brake." and keeps gaining speed; their brake would cancel the
+      cruise that holds the grade, so it needs its own snub (2026-10-19).
+- [ ] The co-driver hands back for the end of their hours, an overdue
+      break or damage at highway speed. A real swap happens parked; the
+      game has no shoulder pull-over to make it there yet (2026-10-19).
+- [ ] A slept-through stretch judges whether a scale ahead is open at the
+      time the jump starts, not when the truck would reach it (2026-10-19).
+- [ ] How far past a lane closure the truck stays out is chosen by the
+      closure's name; it belongs on the hazard row as a length, so a new
+      long hazard (a spill, a work zone) gets it too (2026-10-19).
+- [ ] Doubles drive like one trailer: the set weighs no more empty than a
+      53-foot van, hooking skips the converter dolly and the second pup,
+      and nothing about the rear trailer's sway or the no-backing rule is
+      modelled. Turnpike doubles also share the parcel pups' trailer
+      program (2026-10-20).
+- [ ] The agent server's `start_at` resets the clock a `scenario` set
+      (asked for 10 PM, staged at 8 AM), and nothing stages a road hazard,
+      so a deer or debris call can only be waited for (2026-10-19).
+- [x] Achievement sweep (owner, 2026-10-09): four badges whose triggers
+      had fallen behind the map or the job board now match them.
+- [x] Driver window and cab climate (player report, 2026-10-17); see
+      [the dated section](#october-17-the-driver-window-and-the-cab-climate-found-along-the-way).
+      Placeholder sounds and the engine's open-window filter are open there.
+- [x] A way out of the training fleet (player report, 2026-10-10): a
+      company driver at Great Lakes Training Transport can move to another
+      carrier at level 4 with full dispatch trust.
+- [x] Engine brake on the driver's terms (player report, 2026-10-14): a
+      full brake stop with the engine brake on no longer damages the load, a
+      stage the driver picks is no longer dropped by cruise or the bend
+      assist, and automatic engine brake off with Alt J lasts between drives.
+- [x] Speech that keeps up with a compressed road, first slice (player
+      report, 2026-10-17): a cut-off limit line is not replayed after a
+      newer one, a zone's end waits behind a limit line, one shift
+      countdown instead of two, and Job details say the hours and fuel a
+      run needs. See [October 17](#october-17-speech-that-keeps-up-with-the-road-found-along-the-way).
+- [x] The owner took the proposal's recommendations the same day: a
+      posting passed before its line could end is not spoken or charged,
+      one calm countdown notice per driving mode, and a departure line
+      with driving time left and fuel.
+- [ ] The pace governor, after the reporter tries the above.
+- [x] Plainer career and equipment wording, and a Common questions page
+      in How to play and the manual (owner, 2026-10-11, from a livestreamer
+      asking what the fleets meant and when he could get or buy a truck,
+      plus questions from the #FreightFate tag, AppleVis and GitHub). The
+      Weather app now lists active live weather alerts.
+- [x] Controller help (owner, 2026-10-12, from a player with a new Xbox
+      controller): How to play and the manual name the View and Menu
+      buttons, warn that the Xbox button opens the Game Bar, list the
+      default buttons, and say what to check when a controller does nothing.
+- [x] Controller driving through the whole manual (owner, 2026-10-12): every
+      driving key names its controller button, and each chapter says how to
+      do its part on a controller. A push of the left stick changes lanes on
+      full lane keeping, and Driving status lists every driving command, so
+      the commands with no button are reachable from the controller.
+- [x] Key and button practice (owner, 2026-10-13): the keyboard and
+      controller counterpart of gesture practice. Every key, button, trigger
+      and stick names its driving command without running it. Shift F1, or
+      Back plus Start on a controller, opens it over any screen, the drive
+      included; the main and pause menus carry it too.
+- [x] Snapped chains offered again (player report, Colorado, 2026-10-14):
+      after a set snapped, the pause menu still offered to hang it, and it
+      snapped again as soon as the truck rolled, until the chain-law ticket.
+      The menu now reads the truck's own wear, so a scrap set stays off.
+- [x] Reputation lost to faults the driver can't fix on the road (player
+      report, 2026-10-17): the deadhead to a pickup was cited for the lamp
+      on the trailer still parked in the shipper's yard; post after post
+      wrote up the same lamp, tires or damage, and a patrol re-cited a chain
+      law the checkpoint had already ticketed; a chain law posted by a live
+      alert on a wet road wore chains at the bare-pavement rate; and Report
+      truck trouble saw only body damage. A fault now counts once per drive
+      (one that parks the truck still counts), chains wear as on snow inside
+      a posted control, and dispatch sends a mechanic for a trailer fault.
+- [x] A driver who ran out of chains mid-trip could only wait out the law
+      or turn back, because chains were sold only at the terminal garage
+      (same report). The owner chose both: Report truck trouble under a
+      chain law with no usable set sends road service with one (1,000
+      dollars plus the 500 callout, an hour and a half), and a truck stop
+      in a chain-control state sells a set for 1,000 dollars (assumed: the
+      garage's 750 plus a road markup).
+- [x] Preventable equipment incidents piled up on a new company career
+      (player report, 2026-10-18: 8 incidents and 10 citations). A tractor
+      left the yard still carrying the last run's damage, and the dock
+      ruled the whole band preventable again for a single shoulder scrape,
+      load after load, until the driver used the carrier's free repair. A
+      grounding and the same run's delivery were also counted as two
+      incidents. A run is now ruled only for a band it took the truck into,
+      and once.
+- [x] New drivers lost all their reputation to minor tickets before they
+      had learned the road (same report; owner ruling 2026-10-18). Below
+      level 10 an officer gives a warning instead of a citation, with no
+      fine, no reputation and nothing on the record. Serious speeding, the
+      work-zone barrels, failing to pull over, running a scale and anything
+      out of service are still cited.
+- [x] Dispatch handed a company driver a damaged tractor without the
+      carrier's shop touching it, though the career start says the carrier
+      maintains the tractor (same report; owner ruling 2026-10-18). At 40
+      percent damage, where an inspector writes it up, the shop repairs it
+      when the load is accepted: free, an hour on duty, and said.
+- [ ] With several controllers connected (a second pad, or Steam's virtual
+      one), the game listens only to the first it found, and the other's
+      buttons do nothing. It could switch to whichever controller the
+      player presses, once a duplicate pad can be told apart from a second
+      one.
+- [ ] States visited is readable only on the online profile; a player
+      asked where to hear it in the game (Mastodon, 2026-07-05).
 - [ ] The exit-call truth test (`test_the_exit_calls_name_the_road_that_is_really_left`)
       failed once on the Linux ARM runner in the v1.9.1 tag build, hearing
       only the two-mile call, and passed on re-run. It passed 80 of 80 runs
       alone on x86_64 and in its module; the source of the nondeterminism is
       not found yet.
+- [x] A relayed pickup (corridor joined to the shipper's street chain)
+      called every street of the chain "Keep right for ... toward" the city
+      it was already in, left turns included (owner drive into Indianapolis
+      Dry Warehouse, 2026-10-10). The chain's streets now get their baked
+      turn cues, the join is "Continue onto" the first street, and the
+      city passage line no longer fires at the join.
+- [ ] A relayed pickup still posts the corridor's "destination approach"
+      and "facility gate" zones over the chain, not each street's own limit
+      and the yard: the street-detail zones, and the other layers gated on
+      a pure facility route, do not yet look at a joined route's streets.
+- [x] The Hearken sound backend is the default and only real backend
+      (2026-10-17): every effect, loop, the horn, the engine, music and
+      radio streams play through it, the sound device opens off the game
+      thread, and BASS, `bass-sys` and every BASS fetch and staging step are
+      gone. A saved or environment `bass` preference gets Hearken. Stations
+      are called as `FreightFate/<version>`, Hearken's own reconnects are
+      off (the driving state's re-tune and the playlist hold stay the only
+      retry), and titles go through the game's own ICY, Ogg and HLS parsers.
+- [ ] The owner's listening pass before any stable release: the menu and a
+      drive, an engine rev sweep, the horn, blinker pan, a radio tune-in and
+      a Channel 3000 seek, listening for fade, pan and loop-seam drift.
+- [ ] Known Hearken gaps. The owner rule (2026-10-17) is that the
+      changelog does not announce the engine change or its side effects;
+      only a change a player must act on (Linux's ALSA) gets a line.
+      On Linux, HE-AAC (AAC+ stations, most HLS radio and their kind of
+      `.m4a`) plays muffled, as its base layer only: Fraunhofer's licence
+      permits `fdk-aac` only under AAC patent licences the game does not
+      hold, so it stays off. Windows and macOS decode it in full through
+      the system decoder (below).
+      Tracker modules (`.mod`, `.xm`, `.it`, `.s3m`, `.mo3`) are refused,
+      since no small pure-Rust player exists. Hearken checks a station's
+      TLS certificate with the operating system's verifier, as a browser
+      does, where BASS did not check at all: a station whose server leaves
+      out an intermediate plays on Windows and macOS (the OS fetches it),
+      and one with a self-signed, expired or wrong-name certificate fails
+      to tune. On
+      macOS, Kira reopens the output only when the old device disappears,
+      so game sound stays on the device it opened on when the player
+      switches outputs (BASS followed the system default; speech still
+      does). On Linux the executable now links ALSA (`libasound.so.2`, via
+      cpal), so a machine without it fails to start instead of running
+      silent; the README names it. Hearken clamps a sound's volume at 1.0,
+      and an engine band at full volume asks for up to about 1.06 (level
+      times band weight times the gain walk), so the loudest band loses up
+      to about 0.5 dB at the top settings.
+- [ ] (Found along the way) Hearken follow-ups from the M6 review: poll the
+      default output device on macOS and swap the backend when it changes;
+      let the engine bands' gain go above 1.0 (or rescale them); set the
+      iOS `AVAudioSession` category to Playback before Kira opens (cpal
+      0.18 sets none, so under the default SoloAmbient the ring/silent
+      switch would mute the game; unverified on a device) and run
+      `ios-build.yml` on the ported tree; consider bundling `libasound` in
+      the AppImage.
+- [ ] (Found along the way) Before release, run
+      `test_hearken_music_never_loops_catalog_tracks` with `music.pak`
+      present: no M6 run had the pack, so no shipped catalog track has been
+      opened through Hearken yet (including whether any is HE-AAC or a
+      tracker module).
+- [ ] (Found along the way) Replace the other shrill short cues the way the
+      toll sound was replaced on 2026-10-17 (ElevenLabs takes, owner picks
+      by ear): lane drift (a pure 3 kHz beep), inspection warning (mostly
+      above 2.6 kHz), turn left and right (1.5 kHz tones), and the scale
+      and ramp-light green chirps (1.76 kHz).
+- [x] Hearken milestone M6 (2026-10-17): every engine service under the
+      game runs on Hearken. That is the speech sink stack, the event-voice
+      pacer (the priority ladder stays in `ff-core`), sound, music and the
+      radio, the key, controller and binding types, the single-instance
+      guard and the held-key tracker. The game keeps its own state stack,
+      menus, speech delivery, settings and logging, so nothing a player
+      hears changed except the sound engine. Hearken's
+      `docs/superpowers/notes/2026-10-17-freight-fate-on-hearken.md`
+      records what moved, what stayed and why.
+- [ ] Release prep for M6 (owner): push Hearken's branch and merge it to
+      `main`, `cargo update -p hearken` so `Cargo.lock` pins that commit, a
+      manual `rust.yml` run on Windows, Linux and macOS, the listening pass
+      above, then the tag. Hearken is public (2026-10-17), so CI fetches it
+      with no secret.
+- [x] HE-AAC through the system decoder (2026-10-18, Hearken PR 5). The
+      radio decodes AAC with Media Foundation on Windows and AudioToolbox
+      on macOS, as BASS did, so AAC+ and HE-AAC v2 stations, HLS included,
+      play at full bandwidth in stereo; Microsoft and Apple carry the
+      patent licences, and the game ships no AAC decoder. Where the system
+      decoder cannot open (Windows N without the Media Feature Pack),
+      Symphonia plays the base layer as before. Linux stays on the base
+      layer.
+- [x] CI back on GitHub's hosted runners (owner, 2026-10-17: Blacksmith's
+      paid minutes stay with the private repositories), with the nightly's
+      tests beside its packaging rather than before it, and the Spanish keys
+      help no longer the 2.5-minute tail of every test run.
+- [x] Fragmented-MP4 (CMAF) HLS segments and `EXT-X-MEDIA` audio
+      renditions in Hearken's radio (2026-10-17).
+- [ ] Tracker modules in personal playlists, if a small pure-Rust player
+      (or libopenmpt) becomes worth carrying; `.mo3` stays out either way.
+- [ ] (Optional) Moving the screens onto Hearken's own screen stack. It
+      needs Hearken to grow the push-then-speak ordering, reveal sounds,
+      the menu differences and the delivery hooks listed in the Hearken
+      notes first, and it would rewrite most of the test suite.
+- [ ] FF on a real Mac with Hearken: the macOS link (Prism frameworks and
+      the clang runtime) is proved by the manual CI run, but VoiceOver and
+      CoreAudio output need a person at a Mac.
+- [x] Smaller updates (player reports, owner go-ahead 2026-10-18): every
+      update downloaded the whole 531 MB archive, and 497 MB of it is
+      `music.pak` (383 MB) and `channel3000.pak` (114 MB), byte for byte the
+      same from 1.9-tester-20261014 to 20261017. The release carries no
+      extra files for this: the updater (`updater::slim`, `zip_index`) reads
+      the zip's index from its last bytes with HTTP range requests, compares
+      the two packs' size and CRC-32 with the install's (`build_info.json`
+      records them, so the check reads no pack when sizes agree), and then
+      fetches only the byte ranges around them, about 35 MB, writing a new
+      index so the result unpacks normally with every kept file's CRC-32
+      checked. Any failure falls back to the full archive, and a Mac bundle
+      gets the player's packs copied in before the swap. Linux tarballs and
+      AppImages still download in full. The first update to carry this is
+      itself full size.
+- [x] Release page trimmed (owner, 2026-10-18): each snapshot run deletes
+      tester snapshot releases beyond the newest seven
+      (`tools/prune_snapshots.py`); their tags stay, and stable and
+      `nightly-*` bridge releases are never touched.
 
-- [ ] Low fuel warning could also fire when remaining range is shorter than
+- [x] Low fuel warning could also fire when remaining range is shorter than
       the distance to the next fuel-capable stop (issue #272 shipped the
-      once-per-threshold 15 percent cue first; honest loaded range for the
-      range-based alternate is still open).
+      once-per-threshold 15 percent cue first). Shipped for 1.9.4
+      (2026-10-08): the range is the run's own miles per gallon (DERIVED:
+      miles driven over gallons burned, once 15 miles and 2 gallons are in,
+      held to 3 to 10; ASSUMED 6 before that), F speaks it, and a fuel range
+      warning speaks once when it falls short of the next fuel stop this rig
+      can use, or of the destination when none comes first.
 
 - [x] Toms River to Newark was labelled for the Garden State Parkway,
       which bans trucks over 10,000 lb north of Interchange 105, and after
@@ -473,6 +990,22 @@ Everything found before 2026-09-25 moved to
       updater offers a same-tag rebuild on a different one (2026-10-03).
       Copies built before this have no commit and still wait for the
       next day's snapshot.
+- [x] The nightly publishes a tester snapshot even when the day's commits
+      changed nothing a player notices (1.9-tester-20261007, four hours
+      after v1.9.3), and a 1.9.3 copy on the snapshot channel was offered
+      it. The updater now skips a snapshot unless a stable release or a
+      snapshot with real notes came out after the running copy, and the
+      orinks.net downloads page hides such a snapshot (2026-10-07).
+- [x] AG Now (owner request 2026-10-18): AG Now launches every session with
+      `AGNOW=1` and updates the game with its own script, and it drops any
+      program a game downloads into its own folder. With the variable set,
+      the game makes no update check, startup or manual, and Settings hides
+      the Updates category.
+- [x] When the updater offers a tester on an older snapshot a quiet one
+      because a stable release came out in between, What's new read "No
+      user-facing changes", which is untrue for that player: they get the
+      stable release's fixes. It now reads the notes of every release since
+      that copy, newest first, each under its name (2026-10-07).
 - [ ] Updater, issue 266: a stalled download now fails after sixty idle
       seconds, but its blocked read thread and socket linger until that read
       returns or the game quits. A per-read socket timeout would end both.
@@ -493,10 +1026,18 @@ Everything found before 2026-09-25 moved to
       roadside stop does; Escape on a stop that pulled the CDL no longer
       drives on; a saved run on a pulled CDL closes out instead of resuming.
       Ported from 2.0's PR #261 (2026-09-30).
-- [ ] An owner-operator can still start "Bobtail to a nearby city" on a
-      suspended or disqualified CDL; 2.0 refuses it (PR #259). On 1.9 a
-      bobtail on a pulled CDL ends at the next run-off, barrel strike,
-      roadside stop or reload (2026-09-30).
+- [x] "Bobtail to a nearby city" is refused on a suspended or disqualified
+      CDL, from the terminal and from an open bobtail menu, with the date
+      the suspension ends. Ported from 2.0's PR #259 for 1.9.4
+      (2026-10-08).
+- [ ] Scale reminder state is one key and one age for the whole drive. Two
+      open scales under about a mile apart would let the second reminder
+      overwrite the first, and the first could be charged without its
+      real-seconds grace. No leg has such a pair today (scan, 2026-10-08);
+      keep the age per scale if one is ever added.
+- [ ] A scale crossed during a frame the cab is busy (hazard, microsleep)
+      is never judged at all: the check returns early and its previous
+      position covers one frame. Lenient, not a charge (review, 2026-10-08).
 - [ ] Placed attraction billboards speak in one direction only since
       2026-09-30; the other side hears the random pool. Signs standing at
       their attraction could be marked `both`, and the rest need copy
@@ -651,12 +1192,33 @@ Everything found before 2026-09-25 moved to
       hardware: the Simulator's touch replay lifts both fingers together, so
       cruise, engine and parking brake from a held pedal are covered only by
       the headless tests.
+- [ ] (Found along the way) Hearken's 3 s speech health check re-acquires
+      the backend it already holds (`Speech::refresh` in
+      `hearken-speech` runs `pick_backend_gated`, which acquires every
+      candidate it tries). On Apple platforms that rebuilds
+      AVSpeechSynthesizer and re-posts VoiceOver's screen-changed
+      notification every interval. Its same-voice check also compares
+      display names, and Prism's VoiceOver registers as "VoiceOver" but
+      answers "VoiceOver (iOS)", so on iOS the main voice reads as switched
+      every refresh. The fix belongs in Hearken: pick by registry id and keep
+      the held instance while it is still usable, and stop re-trying an
+      event voice whose name is not in the registry (the periodic "SAPI not
+      available" log on iOS). PR 339 carried this for the pre-Hearken speech
+      module; it could not land here once speech moved (2026-10-20).
 - [ ] iOS runs from TestFlight on a real iPhone (2026-10-03) but still
-      needs a real controller, BASS sound on hardware (the Simulator has no
-      audio device), and VoiceOver's scrub and on-screen-keyboard typing on
-      hardware. For the App Store: a real app icon (TestFlight has a
-      placeholder), a privacy manifest, BASS licensing for iOS, and a title
+      needs a real controller, Hearken sound on hardware (no iOS build of
+      the Hearken-based tree has run yet, and the audio session category
+      is still unset; see the M6 follow-ups), and VoiceOver's scrub and
+      on-screen-keyboard typing on hardware. For the App Store: a real app
+      icon (TestFlight has a placeholder), a privacy manifest, and a title
       screen or review note for the blank game screen.
+- [x] Gear skipping follows the load (player report, 2026-10-13): the
+      automatic skips a gear when the one two up still pulls the load, so
+      an empty or part-loaded truck skips more and a full one takes every
+      gear. A gentle launch in third no longer drops to second.
+- [ ] (Found along the way) A clutchless manual option, the way real
+      drivers shift on the road: the clutch only to pull away, the lever
+      between gears when the revs match. Proposed to the owner 2026-10-14.
 
 ### Release gate record
 
@@ -1086,6 +1648,9 @@ its status or release decision.
       fails on "bear" or "bears" in any case outside a line that names the
       CB; the song title "Black Bear Road" is the one exception. It lands
       green: today's hits are all CB chatter.
+- [x] CB calls say "trooper" now, and the sweep
+      (`test_bear_is_never_spoken_in_any_player_facing_string`) bans "bear"
+      from every spoken string but the song title (owner, 2026-10-11).
 
 ### September 11 trucking corrections
 
@@ -2622,6 +3187,170 @@ on the season or the date found more.
       November peak (IIHS: twice the yearly average); holiday billboards use
       loose windows ("Happy Thanksgiving" any day Nov 22-28).
 
+### October 9 player-suggested stations
+
+Owner, from a player asking to add stations: suggestions with automatic
+vetting, and a station list that updates without a game release. The Radio
+app's Suggest a station (and orinks.net/freight-fate/suggest-a-station)
+sends a name and stream address, plus call sign, state, city and frequency
+for an AM or FM station. orinks.net plays the stream's first seconds,
+checks it against the shipped dial and earlier suggestions, and puts what
+passes in the owner's daily station digest. Accepted stations are the
+community station list the game downloads at launch and keeps in the saves
+folder; a drive adds them after the shipped dial, which wins every
+collision.
+
+- [x] Suggest a station in the Radio app; community stations on the dial.
+- [x] Control V pastes into every text field.
+- [x] An accepted AM or FM station is placed at its licensed transmitter
+      from the FCC's records when it is accepted, and plays on the AM and
+      FM band near home; one the FCC does not list stays on the web band
+      and is asked about again weekly.
+- [x] Accepted stations ship in every build (`data/radio_community.json`),
+      copied from the site as each build is cut, so a first or offline launch
+      has them too. (The daily job that committed the copy to dev could
+      not get past dev's required checks; the build folds it now.)
+
+### October 9 achievement sweep
+
+(Found along the way) Owner: "Been Everywhere" fired at fourteen regions while the map has
+sixteen. A sweep of every badge trigger against the map and the job board
+as they stand now found three more stale ones.
+
+- [x] Been Everywhere, For Real counts the map's own region list and needs
+      all of it; a region name a save kept from an older map no longer
+      counts. Its copy says "every region" so it cannot go stale again. The
+      catalog digest and the invariants export moved with the copy.
+- [x] Grossed Out at the Scale House needed 24 tons of cargo, and dispatch
+      clamps every load to what a stock rig carries under 80,000 lb (about
+      21.8), so nobody could earn it. It now needs a load within a ton of
+      that ceiling.
+- [x] The Mother Road counts the twelve Route 66 towns the map gained
+      (Bloomington and Springfield IL, Rolla, Springfield MO, Joplin,
+      Tucumcari, Gallup, Holbrook, Winslow, Kingman, Barstow, Victorville),
+      and Shadow of the Giants counts the redwood towns (Ukiah, Willits,
+      Fortuna, Eureka, Crescent City) alongside Santa Rosa and Chico.
+- [x] Short speed-limit dips off the highway (owner, 2026-10-17, from the
+      Mark's feedback research): 31 postings where the route ran over a
+      ramp or a side street fold back into the highway's limit at load.
+      See [October 17](#october-17-speed-limit-dips-off-the-highway-found-along-the-way).
+- [ ] Re-run the limit screen on the owner's machine for California,
+      Florida, Iowa, New York, North Carolina, Texas and Virginia from their
+      state extracts, which were too large to bring into the session.
+- [ ] The dwell filter drops real village zones (14 of 38 checked).
+
+### October 10 a way out of the training fleet (Found along the way)
+
+A player asked whether a career started at Great Lakes Training Transport
+was stuck there. It was: no company driver ever changed carriers, and the
+termination notice promised a way back up that did not exist. Business
+status now lists the other three company carriers for a company driver at
+Great Lakes once they reach level 4 (Regional Company Driver, where
+dispatch already moves a driver to the regional fleet) with full dispatch
+trust and no pay advance outstanding. One bar for both kinds of driver: a
+trainee meets it by finishing training, a driver who was let go by
+rebuilding what cost them the last seat. The move keeps level, record,
+money and home terminal; only the pay plan and dispatch change. Great Lakes
+stays a starting choice.
+
+- [x] Move to another carrier from Business status at the training fleet.
+- [ ] Changing carriers between the other three is not offered; add it if
+      players ask.
+
+### October 17 speed-limit dips off the highway (Found along the way)
+
+A scan found postings where the limit drops and comes back within a short
+span, US-19 between Albany and Tallahassee going 55, 45, 55 over 0.2 miles
+among them. The load-time dwell filter already drops nearly all of the ones
+under half a mile; 311 drop-and-return postings under 2.5 miles still play.
+
+A hand check of 100 of them against OpenStreetMap (research note
+`speed-limit-artifacts.md`, 2026-10-17) found length does not separate real
+zones from artifacts: real town zones ran 0.2 to 2.3 miles, artifacts 0.2 to
+2.5. What separates them is whether the leg's own highway carries the
+posting. Every artifact was the route geometry leaving the highway (an
+interchange ramp, a city street) or, among the ones already dropped, one way
+tagged differently from its neighbours. Bridges and lane-count splits
+produced none.
+
+`tools/screen_limit_artifacts.py` asks that question of all 311 against the
+state extracts (derived: nearest way carrying a maxspeed within 40 m, every
+0.02 mile) and names 133 in `limit_artifacts.jsonl`. The loader folds a
+named posting unless a village landmark or a town checkpoint sits within a
+quarter mile, which keeps 102 and folds 31 (10 percent); the baker prints the
+count. On the sample this folded 5 of 9 artifacts and none of 49 real zones.
+Seven states came from an older way cache rather than their extracts; on
+the other 43 the two inputs fold the same 31 postings.
+
+- [x] Name off-highway postings offline; fold them at load with a place guard.
+- [ ] Re-run the seven states from their extracts on the owner's machine.
+- [ ] The dwell filter drops real village zones: 14 of 38 checked drops were
+      Duncan NE, Cascade ID, Elliston MT, Hebo OR, West Point NE and others.
+      Enforcement reads the same profile, so no ticket comes of it; the
+      zone simply goes unannounced. The village guard there reads village
+      landmarks only, and most towns are town checkpoints.
+
+### October 17 speech that keeps up with the road (Found along the way)
+
+A blind player on a Mac wrote that the speed limit sometimes changed faster
+than his speech could follow, and that the shift countdown ran by
+unrealistically fast on a long trip. He asked to hear before the trip how
+much shift time he had and how full the tank was. A third of the posted
+limits in the map are under a mile long, so at 10x a posting can be gone
+before its line ends. The countdown fired three marks for each of two
+clocks that end in the same sleep, with the alarm tone every time.
+
+- [x] A limit line cut off and handed back speaks only if its number still
+      governs the truck.
+- [x] The end of a zone shares the limit lines' spacing when it raises the
+      limit; the open-road check names the new limit once the window opens.
+- [x] Driving time and the duty window count down as one, by the nearer.
+- [x] The route summary at pickup plans from the driver's current shift.
+- [x] Job details carry Trip hours, driving time left, and fuel with range.
+- [x] A posting the truck leaves before its line could be spoken is not
+      announced, warned of ahead, or charged, and the dash stays quiet in it.
+- [x] One countdown notice per limit: one hour out on Relaxed, two on
+      Standard, all three marks on Real time. None for a limit the trip
+      ends inside, and the alarm and rumble only for a violation.
+- [x] The loaded departure line says driving time left and fuel, and
+      names a break, a sleep or a short tank when the run needs one.
+- [x] The Driving mode help and the manual say Relaxed passes about ten
+      minutes of road and clock per real minute.
+- [ ] A governor that eases the pace where postings cluster (decided:
+      later, after the reporter tries the rest).
+- [ ] Short down-and-back-up postings that are mapping artifacts: sample
+      them against real signs, then screen at load if the sample supports it.
+- [ ] The event pacer assumes 13 characters a second whatever the speech
+      rate, so a slow Mac voice falls behind; measure the rate it should use.
+- [ ] Bridge expansion joints and passing under overpasses (same report).
+- [x] A driver window and climate controls (same report); see the next
+      section.
+
+### October 17 the driver window and the cab climate (Found along the way)
+
+The same player asked to open the window and run the heater or the air
+conditioning. Z lowers or raises the driver window, Alt Z steps the fan
+(off, low, medium, high) and Shift Z switches heat and air conditioning;
+each press is confirmed in a word or two, and the status screen names the
+cab only when it differs from a fresh one. It is pure ambience: no fuel,
+fatigue or comfort effect, because neither has a source the game could
+cite and he plays to relax. With the window down a wind rush rises with
+the square of road speed, panned to the driver's side, and the tires, rain
+and weather wind come up about 4.6 dB over the two seconds the glass
+travels. The fan runs only with the engine. Nothing is saved: every drive
+starts with the window up, the fan off, and heat or air conditioning by
+the outside temperature.
+
+- [x] Driver window, fan and heat or air conditioning at the wheel.
+- [ ] The four cab sounds are synthesized placeholders (window motor, wind
+      rush, blower, compressor clutch); the owner's ear should pick
+      recordings to replace them under the same keys.
+- [ ] The engine keeps its sealed-cab filter with the window down; a
+      crossfade to the "window cracked" variant `cab_filter` already
+      describes would let the engine open up too.
+- [ ] A passenger window (Shift Z is taken; it would need another key) if
+      players ask.
+
 ## 2.0 planned -- the working week and home
 
 Design doc: `docs/eld-home-terminal-design.md`. The ELD grows from a daily
@@ -2641,6 +3370,17 @@ terminal becomes the anchor of that week instead of a spawn point.
       the home terminal: short home-region runs, home every night, no
       cycle pressure, lower pay -- weighted toward new hires in the
       assigned-dispatch levels.
+
+- [ ] Trucks that drive differently (player report, 2026-10-14): models
+      already differ in torque, weight, drag, tank and thirst, but every one
+      shares the same gearbox, RPM band, governed speed and engine recording,
+      so they feel alike. Give each its own gearing, power curve, top speed
+      and engine sound.
+- [ ] genny's instruments in Synthesized music (owner, 2026-10-08): the game
+      already composes endless seeded pieces in Rust (`ff_core::music_synth`);
+      porting genny's voiced instruments, drums and styles into that renderer
+      would give the synth mode a real band. genny is Python, so it is a port,
+      not an embed.
 
 ### Personal conveyance and duty-purpose correction
 
@@ -2689,6 +3429,19 @@ and [FMCSA ELD recording guidance](https://www.fmcsa.dot.gov/hours-service/elds/
 - [ ] **Other ELD character events.** Daily log certification, carrier
       edit approve/reject prompts, a rare ELD-malfunction paper-log day,
       and the adverse-conditions +2-hour exception wired to live weather.
+- [ ] **Training a carrier requires is work time.** Under 49 CFR 395.2,
+      training the carrier requires is on duty, not driving: it runs the
+      14-hour window and does not count toward a 10-hour reset. A course
+      the driver books and pays for on their own time can stay off duty.
+      Today every credential course logs off duty, so a long course, or two
+      short ones back to back, counts as a 10-hour reset. Course fatigue
+      was corrected separately (GitHub #314); this item is only the duty
+      status, and the owner decides how sponsored courses are logged.
+- [ ] **A multi-day course ends at 4 PM on its last class day.** Course
+      fatigue scores the last class day as 8 AM to 4 PM local, but the
+      clock still moves ahead a flat course length: the 24-hour course
+      started at 9 PM ends at 9 PM the next day, not at 4 PM. End the clock
+      at 4 PM local on the last class day, and log the duty time to match.
 
 ### Signalling a street turn
 
