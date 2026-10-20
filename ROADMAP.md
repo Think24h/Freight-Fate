@@ -1174,6 +1174,19 @@ Everything found before 2026-09-25 moved to
       hardware: the Simulator's touch replay lifts both fingers together, so
       cruise, engine and parking brake from a held pedal are covered only by
       the headless tests.
+- [ ] (Found along the way) Hearken's 3 s speech health check re-acquires
+      the backend it already holds (`Speech::refresh` in
+      `hearken-speech` runs `pick_backend_gated`, which acquires every
+      candidate it tries). On Apple platforms that rebuilds
+      AVSpeechSynthesizer and re-posts VoiceOver's screen-changed
+      notification every interval. Its same-voice check also compares
+      display names, and Prism's VoiceOver registers as "VoiceOver" but
+      answers "VoiceOver (iOS)", so on iOS the main voice reads as switched
+      every refresh. The fix belongs in Hearken: pick by registry id and keep
+      the held instance while it is still usable, and stop re-trying an
+      event voice whose name is not in the registry (the periodic "SAPI not
+      available" log on iOS). PR 339 carried this for the pre-Hearken speech
+      module; it could not land here once speech moved (2026-10-20).
 - [ ] iOS runs from TestFlight on a real iPhone (2026-10-03) but still
       needs a real controller, Hearken sound on hardware (no iOS build of
       the Hearken-based tree has run yet, and the audio session category
