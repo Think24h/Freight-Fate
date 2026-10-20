@@ -27,6 +27,7 @@ mod data_limit_artifacts;
 mod data_local_approaches;
 mod data_local_geometry;
 mod data_regions;
+mod data_service_plazas;
 mod data_stop_access;
 mod data_stop_exits;
 mod data_street_chain;
