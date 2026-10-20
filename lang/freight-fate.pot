@@ -35268,6 +35268,24 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
+msgid "Their hours run out before the next place to park."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team.rs
+msgid "{name} has parked for the end of their shift."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team.rs
+msgid ""
+"{name} has parked for the end of their shift. Their hours run out before "
+"the next place to park."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team.rs
 msgid "The truck took damage."
 msgstr ""
 
@@ -35435,6 +35453,12 @@ msgid ""
 "are logged in the sleeper berth."
 msgstr ""
 
+#. placeholders: {name}, {duration_text}
+#: crates/freight-fate/src/states/driving_team/handover.rs
+msgid ""
+"{name} has {duration_text} of driving left, short of your 10-hour rest."
+msgstr ""
+
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
@@ -35543,16 +35567,20 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_team/overlay.rs crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "shift"
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_team/overlay.rs crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid "rested"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/overlay.rs
 msgid "Refuel"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_team.rs
+msgid "last lot"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_team/pilot.rs
+msgid "shift"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/pilot.rs

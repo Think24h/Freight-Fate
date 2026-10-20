@@ -97,7 +97,12 @@ impl DrivingState {
         let can_park = stop.parking != "none" && !self.lot_full_now(stop);
         if shift_over || (rested && can_park) {
             // They hand back, then the stop's menu opens for the player.
-            self.co_driver_summon(ctx, if shift_over { "shift" } else { "rested" });
+            let reason = if shift_over {
+                wheel.pilot.shift_end_reason()
+            } else {
+                "rested"
+            };
+            self.co_driver_summon(ctx, reason);
             return false;
         }
         let making_for = wheel.pilot.making_for.clone();

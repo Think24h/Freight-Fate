@@ -64,6 +64,9 @@ pub struct Pilot {
     /// The shift is over because the player has had their rest, not
     /// because the co-driver's hours ran out: no hurry to find the stop.
     pub rested: bool,
+    /// The shift ends at the last lot the co-driver's hours reach, because
+    /// the player could not drive on from a hand-back on the road.
+    pub last_lot: bool,
     /// Seconds spent on the accelerator with speed control off.
     pub accel_s: f64,
     /// Seconds a hand-back has waited for the truck to come home from the
@@ -88,7 +91,20 @@ impl Pilot {
     pub fn new() -> Self {
         Self::default()
     }
+
+    /// Why they hand back at the stop that ends their shift.
+    pub fn shift_end_reason(&self) -> &'static str {
+        if self.last_lot {
+            "last lot"
+        } else {
+            "shift"
+        }
+    }
 }
+
+/// The player needs at least this much of their own hours to drive on from
+/// a hand-back on the road to a place to park.
+pub const HANDBACK_DRIVE_MIN: f64 = 30.0;
 
 impl DrivingState {
     /// One frame of the co-driver at the wheel. Runs before the frame
@@ -375,6 +391,15 @@ impl DrivingState {
             pilot.shift_over = true;
             pilot.rested = true;
             pilot.making_for = None;
+        } else if !pilot.shift_over && self.co_driver_last_lot(ctx).is_some() {
+            log::info!(
+                target: TRANSCRIPT_TARGET,
+                "[co-driver] the next lot is the last their hours reach"
+            );
+            pilot.shift_over = true;
+            pilot.rested = false;
+            pilot.last_lot = true;
+            pilot.making_for = None;
         }
         // A stop passed without pulling in (missed, or a full lot driven
         // on from) is no longer the one they are making for: plan again.
@@ -429,7 +454,7 @@ impl DrivingState {
         let Some(stop) = kept.or_else(first) else {
             return;
         };
-        let reach = if pilot.rested && purpose == StopPurpose::ShiftEnd {
+        let reach = if (pilot.rested || pilot.last_lot) && purpose == StopPurpose::ShiftEnd {
             self.co_driver_hours_reach_mi(ctx)
         } else {
             self.co_driver_reach_mi(ctx, purpose)
@@ -494,6 +519,67 @@ impl DrivingState {
             .unwrap_or(0.0)
             - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
         left_min.max(0.0) / 60.0 * REACH_MPH
+    }
+
+    /// The lot to end the shift at now, when handing back on the road would
+    /// leave the player driving with no hours: their rest will not be in
+    /// before the co-driver's hours run out, they have less than
+    /// [`HANDBACK_DRIVE_MIN`] of their own, and the next lot is the last
+    /// one the co-driver's hours reach short of the receiver. Without it the
+    /// co-driver drove to their last minutes and handed over at highway
+    /// speed with the nearest lot 76 miles on (player report, 2026-10-20).
+    pub fn co_driver_last_lot(&self, ctx: &GameContext) -> Option<&RoadStop> {
+        self.team.as_ref()?.wheel.as_ref()?;
+        self.last_lot_ahead(
+            ctx,
+            hos_of(ctx),
+            self.player_rest_left_min(ctx),
+            self.player_out_of_hours(ctx),
+            self.trip.position_mi,
+        )
+    }
+
+    /// Whether the player in the sleeper has less than
+    /// [`HANDBACK_DRIVE_MIN`] of their own hours.
+    pub(crate) fn player_out_of_hours(&self, ctx: &GameContext) -> bool {
+        self.team.as_ref().is_some_and(|team| {
+            team.wheel.is_some()
+                && team
+                    .off_wheel_hos
+                    .remaining_min(&ctx.settings.hos_mode)
+                    .is_some_and(|left| left < HANDBACK_DRIVE_MIN)
+        })
+    }
+
+    /// [`Self::co_driver_last_lot`] for the co-driver's logbook `co` with the
+    /// truck at `here`; `rest_left` is the player's rest still owed and
+    /// `player_out` whether they lack the hours to drive on.
+    pub(crate) fn last_lot_ahead(
+        &self,
+        ctx: &GameContext,
+        co: &ff_core::sim::hos::HosClock,
+        rest_left: Option<f64>,
+        player_out: bool,
+        here: f64,
+    ) -> Option<&RoadStop> {
+        if !player_out {
+            return None;
+        }
+        let hours_left = co_driver::shift_left_min(co, &ctx.settings.hos_mode)?
+            - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
+        if rest_left.is_none_or(|rest| rest <= hours_left) {
+            return None;
+        }
+        let reach = hours_left.max(0.0) / 60.0 * REACH_MPH;
+        if self.trip.total_miles() - here <= reach {
+            return None;
+        }
+        let mut lots = self
+            .co_driver_stops(StopPurpose::ShiftEnd, here + self.exit_window_mi() * 0.5)
+            .into_iter()
+            .filter(|stop| stop.at_mi <= here + reach);
+        let first = lots.next()?;
+        lots.next().is_none().then_some(first)
     }
 
     /// Whether the player in the sleeper has had the rest they handed over

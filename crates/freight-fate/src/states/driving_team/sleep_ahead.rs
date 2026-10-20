@@ -153,6 +153,11 @@ impl DrivingState {
         let rest_in_min = self
             .player_rest_left_min(ctx)
             .filter(|_| !shift_due_at_start);
+        // The last lot the hours reach, once handing back on the road would
+        // leave the player no hours to drive on.
+        let rest_left = self.player_rest_left_min(ctx);
+        let player_out = self.player_out_of_hours(ctx);
+        let last_lot_due_at_start = self.co_driver_last_lot(ctx).is_some();
         let start = self.trip.position_mi;
         let mut mile = start;
         let mut minutes = 0.0;
@@ -175,7 +180,17 @@ impl DrivingState {
             let due = (!fuel_due_at_start && fuel / tank < FUEL_STOP_FRACTION)
                 || (!break_due_at_start && co_driver::break_wanted(&hos, &mode))
                 || (!shift_due_at_start && co_driver::shift_over(&hos, &mode))
-                || rest_in_min.is_some_and(|rest| minutes >= rest);
+                || rest_in_min.is_some_and(|rest| minutes >= rest)
+                || (!last_lot_due_at_start
+                    && self
+                        .last_lot_ahead(
+                            ctx,
+                            &hos,
+                            rest_left.map(|rest| rest - minutes),
+                            player_out,
+                            mile,
+                        )
+                        .is_some());
             if stop_at_need && due {
                 break;
             }
@@ -258,11 +273,14 @@ impl DrivingState {
 
     /// The shift ends at `stop`: the truck is parked there with the stop's
     /// menu open, and the co-driver hands back from it.
-    fn sleep_park_for_shift_end(&mut self, ctx: &mut GameContext, stop: &RoadStop) {
+    /// `last_lot`: the last lot the co-driver's hours reach, with the
+    /// player's rest still to come.
+    fn sleep_park_for_shift_end(&mut self, ctx: &mut GameContext, stop: &RoadStop, last_lot: bool) {
         let hours_up = co_driver::shift_over(hos_of(ctx), &ctx.settings.hos_mode);
         if let Some(wheel) = self.team.as_mut().and_then(|team| team.wheel.as_mut()) {
             wheel.pilot.shift_over = true;
-            wheel.pilot.rested = !hours_up;
+            wheel.pilot.rested = !hours_up && !last_lot;
+            wheel.pilot.last_lot = last_lot;
         }
         self.trip.position_mi = stop.at_mi;
         self.enforcement_prev_mi = stop.at_mi;
@@ -342,10 +360,20 @@ impl DrivingState {
                 break;
             };
             let need = self.sleep_need(ctx);
-            let stop = need.and_then(|purpose| {
-                self.sleep_stop_for(ctx, purpose, limit)
-                    .map(|stop| (purpose, stop))
-            });
+            // The break and fuel come first; otherwise the last lot the
+            // hours reach ends the shift.
+            let last_lot = matches!(need, None | Some(StopPurpose::ShiftEnd))
+                .then(|| self.co_driver_last_lot(ctx).cloned())
+                .flatten()
+                .filter(|lot| lot.at_mi <= limit);
+            let to_last_lot = last_lot.is_some();
+            let stop = match last_lot {
+                Some(lot) => Some((StopPurpose::ShiftEnd, lot)),
+                None => need.and_then(|purpose| {
+                    self.sleep_stop_for(ctx, purpose, limit)
+                        .map(|stop| (purpose, stop))
+                }),
+            };
             let Some((purpose, stop)) = stop else {
                 // No stop for a break or the shift's end in reach: the live
                 // drive hands back for it.
@@ -376,7 +404,7 @@ impl DrivingState {
             }
             self.sleep_clear_plan();
             if purpose == StopPurpose::ShiftEnd {
-                self.sleep_park_for_shift_end(ctx, &stop);
+                self.sleep_park_for_shift_end(ctx, &stop, to_last_lot);
                 break;
             }
             let sells_fuel = stop.actions.iter().any(|action| action == "fuel");

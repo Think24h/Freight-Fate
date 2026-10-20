@@ -31994,6 +31994,21 @@ msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
 msgstr ""
 
 #. one sentence of a longer line
+msgid "Their hours run out before the next place to park."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has parked for the end of their shift."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"{name} has parked for the end of their shift. Their hours run out before "
+"the next place to park."
+msgstr ""
+
+#. one sentence of a longer line
 msgid "The truck took damage."
 msgstr "Der Lkw wurde beschädigt."
 
@@ -32134,6 +32149,11 @@ msgstr ""
 "{pay} Diese Meilen bringen dir die halbe Erfahrung. Während {name} fährt, "
 "bist du in der Schlafkoje eingetragen."
 
+#. placeholders: {name}, {duration_text}
+msgid ""
+"{name} has {duration_text} of driving left, short of your 10-hour rest."
+msgstr ""
+
 #. placeholders: {name}
 msgid ""
 "{name} can drive from here, or take over later from the pause menu, while "
@@ -32220,14 +32240,17 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "shift"
-msgstr "Schicht"
-
 msgid "rested"
 msgstr ""
 
 msgid "Refuel"
 msgstr "Tanken"
+
+msgid "last lot"
+msgstr ""
+
+msgid "shift"
+msgstr "Schicht"
 
 msgid "stalled"
 msgstr "liegengeblieben"

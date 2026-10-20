@@ -396,6 +396,9 @@ fn summon_line(name: &str, reason: &str) -> String {
         "gate" => format!("{name} has the truck at the receiver's gate."),
         "shift" => format!("{name} needs you back at the wheel. Their hours are up."),
         "rested" => format!("{name} has parked and hands you the wheel. Your 10-hour rest is in."),
+        "last lot" => format!(
+            "{name} has parked for the end of their shift. Their hours run out before the next place to park."
+        ),
         "damage" => format!("{name} needs you. The truck took damage."),
         "fuel" => format!("{name} needs you. The tank is empty."),
         "off the road" => format!("{name} needs you. The truck has left the road."),
