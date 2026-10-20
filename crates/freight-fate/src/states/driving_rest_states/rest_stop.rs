@@ -33,9 +33,10 @@ use crate::states::driving_rest_states::loyalty::LoyaltyRewardsState;
 use crate::states::driving_rest_states::rest_preview::{sleep_preview, SleepChoice};
 
 mod cat_scale;
+mod chains;
 
 const REST_STOP_INTRO_HELP: &str =
-    "Select opens a choice; Back returns to the road. Sleep choices first read a preview; select the same choice again to sleep. Breaks and sleep advance the clock and the deadline.";
+    "Select a choice. Sleep reads a preview; select again to sleep. Breaks and sleep move the clock and the deadline.";
 
 /// One-time menu focus when the driver arrives at a selected rest stop.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -166,9 +167,17 @@ impl RestStopState {
             // scale its truck-stop script -- "no truck parking... Loyalty
             // program: Loyalty points: 0" -- at an open scale (owner
             // playtest, 2026-08-20).
+            //
+            // A closed scale's first row is its own name ("I-40 Weigh
+            // Station is closed"), so leading with the name as well read it
+            // twice in one breath (QA, 2026-10-07). The row says it once.
+            let row = self.current_text(ctx);
+            if row.starts_with(&self.stop.spoken_name()) {
+                parts.clear();
+            }
             parts.push("Inspection station.".to_string());
             parts.push(format!("It is {}.", clock_text(d.trip.local_hour())));
-            parts.push(self.current_text(ctx));
+            parts.push(row);
             ctx.say(&parts.join(" "));
             return;
         }
@@ -218,13 +227,16 @@ impl RestStopState {
             let label = self.fuel_label(ctx, d);
             items.push(
                 MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the regional diesel price plus a 35 dollar service fee. \
-                     Short on cash, it buys what you can afford. The engine must be off.",
+                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Buys \
+                     what you can afford if cash is short. Engine must be off.",
                 ),
             );
         }
         if self.has_cat_scale() {
             items.push(self.cat_scale_item(ctx, d));
+        }
+        if self.sells_chains(ctx, d) {
+            items.push(self.chains_item(ctx));
         }
         if has("food") {
             items.push(
@@ -394,12 +406,24 @@ impl RestStopState {
             );
         }
         if has("inspect") && !self.visit.inspected {
-            items.push(
+            // Only an open scale has anyone to check in with. A closed one
+            // used to offer the check-in all the same and answer it as an
+            // open one did, waving a tester "straight back onto the highway"
+            // six miles short of the open scale he had been warned about
+            // (log, 2026-10-07). The closed row says so instead.
+            let item = if d.scale_is_open(&self.stop) {
                 MenuItem::new("Check in at inspection station", |s: &mut Self, ctx| {
                     s.inspect(ctx)
                 })
-                .help("Records the inspection check-in."),
-            );
+                .help("Records the inspection check-in.")
+            } else {
+                MenuItem::new(
+                    format!("{} is closed", self.stop.spoken_name()),
+                    |s: &mut Self, ctx| s.inspect(ctx),
+                )
+                .help("Nobody is at the scale house. There is nothing to check in at.")
+            };
+            items.push(item);
         }
         items.push(
             MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
@@ -478,8 +502,8 @@ impl RestStopState {
             .read(|d| d.job.destination.clone())
             .unwrap_or_default();
         ctx.say(&format!(
-            "Pay advance approved: {} dollars against your {destination} load, repaid at \
-             delivery. You have {} dollars, {} dollars of advance to repay.",
+            "Advance {} dollars on the {destination} load, due at delivery. You have {}, owe \
+             {}.",
             fmt_grouped(grant, 0),
             fmt_grouped(money, 0),
             fmt_grouped(advance, 0)
@@ -534,8 +558,7 @@ impl RestStopState {
                 p.fatigue = hos::rest_coffee_break(p.fatigue);
             }
             format!(
-                "You took a food and coffee break. It is {}. Coffee eases fatigue a little, but \
-                 does not reset your 30-minute break requirement. {}",
+                "Coffee break. {}. Eases fatigue; does not count as your 30-minute break. {}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx)
             )
@@ -571,7 +594,7 @@ impl RestStopState {
             }
             let mode = ctx.settings.hos_mode.clone();
             let status = if full_reset {
-                "Hours of service reset. ".to_string()
+                "Driving and duty clocks reset. ".to_string()
             } else if completed {
                 format!("Sleeper split credited. {} ", hos_of(ctx).summary(&mode))
             } else {
@@ -630,7 +653,7 @@ impl RestStopState {
                 "{engine_off}You slept {hours} hours in the sleeper berth. It is {}. {status}{}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -664,10 +687,10 @@ impl RestStopState {
                 None => "You slept 10 hours and woke rested.".to_string(),
             };
             format!(
-                "{engine_off}{slept} It is {}. Hours of service reset. {}{}",
+                "{engine_off}{slept} It is {}. Driving and duty clocks reset. {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -712,13 +735,13 @@ impl RestStopState {
             profile_mut_of(ctx).fatigue = 0.0;
             let money = profile_of(ctx).money();
             format!(
-                "{engine_off}You took a motel room for {} dollars and slept a full ten hours. It \
-                 is {}. Hours of service reset and you wake fresh. You have {} dollars. {}{}",
+                "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
+                 {} dollars. {}{}",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -748,11 +771,11 @@ impl RestStopState {
                 p.fatigue = hos::rest_shoulder(p.fatigue);
             }
             format!(
-                "{engine_off}You slept 10 hours in the lot. It is {}. Hours of service reset, \
-                 but the rest was poor and you wake still tired. {}{}",
+                "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset; rest was poor. \
+                 {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -1182,6 +1205,21 @@ impl RestStopState {
     }
 
     fn inspect(&mut self, ctx: &mut GameContext) {
+        // Nobody is in a closed scale house: the row says so and nothing
+        // else happens. It used to run the check-in all the same -- marking
+        // the stop inspected, playing the notify tone and saving -- for a
+        // scale that settles nothing (QA, 2026-10-07). No time, no record.
+        let open = self
+            .driving
+            .read(|d| d.scale_is_open(&self.stop))
+            .unwrap_or(false);
+        if !open {
+            ctx.say(&format!(
+                "{} is closed. Pull back onto the highway.",
+                self.stop.spoken_name()
+            ));
+            return;
+        }
         let Some((text, waved)) = self.check_in(ctx) else {
             return;
         };
@@ -1205,6 +1243,9 @@ impl RestStopState {
 
     /// The scale check-in itself, settled and saved: the spoken result, and
     /// whether the lane waved the truck through.
+    ///
+    /// Open scales only: `inspect` answers a closed one before this runs,
+    /// and Back runs it only while `check_in_pending`, which is open-only.
     fn check_in(&mut self, ctx: &mut GameContext) -> Option<(String, bool)> {
         let stop = self.stop.clone();
         let result = self.driving.clone().with(ctx, |d, ctx| {
@@ -1505,13 +1546,20 @@ impl Menu for RestStopState {
         } else {
             None
         };
+        // Leaving one scale with another open one still ahead: say which
+        // was which once the truck is back on the road (tester log,
+        // 2026-10-07: a closed scale six miles short of the announced one).
+        let here = (self.stop.stop_type == "weigh_station").then(|| self.stop.spoken_name());
         let engine_on = self
             .driving
-            .read(|d| d.trip.truck.engine_on)
+            .read(|d| {
+                d.note_scale_reannounce(here.as_deref());
+                d.trip.truck.engine_on
+            })
             .unwrap_or(false);
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let back = back_on_the_road_line(ctx, engine_on);
+        let back = back_on_the_road_line(engine_on);
         match checked {
             Some((text, waved)) => {
                 ctx.say(&text);

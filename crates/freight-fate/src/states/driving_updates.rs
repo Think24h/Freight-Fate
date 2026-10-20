@@ -24,6 +24,8 @@
 //!   resolution, and the grade advisory.
 //! * [`enforcement`] -- the dash overspeed alert, the pull-over and its
 //!   compliance tracker, weigh stations, and the run-from-the-stop opt-in.
+//! * [`pacing`] -- a mid-drive pace change, the merge handoff's bound, and
+//!   the session-log trace of the clock's real-time pins.
 //! * [`conditions`] -- hot brakes, the destination approach assist, traction
 //!   states and the chain law.
 //!
@@ -33,6 +35,7 @@
 //! when it lands.
 
 pub mod air;
+pub mod cab;
 pub mod conditions;
 pub mod cues;
 pub mod curve_servo;
@@ -43,6 +46,7 @@ pub mod frame;
 pub mod hazards;
 pub mod lanes;
 pub mod live_sources;
+pub mod pacing;
 pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
@@ -50,8 +54,6 @@ pub mod radio_synth;
 pub mod stops;
 
 use std::cell::Cell;
-
-use ff_core::speech_pacing::{EventPriority, EventSpeechPacer};
 
 /// `LIMIT_DROP_SPEECH_LATENCY_S`.
 ///
@@ -61,7 +63,7 @@ use ff_core::speech_pacing::{EventPriority, EventSpeechPacer};
 /// has told the driver anything, and speech latency must never masquerade as
 /// defiance (the research doc's coupled invariant on the R1 demotion).
 pub fn limit_drop_speech_latency_s() -> f64 {
-    EventSpeechPacer::wait_budget_s(EventPriority::Route)
+    crate::app::FF_PACER.important_wait_s
 }
 
 /// Spoken word for a lane count, used by the road-narrows call
@@ -277,6 +279,7 @@ pub mod live {
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
+        static POSTED_LIMIT_MPH: Cell<f64> = const { Cell::new(0.0) };
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
         static MOVE_LOCKOUT: Cell<u8> = const { Cell::new(0) };
     }
@@ -309,6 +312,25 @@ pub mod live {
 
     pub fn on_ramp() -> bool {
         ON_RAMP.with(|cell| cell.get())
+    }
+
+    /// The posted limit governing the truck, in mph: the zone's while one is
+    /// entered, else the corridor's. "Speed limit reduced to 45" cut by the
+    /// next line and handed back after "raised to 55" names a limit the
+    /// truck has already left.
+    pub fn set_posted_limit_mph(value: f64) {
+        POSTED_LIMIT_MPH.with(|cell| cell.set(value));
+    }
+
+    pub fn posted_limit_mph() -> f64 {
+        POSTED_LIMIT_MPH.with(|cell| cell.get())
+    }
+
+    /// Whether a mainline limit line is still worth speaking: the truck is
+    /// not on a ramp, and the limit it names (when it names one) still
+    /// governs the truck.
+    pub fn limit_line_holds(named_mph: Option<f64>) -> bool {
+        !on_ramp() && named_mph.is_none_or(|mph| (posted_limit_mph() - mph).abs() < 0.5)
     }
 
     /// Whether the truck is still held at a ramp terminal's bar, waiting for
