@@ -20,6 +20,8 @@
 - **Truck stops in chain-law states sell snow chains.** With no usable set aboard, the stop menu offers a new set for 1,000 dollars.
 - **Dispatch sends road service with chains when you have none under a chain law.** Report truck trouble; the set arrives in an hour and a half.
 - **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
+- **Truck stops and parking lots say whether they sell fuel.** One without pumps says No fuel ahead and again when you pull in.
+- **The low fuel warning names the next fuel stop and how far it is.** With none before your destination, it says so.
 
 - **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
 

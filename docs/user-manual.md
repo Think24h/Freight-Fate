@@ -617,7 +617,7 @@ A CAT Scale weigh takes ten on-duty minutes and reads the steer, drive, trailer,
 
 For an open scale, slow into its lane, signal with X, stop, and use T to check in. On a controller, signal with D-pad down and check in with the right bumper and D-pad down. A required scale takes priority over a sleep plan.
 
-Don't wait for an empty tank before looking for fuel. Warnings tell you when it's near fifteen percent and when your range won't reach the next fuel stop or destination. An owner pays for rescue; a company driver takes a service-record hit.
+Don't wait for an empty tank before looking for fuel. Warnings tell you when it's near fifteen percent and when your range won't reach the next fuel stop or destination. The fifteen percent warning names the next fuel stop. Truck stops, fuel stations, service plazas and truck parking lots say Fuel or No fuel as they come up. An owner pays for rescue; a company driver takes a service-record hit.
 
 ### Weather and calendar
 

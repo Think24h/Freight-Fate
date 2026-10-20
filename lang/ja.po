@@ -13889,9 +13889,19 @@ msgstr " 、{exit_label}"
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr "{distance}先、{planned_prefix}{typed_name}{exit_part}。"
 
+msgid "Fuel."
+msgstr ""
+
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "{exit_hint}を押すと、出口へのウインカーを出します。"
+
+#. placeholders: {terse}
+msgid "{terse} No fuel."
+msgstr ""
 
 msgid "estimated "
 msgstr "推定 "
@@ -22777,6 +22787,13 @@ msgid ""
 "ahead on this route."
 msgstr "航続距離は約{range_text}で、目的地まで届きません。このルートの先に給油地点はありません。"
 
+#. placeholders: {name}, {distance_text}
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+msgid "No fuel stop before the destination."
+msgstr ""
+
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr "配車係が出動を記録して、運送会社の負担で"
 
@@ -27189,6 +27206,9 @@ msgstr "もう十分休んでいます。{preview}"
 
 msgid "Inspection station."
 msgstr "検査所です。"
+
+msgid "No fuel here."
+msgstr ""
 
 #. placeholders: {summary}
 msgid "Loyalty program: {summary}"

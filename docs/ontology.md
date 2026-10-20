@@ -647,7 +647,7 @@ frame never shuffles, so no terse line may reorder its slots:
 | --- | --- | --- |
 | Hazard-family cue (brake lights, slow traffic) | thing, distance, target speed | "Brake lights, 2.1 miles, 38." |
 | Merging traffic cue | thing, distance | "Merging box truck, 0.4 miles." |
-| Stop callout | name, exit, distance, qualifier | "Flying J Travel Center Corfu, exit 48A, 5 miles. Parking confirmed." |
+| Stop callout | name, exit, distance, qualifier, then "No fuel." where pumps could be expected | "Flying J Travel Center Corfu, exit 48A, 5 miles. Parking confirmed." |
 | Money consequence | what, amount, who pays | "Toll, 15 dollars, carrier." |
 | Speed limit | "Limit", the number | "Limit 65." |
 

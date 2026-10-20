@@ -17263,9 +17263,22 @@ msgstr ""
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr ""
 
+#: crates/ff-core/src/speech_text.rs
+msgid "Fuel."
+msgstr ""
+
+#: crates/ff-core/src/speech_text.rs
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 #: crates/ff-core/src/speech_text.rs
 msgid "Press {exit_hint} to signal for the exit."
+msgstr ""
+
+#. placeholders: {terse}
+#: crates/ff-core/src/speech_text.rs
+msgid "{terse} No fuel."
 msgstr ""
 
 #: crates/ff-core/src/speech_text.rs
@@ -27983,6 +27996,15 @@ msgid ""
 "ahead on this route."
 msgstr ""
 
+#. placeholders: {name}, {distance_text}
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "No fuel stop before the destination."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr ""
@@ -33433,6 +33455,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Inspection station."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "No fuel here."
 msgstr ""
 
 #. placeholders: {summary}

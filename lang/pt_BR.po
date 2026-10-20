@@ -15551,9 +15551,19 @@ msgstr " na {exit_label}"
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr "{planned_prefix}{typed_name}{exit_part} em {distance}."
 
+msgid "Fuel."
+msgstr ""
+
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "Aperte {exit_hint} para dar seta para a saída."
+
+#. placeholders: {terse}
+msgid "{terse} No fuel."
+msgstr ""
 
 msgid "estimated "
 msgstr "estimado em "
@@ -25313,6 +25323,13 @@ msgstr ""
 "Autonomia de cerca de {range_text}, não chega ao destino, e não há posto de "
 "combustível à frente nesta rota."
 
+#. placeholders: {name}, {distance_text}
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+msgid "No fuel stop before the destination."
+msgstr ""
+
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr "na conta da transportadora, e a central anotou o chamado"
 
@@ -30052,6 +30069,9 @@ msgstr "Você já está descansado. {preview}"
 
 msgid "Inspection station."
 msgstr "Posto de fiscalização."
+
+msgid "No fuel here."
+msgstr ""
 
 #. placeholders: {summary}
 msgid "Loyalty program: {summary}"
