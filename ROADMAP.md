@@ -929,6 +929,15 @@ Everything found before 2026-09-25 moved to
       held to 3 to 10; ASSUMED 6 before that), F speaks it, and a fuel range
       warning speaks once when it falls short of the next fuel stop this rig
       can use, or of the destination when none comes first.
+- [x] Stops say whether they sell fuel (issue #272 follow-up, a truck
+      parking lot named "The 115 Truck Stop" had no pumps). Truck stops,
+      travel centers, fuel stations, service plazas and truck parking say
+      Fuel or No fuel in the stop callout (terse keeps only No fuel), and
+      one without pumps says No fuel here on arrival. Public rest areas,
+      repair shops and weigh stations say nothing about fuel: nobody
+      expects pumps there. The 15 percent low fuel warning names the next
+      fuel stop this rig can use before the destination, or that there is
+      none.
 
 - [x] Toms River to Newark was labelled for the Garden State Parkway,
       which bans trucks over 10,000 lb north of Interchange 105, and after

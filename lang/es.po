@@ -6612,11 +6612,11 @@ msgstr "vía pública sin nombre"
 msgid "a side street"
 msgstr "una calle lateral"
 
-msgid "right"
-msgstr "derecha"
-
 msgid "ahead"
 msgstr "adelante"
+
+msgid "right"
+msgstr "derecha"
 
 #. placeholders: {highway}
 msgid "Start on {highway}."
@@ -14609,19 +14609,18 @@ msgstr "La inclinación del motor"
 
 msgid ""
 "Not a sound of its own: it is the engine you are always hearing, leaning to "
-"one side. Steer toward the lean, unless you have set the Steering guide row "
-"to steer away from it. It leans the way the wheel should go, so it points "
-"into a bend before you reach it and away from the edge you are drifting "
-"toward. This is the one cue here you follow rather than avoid, and it eases "
-"back to the middle as you make the turn or come straight."
+"one side. Steer toward the engine, unless you have set the Steering guide "
+"row to steer away from it. It leans the way the wheel should go, so it "
+"points into a bend before you reach it and away from the edge you are "
+"drifting toward. This is the one cue here you follow rather than avoid, and "
+"it eases back to the middle as you make the turn or come straight."
 msgstr ""
 "No tiene sonido propio: es el motor que siempre oyes, inclinado hacia un "
-"lado. Gira hacia donde se inclina, salvo que hayas puesto la fila Guía de "
-"dirección para girar en sentido contrario. Se inclina hacia donde debe ir "
-"el volante, así que apunta hacia una curva antes de que llegues y se aleja "
-"del borde hacia el que te desvías. Es la única señal de aquí que sigues en "
-"vez de evitar, y vuelve poco a poco al centro cuando tomas la curva o te "
-"enderezas."
+"lado. Gira hacia el motor, salvo que hayas puesto la fila Guía de dirección "
+"para girar en sentido contrario. Se inclina hacia donde debe ir el volante, "
+"así que apunta hacia una curva antes de que llegues y se aleja del borde "
+"hacia el que te desvías. Es la única señal de aquí que sigues en vez de "
+"evitar, y vuelve poco a poco al centro cuando tomas la curva o te enderezas."
 
 msgid ""
 "Every bend and street corner, in every lane keeping mode. It also leans to "
@@ -15622,9 +15621,19 @@ msgstr " en {exit_label}"
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr "{planned_prefix}{typed_name}{exit_part} en {distance}."
 
+msgid "Fuel."
+msgstr ""
+
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "Pulsa {exit_hint} para señalizar la salida."
+
+#. placeholders: {terse}
+msgid "{terse} No fuel."
+msgstr ""
 
 msgid "estimated "
 msgstr "unos "
@@ -25405,6 +25414,13 @@ msgstr ""
 "Autonomía de unos {range_text}, no llega al destino, y no hay gasolinera "
 "más adelante en esta ruta."
 
+#. placeholders: {name}, {distance_text}
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+msgid "No fuel stop before the destination."
+msgstr ""
+
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr "a cargo de la empresa de transporte, y despacho anotó la asistencia"
 
@@ -30174,6 +30190,9 @@ msgstr "Ya estás descansado. {preview}"
 
 msgid "Inspection station."
 msgstr "Estación de inspección."
+
+msgid "No fuel here."
+msgstr ""
 
 #. placeholders: {summary}
 msgid "Loyalty program: {summary}"
@@ -35718,25 +35737,23 @@ msgstr ""
 msgid "Steering guide: {else}"
 msgstr "Guía de dirección: {else}"
 
-msgid "steer away from the lean"
-msgstr "gira en dirección opuesta a la inclinación"
+msgid "steer away from the engine"
+msgstr "gira en dirección opuesta al motor"
 
-msgid "steer toward the lean"
-msgstr "gira hacia la inclinación"
+msgid "steer toward the engine"
+msgstr "gira hacia el motor"
 
 msgid ""
-"Which way to steer when the engine leans. Toward the lean is the default: "
-"the engine pans the way you have to turn, and comes back to the middle as "
-"you turn. Away from the lean flips it, for drivers who learned the other "
-"habit in audio racing games. Everything else about the guide is the same "
-"either way."
+"Which way to steer when the engine sound moves to one side. Toward the "
+"engine is the default: the engine moves to the side you have to turn to, "
+"then back to the middle as you turn. Away from the engine flips it, for "
+"drivers used to that from audio racing games."
 msgstr ""
-"Hacia dónde girar cuando el motor se inclina. Hacia la inclinación es lo "
-"predeterminado: el motor se desplaza hacia el lado al que tienes que girar "
-"y vuelve al centro a medida que giras. En dirección opuesta a la "
-"inclinación lo invierte, para conductores que aprendieron la otra costumbre "
-"en juegos de carreras de audio. Todo lo demás de la guía es igual en los "
-"dos casos."
+"Hacia dónde girar cuando el sonido del motor se desplaza a un lado. Hacia "
+"el motor es lo predeterminado: el motor se desplaza hacia el lado al que "
+"tienes que girar y vuelve al centro a medida que giras. En dirección "
+"opuesta al motor lo invierte, para conductores acostumbrados a eso por los "
+"juegos de carreras de audio."
 
 #. placeholders: {else}
 msgid "Lane guide sound: {else}"
@@ -41678,6 +41695,42 @@ msgstr "cierra paréntesis"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
+
+#~ msgid ""
+#~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
+#~ "one side. Steer toward the lean, unless you have set the Steering guide row "
+#~ "to steer away from it. It leans the way the wheel should go, so it points "
+#~ "into a bend before you reach it and away from the edge you are drifting "
+#~ "toward. This is the one cue here you follow rather than avoid, and it eases "
+#~ "back to the middle as you make the turn or come straight."
+#~ msgstr ""
+#~ "No tiene sonido propio: es el motor que siempre oyes, inclinado hacia un "
+#~ "lado. Gira hacia donde se inclina, salvo que hayas puesto la fila Guía de "
+#~ "dirección para girar en sentido contrario. Se inclina hacia donde debe ir "
+#~ "el volante, así que apunta hacia una curva antes de que llegues y se aleja "
+#~ "del borde hacia el que te desvías. Es la única señal de aquí que sigues en "
+#~ "vez de evitar, y vuelve poco a poco al centro cuando tomas la curva o te "
+#~ "enderezas."
+
+#~ msgid "steer away from the lean"
+#~ msgstr "gira en dirección opuesta a la inclinación"
+
+#~ msgid "steer toward the lean"
+#~ msgstr "gira hacia la inclinación"
+
+#~ msgid ""
+#~ "Which way to steer when the engine leans. Toward the lean is the default: "
+#~ "the engine pans the way you have to turn, and comes back to the middle as "
+#~ "you turn. Away from the lean flips it, for drivers who learned the other "
+#~ "habit in audio racing games. Everything else about the guide is the same "
+#~ "either way."
+#~ msgstr ""
+#~ "Hacia dónde girar cuando el motor se inclina. Hacia la inclinación es lo "
+#~ "predeterminado: el motor se desplaza hacia el lado al que tienes que girar "
+#~ "y vuelve al centro a medida que giras. En dirección opuesta a la "
+#~ "inclinación lo invierte, para conductores que aprendieron la otra costumbre "
+#~ "en juegos de carreras de audio. Todo lo demás de la guía es igual en los "
+#~ "dos casos."
 
 #~ msgid "{lane_name} lane  ·  lane keeping {lane_assist}"
 #~ msgstr "Carril {lane_name}  ·  mantenimiento de carril {lane_assist}"

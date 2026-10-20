@@ -991,6 +991,29 @@ impl RoadStop {
         typed_name(self.label(), &self.name, ": ")
     }
 
+    /// Whether a driver can buy fuel here.
+    pub fn sells_fuel(&self) -> bool {
+        self.actions.iter().any(|action| action == "fuel")
+    }
+
+    /// Whether a driver could expect pumps here, so the stop's fuel verdict
+    /// is worth speaking: the fuel types, and truck parking, whose lots are
+    /// often named "Truck Stop" (issue #272, "The 115 Truck Stop"). Nobody
+    /// pulls into a public rest area, a repair shop or a weigh station for
+    /// diesel, so saying "No fuel." at every one would be noise.
+    pub fn fuel_expected(&self) -> bool {
+        matches!(
+            self.stop_type.as_str(),
+            "truck_stop" | "travel_center" | "fuel_station" | "service_plaza" | "truck_parking"
+        )
+    }
+
+    /// The fuel verdict the stop callout speaks: whether the stop sells fuel
+    /// where a driver could expect it to, and nothing elsewhere.
+    pub fn fuel_callout(&self) -> Option<bool> {
+        self.fuel_expected().then(|| self.sells_fuel())
+    }
+
     pub fn parking_text(&self) -> String {
         let text = match self.parking.as_str() {
             "confirmed" => "confirmed truck parking",

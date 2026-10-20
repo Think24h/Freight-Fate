@@ -20,6 +20,8 @@
 - **Truck stops in chain-law states sell snow chains.** With no usable set aboard, the stop menu offers a new set for 1,000 dollars.
 - **Dispatch sends road service with chains when you have none under a chain law.** Report truck trouble; the set arrives in an hour and a half.
 - **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
+- **Truck stops and parking lots say whether they sell fuel.** One without pumps says No fuel ahead and again when you pull in.
+- **The low fuel warning names the next fuel stop and how far it is.** With none before your destination, it says so.
 
 - **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
 
@@ -92,6 +94,7 @@
 
 ### Changed
 
+- **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
 - **The game window draws only when it changes,** so it uses less power.
 - **Drivers below level 10 get warnings instead of most citations.** Serious speeding, the work-zone barrels, failing to pull over, running a scale and out-of-service orders still count.
 - **The carrier shop now repairs a company tractor at 40 percent damage before the next load.** It takes an hour on duty.
@@ -201,6 +204,7 @@
 ### Fixed
 
 - **Toms River to Newark now takes I-195 and the Turnpike instead of the truck-banned Garden State Parkway.** It pays 85 miles, up from 66.
+- **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
 - **Turnpike and I-95 service plazas now sit on the side they serve, with diesel and food.** The truck-banned Merritt Parkway plaza is gone.
 - **Turnpike doubles loads now list two 48-foot trailers, not twin 28-foot ones.** Twin-trailer parcel loads are lighter, up to 15 tons.
 - **Live weather no longer gives up as quickly.** It waits longer for the weather service and asks about fewer places at a time.
