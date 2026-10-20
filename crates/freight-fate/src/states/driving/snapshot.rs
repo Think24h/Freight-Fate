@@ -594,6 +594,8 @@ impl DrivingState {
             }
         }
         state.departure_checked = true;
+        // Everything behind the resume point was heard before the save.
+        state.settle_enforcement_at(state.trip.position_mi);
         let air_brake = data.get("air_brake").cloned().unwrap_or(Value::Null);
         state
             .trip

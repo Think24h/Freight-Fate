@@ -178,6 +178,27 @@ impl DrivingState {
 
     // -- the watch -----------------------------------------------------------
 
+    /// Start the watch at `mile` with everything behind it already heard.
+    ///
+    /// For a truck placed on the road rather than driven there: a resumed
+    /// save, or the co-driver's miles while the player sleeps. The watch
+    /// measures each frame from the last one, so left at an earlier mile it
+    /// counts every post in between as just crossed, and a player resuming
+    /// at a truck stop heard a stack of sirens, passes and markers at once.
+    /// Posts whose stretch ended before `mile` are marked as already heard;
+    /// one still covering or ahead of the truck chimes as usual.
+    pub fn settle_enforcement_at(&mut self, mile: f64) {
+        self.enforcement_prev_mi = mile;
+        let mut id = std::mem::take(&mut self.post_id_scratch);
+        for post in &self.trip.posts {
+            if post.end_mi() < mile {
+                post.write_id(&mut id);
+                self.marked_post_ids.insert(id.clone());
+            }
+        }
+        self.post_id_scratch = id;
+    }
+
     /// One frame of the enforcement layer: cues, sampling, and the draw.
     ///
     /// **The pacing mismatch, and how it is solved.** Speeding used to be
