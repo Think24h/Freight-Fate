@@ -46,6 +46,23 @@ use super::{KeyProbe, RadioVoicing, CH_RADIO_FX, CH_REVERSE, CH_ROAD, ENGINE_RPM
 /// every bus it stays at 1.0: it changes no level.
 pub(super) const RADIO_BUS: Bus = Bus("radio_sounds");
 
+/// How much louder the far (right) door speaker plays than Hearken's
+/// default, as a gain: 30 percent. A player heard the left speaker as too
+/// dominant (via Josh, 2026-10-20). The far speaker still arrives later than
+/// the near one and keeps its own room, so the radio still leans to the
+/// driver's side, just less.
+pub(super) const RADIO_FAR_SPEAKER_LIFT: f32 = 1.3;
+
+/// The cab-speaker voicing the radio plays through: Hearken's truck stereo
+/// with the far speaker lifted by [`RADIO_FAR_SPEAKER_LIFT`].
+pub(super) fn radio_cab_params() -> CabSpeakersParams {
+    let base = CabSpeakersParams::default();
+    CabSpeakersParams {
+        far_db: base.far_db + 20.0 * RADIO_FAR_SPEAKER_LIFT.log10(),
+        ..base
+    }
+}
+
 fn cab_amount(voicing: RadioVoicing) -> f32 {
     if voicing.cab_speakers {
         1.0
@@ -261,7 +278,7 @@ impl HearkenBackend {
         // The radio's own sounds always carry the voicing; the music
         // channel only while driving (`set_radio_voicing`), so menu music
         // never does.
-        let radio_cab = CabSpeakers::new(CabSpeakersParams::default());
+        let radio_cab = CabSpeakers::new(radio_cab_params());
         audio.set_bus_insert(RADIO_BUS, Some(Insert::CabSpeakers(radio_cab.clone())));
         log::info!("Hearken audio over {}", audio.backend_name());
         Self {

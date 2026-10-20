@@ -96,6 +96,7 @@
 
 ### Changed
 
+- **The radio's right door speaker plays louder through the cab speakers,** so the stereo sounds more even while still leaning to the driver's side.
 - **From Bossa to Blues now plays in the menus from level 9 on,** alongside Million Mile Morning. It still plays on the road too.
 - **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
 - **The game window draws only when it changes,** so it uses less power.
