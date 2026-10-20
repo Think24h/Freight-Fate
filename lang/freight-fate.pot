@@ -29069,6 +29069,11 @@ msgstr ""
 msgid "Exit for {name}"
 msgstr ""
 
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/exits.rs
+msgid " Exit speed {speed_value}."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/exits.rs
 msgid " Traffic is tight."
 msgstr ""

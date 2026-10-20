@@ -23389,6 +23389,10 @@ msgstr "目的地出口"
 msgid "Exit for {name}"
 msgstr "{name}出口"
 
+#. placeholders: {speed_value}
+msgid " Exit speed {speed_value}."
+msgstr " 出口速度{speed_value}。"
+
 msgid " Traffic is tight."
 msgstr " 车流很密。"
 

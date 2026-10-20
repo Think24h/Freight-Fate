@@ -703,6 +703,10 @@ Everything found before 2026-09-25 moved to
       and urgent only no longer call out traffic, a line either rung leaves
       out makes no sound, and quiet says cruise, keeper and work zone
       updates short. Urgent only now says when a work zone turns cruise off.
+- [x] The exit countdown's one-mile call names the ramp's exit speed
+      (player report, 2026-10-20): it had been said only past the gore, too
+      late to plan for, and a ramp posted 20 rolled a truck. Same number as
+      the ramp line; the approach still never asks the truck to slow.
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [ ] A listening pass by the owner on a ride-along shift: the co-driver's
       notes, the hazard calls, and how often they speak.

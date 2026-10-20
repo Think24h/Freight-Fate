@@ -23644,6 +23644,10 @@ msgstr "目的地の出口"
 msgid "Exit for {name}"
 msgstr "{name}方面の出口"
 
+#. placeholders: {speed_value}
+msgid " Exit speed {speed_value}."
+msgstr " 出口速度{speed_value}。"
+
 msgid " Traffic is tight."
 msgstr " 車が詰まっています。"
 
