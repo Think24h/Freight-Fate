@@ -91,6 +91,14 @@ bookmarks usable.
       summary is his to do. Career stats gains a Co-drivers list once a
       career has teamed (2026-10-19): each classmate's loads together, the
       owner-operator's hire, and their bio, read only when opened.
+      A team load's job details and route plan no longer name the solo
+      driver's ten-hour sleeps, and the stop planning hint and the last
+      sleep stop warning give way to the co-driver while one is rested
+      (player report, 2026-10-20: a 2,300-mile team load planned around
+      sleeps ran late). Measured the same day on Portland to Memphis, 2,353
+      miles with the shortest deadline the board gives it (53.8 hours): the
+      co-driver taking every shift, traffic, hazards and inspections on,
+      delivered in 45.0 hours.
 - [x] Co-driver and assist realism (owner, 2026-10-19): lane keeping on
       full goes around anything sitting in the lane (debris, a car on the
       shoulder, a closure) when a lane is open, and holds

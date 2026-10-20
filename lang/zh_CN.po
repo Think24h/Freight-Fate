@@ -16299,6 +16299,12 @@ msgid ""
 msgstr "提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
 
 #. placeholders: {hours}
+msgid ""
+"Trip hours: about {hours} driving hours, with the co-driver taking turns "
+"instead of 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {hours}
 msgid "Trip hours: about {hours} driving hours."
 msgstr ""
 
@@ -20294,6 +20300,10 @@ msgstr ""
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
 msgstr "手势可以在设置、游戏玩法、操作、触摸手势里更改。"
+
+#. placeholders: {name}
+msgid "{name} can take the wheel from the pause menu."
+msgstr ""
 
 msgid "for the corner"
 msgstr "为了拐角"

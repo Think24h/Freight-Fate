@@ -549,6 +549,38 @@ fn test_job_details_say_the_hours_and_fuel_the_run_needs() {
 }
 
 #[test]
+fn test_team_load_details_plan_the_co_driver_instead_of_sleeps() {
+    // A team load's deadline leaves no room for the solo driver's 10-hour
+    // sleeps; naming them planned a run the deadline could not fit (player
+    // report, 2026-10-20).
+    let mut app = TestApp::new();
+    career(&mut app, "Team Detail", "Buffalo");
+    profile_mut(&mut app).career.xp = *LEVEL_XP.last().unwrap();
+    let mut job = JobBoard::seeded(app.ctx.world, 7)
+        .offers(
+            "Buffalo",
+            &["refrigerated", "heavy_haul", "high_value"],
+            OfferOptions::level(5),
+        )
+        .into_iter()
+        .max_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
+        .expect("an offer");
+    assert!(job.distance_mi > 700.0, "{} miles", job.distance_mi);
+    job.team = true;
+    push_board(&mut app, vec![job]);
+    key(&mut app, Key::F1);
+    let rows = labels::<JobDetailState>(&app);
+    let trip = rows
+        .iter()
+        .find(|r| r.starts_with("Trip hours: about "))
+        .expect("a trip line");
+    assert!(
+        trip.ends_with("with the co-driver taking turns instead of 10-hour sleeps."),
+        "{trip}"
+    );
+}
+
+#[test]
 fn test_job_details_leave_hours_out_with_hours_of_service_off() {
     let mut app = TestApp::new();
     senior_job_board(&mut app);

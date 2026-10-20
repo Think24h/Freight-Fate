@@ -18218,6 +18218,12 @@ msgstr ""
 "погоду и ограничения."
 
 #. placeholders: {hours}
+msgid ""
+"Trip hours: about {hours} driving hours, with the co-driver taking turns "
+"instead of 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {hours}
 msgid "Trip hours: about {hours} driving hours."
 msgstr "Часы рейса: примерно {hours} {hours:час|часа|часов} вождения."
 
@@ -22925,6 +22931,10 @@ msgid ""
 msgstr ""
 "Жесты можно переназначить в разделе «Настройки», «Игровой процесс», "
 "«Управление», «Жесты касания»."
+
+#. placeholders: {name}
+msgid "{name} can take the wheel from the pause menu."
+msgstr ""
 
 msgid "for the corner"
 msgstr "для поворота"

@@ -596,3 +596,49 @@ fn t_on_the_departure_streets_plans_nothing() {
     });
     assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
 }
+
+#[test]
+fn on_a_team_load_the_sleep_hint_names_the_co_driver_and_no_stop() {
+    // The team load's deadline has the co-driver drive where a solo driver
+    // sleeps: a sleep stop is the wrong advice (player report, 2026-10-20).
+    let (mut app, drive) = setup("sleep");
+    app.ctx.settings.hos_planning_hints = true;
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.job.team = true;
+        ctx.profile.as_mut().unwrap().hos.duty_min = 660.0;
+        d.maybe_hos_planning_hint(ctx);
+    });
+    let heard = app.event_lines().join(" ");
+    let name = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.team_pairing(ctx).co_driver.name
+    });
+    assert!(
+        heard.contains(&format!("{name} can take the wheel from the pause menu.")),
+        "{heard}"
+    );
+    assert!(!heard.contains("Sleep stop:"), "{heard}");
+}
+
+#[test]
+fn on_a_team_load_the_last_sleep_stop_warning_stays_quiet() {
+    let (mut app, drive) = setup("sleep");
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.job.team = true;
+        ctx.profile.as_mut().unwrap().hos.duty_min = 13.0 * 60.0 + 40.0;
+        d.trip.stops = vec![stop("Last", 12.0, "sleep")];
+        d.warn_last_hos_stop(ctx);
+    });
+    let heard = app.event_lines().join(" ");
+    assert!(!heard.contains("Last"), "{heard}");
+    // A solo load still hears it.
+    drop(drive);
+    drop(app);
+    let (mut app, drive) = setup("sleep");
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        ctx.profile.as_mut().unwrap().hos.duty_min = 13.0 * 60.0 + 40.0;
+        d.trip.stops = vec![stop("Last", 12.0, "sleep")];
+        d.warn_last_hos_stop(ctx);
+    });
+    let heard = app.event_lines().join(" ");
+    assert!(heard.contains("Last"), "{heard}");
+}
