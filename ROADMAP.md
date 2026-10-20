@@ -1228,13 +1228,6 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) A clutchless manual option, the way real
       drivers shift on the road: the clutch only to pull away, the lever
       between gears when the revs match. Proposed to the owner 2026-10-14.
-- [ ] (Found along the way) Check the new Manassas legs' curve readings
-      (2026-10-20). Valhalla's map match marks every one of the 57 curves
-      on Washington to Manassas (I-66) as a connector, and 68 of 78 on
-      Manassas to Winchester, so the leg reads as freeway for only 49% of
-      its length. If the match is wrong, real I-66 bends get no pacenote,
-      cruise clause or cargo-damage treatment. Re-match both legs and
-      compare against the archived line before trusting those flags.
 
 ### Release gate record
 
