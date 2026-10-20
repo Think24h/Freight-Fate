@@ -138,6 +138,9 @@ fn test_the_right_speaker_plays_thirty_percent_louder_than_hearkens_default() {
         (lift - 1.3).abs() < 0.01,
         "the far speaker is lifted 30 percent, got {lift}"
     );
-    // The far speaker still arrives late, so the room keeps leaning left.
-    assert_eq!(cab.params().far_delay_ms, stock.params().far_delay_ms);
+    // The far speaker still arrives late, so the radio keeps a slight lean
+    // left, but well under Hearken's 0.75 ms, which pins it left on
+    // headphones.
+    assert_eq!(cab.params().far_delay_ms, 0.3);
+    assert!(stock.params().far_delay_ms > cab.params().far_delay_ms);
 }

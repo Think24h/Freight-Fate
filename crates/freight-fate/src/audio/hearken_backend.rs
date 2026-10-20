@@ -53,12 +53,21 @@ pub(super) const RADIO_BUS: Bus = Bus("radio_sounds");
 /// driver's side, just less.
 pub(super) const RADIO_FAR_SPEAKER_LIFT: f32 = 1.3;
 
+/// How much later the far speaker arrives, in ms. Hearken's default is
+/// 0.75 ms, about the widest gap between a listener's two ears, so on
+/// headphones it pulled the radio almost fully left whatever the far
+/// speaker's level (an early side outweighs several dB of level). At 0.3 ms
+/// the radio sits near center with a slight lean to the driver.
+pub(super) const RADIO_FAR_SPEAKER_DELAY_MS: f32 = 0.3;
+
 /// The cab-speaker voicing the radio plays through: Hearken's truck stereo
-/// with the far speaker lifted by [`RADIO_FAR_SPEAKER_LIFT`].
+/// with the far speaker lifted by [`RADIO_FAR_SPEAKER_LIFT`] and arriving
+/// [`RADIO_FAR_SPEAKER_DELAY_MS`] after the near one.
 pub(super) fn radio_cab_params() -> CabSpeakersParams {
     let base = CabSpeakersParams::default();
     CabSpeakersParams {
         far_db: base.far_db + 20.0 * RADIO_FAR_SPEAKER_LIFT.log10(),
+        far_delay_ms: RADIO_FAR_SPEAKER_DELAY_MS,
         ..base
     }
 }
