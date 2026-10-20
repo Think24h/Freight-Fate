@@ -229,7 +229,7 @@ impl DrivingState {
         self.trip.position_mi = to;
         // The posts passed are behind the truck, not just crossed: no pass
         // cue, and no stretch over the limit read out of the jump.
-        self.enforcement_prev_mi = to;
+        self.settle_enforcement_at(to);
         self.trip.check_tolls();
         let minutes = self.trip.game_minutes;
         self.trip.restore(to, minutes);
@@ -283,7 +283,7 @@ impl DrivingState {
             wheel.pilot.last_lot = last_lot;
         }
         self.trip.position_mi = stop.at_mi;
-        self.enforcement_prev_mi = stop.at_mi;
+        self.settle_enforcement_at(stop.at_mi);
         self.lane.recentre(0);
         self.lane_change_target = None;
         self.reset_exit_lane_state();
