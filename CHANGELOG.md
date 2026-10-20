@@ -206,6 +206,8 @@
 
 ### Fixed
 
+- **A co-driver short of hours now parks before handing back when you have none left.** They stop at the last lot in reach, so you can finish your rest there.
+- **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.
 - **Toms River to Newark now takes I-195 and the Turnpike instead of the truck-banned Garden State Parkway.** It pays 85 miles, up from 66.
 - **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
 - **Turnpike and I-95 service plazas now sit on the side they serve, with diesel and food.** The truck-banned Merritt Parkway plaza is gone.

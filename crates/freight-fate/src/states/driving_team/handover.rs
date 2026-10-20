@@ -3,6 +3,7 @@
 use ff_core::models::business_constants::is_owner_operator;
 use ff_core::models::co_driver::{self, Pairing};
 use ff_core::models::jobs::Job;
+use ff_core::sim::hos::{self, HosClock};
 
 use crate::app::{GameContext, Say};
 use crate::states::base::MenuItem;
@@ -74,6 +75,26 @@ pub fn terms_text(ctx: &GameContext, name: &str) -> String {
         "{pay} Those miles earn you half the experience. While {name} drives, you are logged in the \
          sleeper berth."
     )
+}
+
+/// When the co-driver's hours run out before the player's 10-hour rest is
+/// in: how much driving they have. Before it, a player learned that only
+/// after handing over (player report, 2026-10-20).
+fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<String> {
+    let mode = &ctx.settings.hos_mode;
+    let player = &profile_of(ctx).hos;
+    let fresh = HosClock::new();
+    let co = d.team.as_ref().map_or(&fresh, |team| &team.off_wheel_hos);
+    // A co-driver short of their own rest gets it in the sleeper while the
+    // player drives; handed the wheel now, what counts is what they have.
+    let hours_left = co_driver::shift_left_min(co, mode)? - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
+    let rest_left = co_driver::rest_left_min(player);
+    (rest_left > hours_left).then(|| {
+        format!(
+            "{name} has {} of driving left, short of your 10-hour rest.",
+            hos::duration_text(hours_left.max(0.0) / 60.0)
+        )
+    })
 }
 
 /// The introduction to team driving, said once per career the first time a
@@ -152,7 +173,10 @@ impl PauseMenuState {
         self.team_intro = new_intro(ctx, name, false);
         let carrier = ff_core::models::career::carrier_name_of(profile_of(ctx));
         let who = co_driver::pairing_line(&pairing, &carrier);
-        let terms = terms_text(ctx, name);
+        let terms = match short_shift_text(ctx, d, name) {
+            Some(short) => format!("{short} {}", terms_text(ctx, name)),
+            None => terms_text(ctx, name),
+        };
         vec![
             MenuItem::new(
                 format!("Hand the wheel to {name} and ride along"),

@@ -99,6 +99,13 @@ bookmarks usable.
       miles with the shortest deadline the board gives it (53.8 hours): the
       co-driver taking every shift, traffic, hazards and inspections on,
       delivered in 45.0 hours.
+      A co-driver whose hours run out before the player's rest is in, with
+      the player out of hours too, ends the shift at the last lot those
+      hours reach and hands back parked, instead of at highway speed (player
+      report, 2026-10-20: Lou handed back on I-29 with the nearest lot 76
+      miles on, and a log check put the player out of service). The
+      handover rows' help gives the co-driver's driving time when it falls
+      short of the player's 10-hour rest.
 - [x] Co-driver and assist realism (owner, 2026-10-19): lane keeping on
       full goes around anything sitting in the lane (debris, a car on the
       shoulder, a closure) when a lane is open, and holds
