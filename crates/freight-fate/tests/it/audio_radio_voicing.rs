@@ -101,3 +101,46 @@ fn test_the_voicing_follows_the_setting_and_the_glass() {
     r.engine.set_radio_voicing(voicing(true, 1.0));
     assert_eq!((cab.amount(), cab.window()), (1.0, 1.0));
 }
+
+/// Each side's RMS once a mono 1 kHz tone has settled through `cab`.
+fn side_levels(cab: &hearken::audio::CabSpeakers) -> (f32, f32) {
+    let rate = 44_100.0_f32;
+    let mut dsp = cab.processor();
+    let mut frames: Vec<[f32; 2]> = (0..rate as usize)
+        .map(|i| {
+            let x = 0.5 * (2.0 * std::f32::consts::PI * 1_000.0 * i as f32 / rate).sin();
+            [x, x]
+        })
+        .collect();
+    dsp.process(&mut frames, rate);
+    let tail = &frames[frames.len() / 2..];
+    let rms = |c: usize| (tail.iter().map(|f| f[c] * f[c]).sum::<f32>() / tail.len() as f32).sqrt();
+    (rms(0), rms(1))
+}
+
+#[test]
+fn test_the_right_speaker_plays_thirty_percent_louder_than_hearkens_default() {
+    let _guard = audio_lock();
+    let r = hearken_rig();
+    let cab = r.hearken().radio_cab().clone();
+    cab.set_amount(1.0, 0);
+    let stock = hearken::audio::CabSpeakers::new(hearken::audio::CabSpeakersParams::default());
+    stock.set_amount(1.0, 0);
+
+    let (left, right) = side_levels(&cab);
+    let (stock_left, stock_right) = side_levels(&stock);
+    assert!(
+        (left / stock_left - 1.0).abs() < 0.01,
+        "the near speaker is unchanged"
+    );
+    let lift = right / stock_right;
+    assert!(
+        (lift - 1.3).abs() < 0.01,
+        "the far speaker is lifted 30 percent, got {lift}"
+    );
+    // The far speaker still arrives late, so the radio keeps a slight lean
+    // left, but well under Hearken's 0.75 ms, which pins it left on
+    // headphones.
+    assert_eq!(cab.params().far_delay_ms, 0.3);
+    assert!(stock.params().far_delay_ms > cab.params().far_delay_ms);
+}
