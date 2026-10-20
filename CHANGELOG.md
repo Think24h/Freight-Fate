@@ -200,6 +200,7 @@
 
 ### Fixed
 
+- **Toms River to Newark now takes I-195 and the Turnpike instead of the truck-banned Garden State Parkway.** It pays 85 miles, up from 66.
 - **Turnpike and I-95 service plazas now sit on the side they serve, with diesel and food.** The truck-banned Merritt Parkway plaza is gone.
 - **Turnpike doubles loads now list two 48-foot trailers, not twin 28-foot ones.** Twin-trailer parcel loads are lighter, up to 15 tons.
 - **Live weather no longer gives up as quickly.** It waits longer for the weather service and asks about fewer places at a time.
@@ -311,7 +312,6 @@
 
 ### Fixed
 
-- **Toms River to Newark now runs US 9, I-195 and the New Jersey Turnpike instead of the Garden State Parkway and local highways.** The run is 85 miles, up from 66, and pays for every one.
 - **The load you sleep for after an hours warning stays on the dispatch board.** It used to vanish when the rest ran past midnight.
 
 - **On a three-lane road, a hazard call names the lane you can move into.** From the right lane it now says middle lane open, matching the lane change.

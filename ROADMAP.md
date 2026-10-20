@@ -938,9 +938,9 @@ Everything found before 2026-09-25 moved to
       National Network directly (2026-10-06, a realism check). It now runs
       US 9, I-195 and the Turnpike from Interchange 7A to 13A; 66 paid
       miles became 85.
-- [ ] Thomas Edison still sits on Toms River to Newark at mile 49.55, its
-      place on the old line; the new line passes it at about mile 70. The
-      service-plaza PR (#297) removes it from this leg, so it was left alone.
+- [x] Thomas Edison sat on Toms River to Newark at mile 49.55, its place
+      on the old line. It is a southbound plaza, so the service-plaza fix
+      (#297) took it off this northbound leg, which now has no stops.
 - [ ] Toms River to Newark has no northbound Turnpike service plazas
       (Joyce Kilmer, Grover Cleveland) and no Turnpike toll event (the leg
       is flagged as a tollway with none).
