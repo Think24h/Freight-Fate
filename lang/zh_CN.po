@@ -5607,11 +5607,11 @@ msgstr "无名公共道路"
 msgid "a side street"
 msgstr "一条小街"
 
-msgid "right"
-msgstr "右"
-
 msgid "ahead"
 msgstr "前方"
+
+msgid "right"
+msgstr "右"
 
 #. placeholders: {highway}
 msgid "Start on {highway}."
@@ -12932,14 +12932,12 @@ msgstr "发动机声偏向"
 
 msgid ""
 "Not a sound of its own: it is the engine you are always hearing, leaning to "
-"one side. Steer toward the lean, unless you have set the Steering guide row "
-"to steer away from it. It leans the way the wheel should go, so it points "
-"into a bend before you reach it and away from the edge you are drifting "
-"toward. This is the one cue here you follow rather than avoid, and it eases "
-"back to the middle as you make the turn or come straight."
+"one side. Steer toward the engine, unless you have set the Steering guide "
+"row to steer away from it. It leans the way the wheel should go, so it "
+"points into a bend before you reach it and away from the edge you are "
+"drifting toward. This is the one cue here you follow rather than avoid, and "
+"it eases back to the middle as you make the turn or come straight."
 msgstr ""
-"它没有自己的声音：就是你一直听到的发动机声，偏向一侧。朝偏向的一侧转向，除非你把“转向引导”一项设成了反向转向。它偏向方向盘应该转的方向，所以在你到达弯"
-"道之前就会指向弯里，也会偏离你正在漂向的那一侧边缘。这是这里唯一一个你要跟着走、而不是避开的提示；当你转过弯或者回正时，它会慢慢回到中间。"
 
 msgid ""
 "Every bend and street corner, in every lane keeping mode. It also leans to "
@@ -13752,9 +13750,19 @@ msgstr "，位于{exit_label}"
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr "{planned_prefix}{typed_name}{exit_part}，还有{distance}。"
 
+msgid "Fuel."
+msgstr ""
+
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "按{exit_hint}为出口打转向灯。"
+
+#. placeholders: {terse}
+msgid "{terse} No fuel."
+msgstr ""
 
 msgid "estimated "
 msgstr "预计"
@@ -22527,6 +22535,13 @@ msgid ""
 "ahead on this route."
 msgstr "续航里程大约{range_text}，到不了目的地，这条路线前方也没有加油点。"
 
+#. placeholders: {name}, {distance_text}
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+msgid "No fuel stop before the destination."
+msgstr ""
+
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr "记在承运商账上，调度记录了这次服务呼叫"
 
@@ -26916,6 +26931,9 @@ msgstr "你已经休息好了。{preview}"
 
 msgid "Inspection station."
 msgstr "检查站。"
+
+msgid "No fuel here."
+msgstr ""
 
 #. placeholders: {summary}
 msgid "Loyalty program: {summary}"
@@ -31809,21 +31827,18 @@ msgstr ""
 msgid "Steering guide: {else}"
 msgstr "转向引导：{else}"
 
-msgid "steer away from the lean"
-msgstr "背着偏向转"
+msgid "steer away from the engine"
+msgstr ""
 
-msgid "steer toward the lean"
-msgstr "朝着偏向转"
+msgid "steer toward the engine"
+msgstr ""
 
 msgid ""
-"Which way to steer when the engine leans. Toward the lean is the default: "
-"the engine pans the way you have to turn, and comes back to the middle as "
-"you turn. Away from the lean flips it, for drivers who learned the other "
-"habit in audio racing games. Everything else about the guide is the same "
-"either way."
+"Which way to steer when the engine sound moves to one side. Toward the "
+"engine is the default: the engine moves to the side you have to turn to, "
+"then back to the middle as you turn. Away from the engine flips it, for "
+"drivers used to that from audio racing games."
 msgstr ""
-"发动机声音偏向一侧时往哪边转。默认是朝着偏向转：发动机声音偏向你需要转的方向，你转过去后它会回到中间。“背着偏向转”则相反，适合在音频赛车游戏里养成了另"
-"一种习惯的司机。引导的其他一切在两种方式下都一样。"
 
 #. placeholders: {else}
 msgid "Lane guide sound: {else}"
@@ -36809,6 +36824,33 @@ msgstr "右括号"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大写{ch}"
+
+#~ msgid ""
+#~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
+#~ "one side. Steer toward the lean, unless you have set the Steering guide row "
+#~ "to steer away from it. It leans the way the wheel should go, so it points "
+#~ "into a bend before you reach it and away from the edge you are drifting "
+#~ "toward. This is the one cue here you follow rather than avoid, and it eases "
+#~ "back to the middle as you make the turn or come straight."
+#~ msgstr ""
+#~ "它没有自己的声音：就是你一直听到的发动机声，偏向一侧。朝偏向的一侧转向，除非你把“转向引导”一项设成了反向转向。它偏向方向盘应该转的方向，所以在你到达弯"
+#~ "道之前就会指向弯里，也会偏离你正在漂向的那一侧边缘。这是这里唯一一个你要跟着走、而不是避开的提示；当你转过弯或者回正时，它会慢慢回到中间。"
+
+#~ msgid "steer away from the lean"
+#~ msgstr "背着偏向转"
+
+#~ msgid "steer toward the lean"
+#~ msgstr "朝着偏向转"
+
+#~ msgid ""
+#~ "Which way to steer when the engine leans. Toward the lean is the default: "
+#~ "the engine pans the way you have to turn, and comes back to the middle as "
+#~ "you turn. Away from the lean flips it, for drivers who learned the other "
+#~ "habit in audio racing games. Everything else about the guide is the same "
+#~ "either way."
+#~ msgstr ""
+#~ "发动机声音偏向一侧时往哪边转。默认是朝着偏向转：发动机声音偏向你需要转的方向，你转过去后它会回到中间。“背着偏向转”则相反，适合在音频赛车游戏里养成了另"
+#~ "一种习惯的司机。引导的其他一切在两种方式下都一样。"
 
 #~ msgid "{lane_name} lane  ·  lane keeping {lane_assist}"
 #~ msgstr "{lane_name}车道  ·  车道保持 {lane_assist}"

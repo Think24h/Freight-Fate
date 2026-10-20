@@ -929,6 +929,15 @@ Everything found before 2026-09-25 moved to
       held to 3 to 10; ASSUMED 6 before that), F speaks it, and a fuel range
       warning speaks once when it falls short of the next fuel stop this rig
       can use, or of the destination when none comes first.
+- [x] Stops say whether they sell fuel (issue #272 follow-up, a truck
+      parking lot named "The 115 Truck Stop" had no pumps). Truck stops,
+      travel centers, fuel stations, service plazas and truck parking say
+      Fuel or No fuel in the stop callout (terse keeps only No fuel), and
+      one without pumps says No fuel here on arrival. Public rest areas,
+      repair shops and weigh stations say nothing about fuel: nobody
+      expects pumps there. The 15 percent low fuel warning names the next
+      fuel stop this rig can use before the destination, or that there is
+      none.
 
 - [x] More music on the Terrestrial dial (owner, 2026-10-03, from player
       feedback): 156 commercial music stations in 35 states, each heard
@@ -1174,6 +1183,19 @@ Everything found before 2026-09-25 moved to
       hardware: the Simulator's touch replay lifts both fingers together, so
       cruise, engine and parking brake from a held pedal are covered only by
       the headless tests.
+- [ ] (Found along the way) Hearken's 3 s speech health check re-acquires
+      the backend it already holds (`Speech::refresh` in
+      `hearken-speech` runs `pick_backend_gated`, which acquires every
+      candidate it tries). On Apple platforms that rebuilds
+      AVSpeechSynthesizer and re-posts VoiceOver's screen-changed
+      notification every interval. Its same-voice check also compares
+      display names, and Prism's VoiceOver registers as "VoiceOver" but
+      answers "VoiceOver (iOS)", so on iOS the main voice reads as switched
+      every refresh. The fix belongs in Hearken: pick by registry id and keep
+      the held instance while it is still usable, and stop re-trying an
+      event voice whose name is not in the registry (the periodic "SAPI not
+      available" log on iOS). PR 339 carried this for the pre-Hearken speech
+      module; it could not land here once speech moved (2026-10-20).
 - [ ] iOS runs from TestFlight on a real iPhone (2026-10-03) but still
       needs a real controller, Hearken sound on hardware (no iOS build of
       the Hearken-based tree has run yet, and the audio session category

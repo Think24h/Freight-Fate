@@ -135,21 +135,9 @@ pub fn spoken_short_miles(miles: f64, imperial: bool) -> String {
     format!("{meters} meters")
 }
 
-/// Turn direction for the earcon, read out of a baked maneuver cue;
-/// directionless legacy cues ("Turn onto") return "" and stay speech-only.
-pub fn cue_direction(text: &str) -> &'static str {
-    let lowered = text.to_lowercase();
-    if lowered.contains("left") {
-        return "left";
-    }
-    if lowered.contains("right") {
-        return "right";
-    }
-    if lowered.starts_with("continue") || lowered.starts_with("start") {
-        return "ahead";
-    }
-    ""
-}
+/// Turn direction for the earcon, read out of a baked maneuver cue; see
+/// [`crate::data::world_services::cue_direction`].
+pub use crate::data::world_services::cue_direction;
 
 impl HasLocation for City {
     fn lat(&self) -> f64 {
@@ -916,5 +904,13 @@ mod tests {
         assert_eq!(cue_direction("Turn right onto Palm Street"), "right");
         assert_eq!(cue_direction("Continue onto Main Street"), "ahead");
         assert_eq!(cue_direction("Turn onto Elm"), "");
+        assert_eq!(cue_direction("Turn left onto Wright Street"), "left");
+        assert_eq!(cue_direction("Turn right onto Leftwich Road"), "right");
+        assert_eq!(
+            cue_direction("Continue onto North Brighton Boulevard"),
+            "ahead"
+        );
+        assert_eq!(cue_direction("Start on Wright Brothers Boulevard"), "ahead");
+        assert_eq!(cue_direction("Keep left onto Elm Street"), "left");
     }
 }

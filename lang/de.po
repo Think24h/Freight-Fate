@@ -6630,11 +6630,11 @@ msgstr "unbenannte öffentliche Straße"
 msgid "a side street"
 msgstr "eine Seitenstraße"
 
-msgid "right"
-msgstr "rechts"
-
 msgid "ahead"
 msgstr "geradeaus"
+
+msgid "right"
+msgstr "rechts"
 
 #. placeholders: {highway}
 msgid "Start on {highway}."
@@ -14665,19 +14665,12 @@ msgstr "Der geneigte Motor"
 
 msgid ""
 "Not a sound of its own: it is the engine you are always hearing, leaning to "
-"one side. Steer toward the lean, unless you have set the Steering guide row "
-"to steer away from it. It leans the way the wheel should go, so it points "
-"into a bend before you reach it and away from the edge you are drifting "
-"toward. This is the one cue here you follow rather than avoid, and it eases "
-"back to the middle as you make the turn or come straight."
+"one side. Steer toward the engine, unless you have set the Steering guide "
+"row to steer away from it. It leans the way the wheel should go, so it "
+"points into a bend before you reach it and away from the edge you are "
+"drifting toward. This is the one cue here you follow rather than avoid, and "
+"it eases back to the middle as you make the turn or come straight."
 msgstr ""
-"Kein eigener Klang: Es ist der Motor, den du ohnehin immer hörst, nur zu "
-"einer Seite geneigt. Lenk in Richtung der Neigung, außer du hast die Zeile "
-"Lenkhilfe so eingestellt, dass du davon weglenkst. Er neigt sich dorthin, "
-"wohin das Lenkrad soll, also zeigt er schon vor einer Kurve in die Kurve "
-"hinein und weg vom Rand, auf den du zudriftest. Das ist der einzige Hinweis "
-"hier, dem du folgst, statt ihn zu meiden, und er wandert zurück in die "
-"Mitte, während du einlenkst oder wieder geradeaus fährst."
 
 msgid ""
 "Every bend and street corner, in every lane keeping mode. It also leans to "
@@ -15683,9 +15676,19 @@ msgstr " an {exit_label}"
 msgid "{planned_prefix}{typed_name}{exit_part} in {distance}."
 msgstr "{planned_prefix}{typed_name}{exit_part} in {distance}."
 
+msgid "Fuel."
+msgstr ""
+
+msgid "No fuel."
+msgstr ""
+
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal for the exit."
 msgstr "Drück {exit_hint}, um zur Ausfahrt zu blinken."
+
+#. placeholders: {terse}
+msgid "{terse} No fuel."
+msgstr ""
 
 msgid "estimated "
 msgstr "geschätzt "
@@ -25532,6 +25535,13 @@ msgstr ""
 "Reichweite etwa {range_text}, das reicht nicht bis zum Ziel, und auf dieser "
 "Route kommt kein Tankstopp mehr."
 
+#. placeholders: {name}, {distance_text}
+msgid "Next fuel: {name}, {distance_text}."
+msgstr ""
+
+msgid "No fuel stop before the destination."
+msgstr ""
+
 msgid "on the carrier account, and dispatch noted the service call"
 msgstr ""
 "über das Konto der Spedition, und die Disposition hat den Einsatz vermerkt"
@@ -30276,6 +30286,9 @@ msgstr "Du bist schon ausgeruht. {preview}"
 
 msgid "Inspection station."
 msgstr "Kontrollstation."
+
+msgid "No fuel here."
+msgstr ""
 
 #. placeholders: {summary}
 msgid "Loyalty program: {summary}"
@@ -35834,24 +35847,18 @@ msgstr ""
 msgid "Steering guide: {else}"
 msgstr "Lenkhilfe: {else}"
 
-msgid "steer away from the lean"
-msgstr "von der Neigung weglenken"
+msgid "steer away from the engine"
+msgstr ""
 
-msgid "steer toward the lean"
-msgstr "in Richtung der Neigung lenken"
+msgid "steer toward the engine"
+msgstr ""
 
 msgid ""
-"Which way to steer when the engine leans. Toward the lean is the default: "
-"the engine pans the way you have to turn, and comes back to the middle as "
-"you turn. Away from the lean flips it, for drivers who learned the other "
-"habit in audio racing games. Everything else about the guide is the same "
-"either way."
+"Which way to steer when the engine sound moves to one side. Toward the "
+"engine is the default: the engine moves to the side you have to turn to, "
+"then back to the middle as you turn. Away from the engine flips it, for "
+"drivers used to that from audio racing games."
 msgstr ""
-"In welche Richtung du lenkst, wenn sich der Motor neigt. In Richtung der "
-"Neigung ist Standard: Der Motor wandert in die Richtung, in die du lenken "
-"musst, und kehrt beim Einlenken zur Mitte zurück. Von der Neigung weg dreht "
-"das um, für Fahrer, die sich in Audio-Rennspielen die andere Gewohnheit "
-"angeeignet haben. Alles andere an der Lenkhilfe ist in beiden Fällen gleich."
 
 #. placeholders: {else}
 msgid "Lane guide sound: {else}"
@@ -41811,6 +41818,41 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid ""
+#~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
+#~ "one side. Steer toward the lean, unless you have set the Steering guide row "
+#~ "to steer away from it. It leans the way the wheel should go, so it points "
+#~ "into a bend before you reach it and away from the edge you are drifting "
+#~ "toward. This is the one cue here you follow rather than avoid, and it eases "
+#~ "back to the middle as you make the turn or come straight."
+#~ msgstr ""
+#~ "Kein eigener Klang: Es ist der Motor, den du ohnehin immer hörst, nur zu "
+#~ "einer Seite geneigt. Lenk in Richtung der Neigung, außer du hast die Zeile "
+#~ "Lenkhilfe so eingestellt, dass du davon weglenkst. Er neigt sich dorthin, "
+#~ "wohin das Lenkrad soll, also zeigt er schon vor einer Kurve in die Kurve "
+#~ "hinein und weg vom Rand, auf den du zudriftest. Das ist der einzige Hinweis "
+#~ "hier, dem du folgst, statt ihn zu meiden, und er wandert zurück in die "
+#~ "Mitte, während du einlenkst oder wieder geradeaus fährst."
+
+#~ msgid "steer away from the lean"
+#~ msgstr "von der Neigung weglenken"
+
+#~ msgid "steer toward the lean"
+#~ msgstr "in Richtung der Neigung lenken"
+
+#~ msgid ""
+#~ "Which way to steer when the engine leans. Toward the lean is the default: "
+#~ "the engine pans the way you have to turn, and comes back to the middle as "
+#~ "you turn. Away from the lean flips it, for drivers who learned the other "
+#~ "habit in audio racing games. Everything else about the guide is the same "
+#~ "either way."
+#~ msgstr ""
+#~ "In welche Richtung du lenkst, wenn sich der Motor neigt. In Richtung der "
+#~ "Neigung ist Standard: Der Motor wandert in die Richtung, in die du lenken "
+#~ "musst, und kehrt beim Einlenken zur Mitte zurück. Von der Neigung weg dreht "
+#~ "das um, für Fahrer, die sich in Audio-Rennspielen die andere Gewohnheit "
+#~ "angeeignet haben. Alles andere an der Lenkhilfe ist in beiden Fällen gleich."
 
 #~ msgid ", needs you back in {duration_text}"
 #~ msgstr ", braucht dich in {duration_text} wieder"

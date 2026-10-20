@@ -617,7 +617,7 @@ A CAT Scale weigh takes ten on-duty minutes and reads the steer, drive, trailer,
 
 For an open scale, slow into its lane, signal with X, stop, and use T to check in. On a controller, signal with D-pad down and check in with the right bumper and D-pad down. A required scale takes priority over a sleep plan.
 
-Don't wait for an empty tank before looking for fuel. Warnings tell you when it's near fifteen percent and when your range won't reach the next fuel stop or destination. An owner pays for rescue; a company driver takes a service-record hit.
+Don't wait for an empty tank before looking for fuel. Warnings tell you when it's near fifteen percent and when your range won't reach the next fuel stop or destination. The fifteen percent warning names the next fuel stop. Truck stops, fuel stations, service plazas and truck parking lots say Fuel or No fuel as they come up. An owner pays for rescue; a company driver takes a service-record hit.
 
 ### Weather and calendar
 
@@ -938,7 +938,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | Master volume | Overall game volume. |
 | Gameplay cues volume | Horn, alerts, road, facility, and gameplay cue sounds. |
 | Lane and edge cue volume | Make rumble strips, shoulder sounds, the lane locator, and hairpin warning bars easier to hear. This works alongside Gameplay cues volume and adjusts only these road cues. Quieter keeps them below the engine, Standard brings them to its level, and Louder helps them stand out. Assistance presets leave your choice unchanged. |
-| Steering guide | Which way to steer when the engine leans. Steer toward the lean, the default, or steer away from the lean, for drivers who learned that habit in audio racing games. |
+| Steering guide | Which way to steer when the engine sound moves to one side. Steer toward the engine, the default, or steer away from the engine, for drivers used to that from audio racing games. |
 | Lane guide sound | What leans toward the side to steer: the engine, the default, or a soft tone panned the same way, for setups where the engine is hard to place. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog sounds. |
 | Engine sounds volume | Engine start, shutdown, and running engine sounds. |
