@@ -96,6 +96,7 @@
 
 ### Changed
 
+- **From Bossa to Blues now plays in the menus from level 9 on,** alongside Million Mile Morning. It still plays on the road too.
 - **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
 - **The game window draws only when it changes,** so it uses less power.
 - **Drivers below level 10 get warnings instead of most citations.** Serious speeding, the work-zone barrels, failing to pull over, running a scale and out-of-service orders still count.

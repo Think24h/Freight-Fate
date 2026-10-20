@@ -2395,6 +2395,8 @@ its status or release decision.
       in the menu rotation, From Bossa to Blues in the day drive pool (so
       the Roadhouse plays it). Pack re-pinned at 380 entries and
       republished.
+- [x] From Bossa to Blues joins the menu rotation from level 9 on, next to
+      Million Mile Morning, by owner request (2026-10-20).
 
 ### September 12 long sessions and speech
 
