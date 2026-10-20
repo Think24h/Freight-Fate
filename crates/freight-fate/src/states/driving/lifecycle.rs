@@ -109,19 +109,41 @@ impl DrivingState {
     }
 
     /// `_resumed_speed_control_status()`.
-    pub fn resumed_speed_control_status(&self, ctx: &GameContext) -> String {
+    ///
+    /// The state, and the key that cancels it until the player has pressed
+    /// that key a few times. The open-road target is on Space and Tab.
+    pub fn resumed_speed_control_status(&self, ctx: &mut GameContext) -> String {
         if !self.speed_control_armed {
             return String::new();
         }
-        let target = match self.speed_control_target_mph {
-            Some(mph) => ctx.settings.speed_text(mph),
-            None => "the posted limit when the open road begins".to_string(),
-        };
+        if self.instruction_retired(ctx, "cruise_set") {
+            return "Automatic speed control paused. ".to_string();
+        }
         format!(
-            "Automatic speed control is paused; open-road target {target}. It will resume once \
-             the truck is rolling. Press {} to cancel it. ",
+            "Automatic speed control paused. {} cancels it. ",
             ctx.control_hint("cruise_set")
         )
+    }
+
+    /// The parking-brake pointer at the end of the resume line, retired once
+    /// the player has released the brake a few times.
+    pub fn parking_brake_hint_tail(&self, ctx: &mut GameContext) -> String {
+        if self.instruction_retired(ctx, "parking_brake") {
+            return String::new();
+        }
+        format!(
+            "At air ready, {} releases the parking brake.",
+            ctx.control_hint("parking_brake")
+        )
+    }
+
+    /// The transmission as a whole sentence.
+    pub fn transmission_sentence(&self) -> &'static str {
+        if self.trip.truck.transmission.automatic {
+            "Automatic transmission."
+        } else {
+            "Manual transmission."
+        }
     }
 
     /// `_parked_entry_status()`.
@@ -191,6 +213,8 @@ impl DrivingState {
         self.refresh_exit_hint(ctx);
         ctx.clear_music_rotation();
         ctx.audio.stop_music_with(800);
+        // Before the radio starts, so the station carries the voicing.
+        self.apply_radio_voicing(ctx);
         self.play_radio_current(ctx);
         let sound = self.trip.weather.effects().sound;
         ctx.audio.set_weather(sound);
@@ -227,16 +251,15 @@ impl DrivingState {
                 ctx.say_with(text, Say::queued());
             } else {
                 let engine = self.engine_entry_instruction(ctx);
+                let transmission = self.transmission_sentence();
+                let brake = self.parking_brake_hint_tail(ctx);
                 let text = format!(
-                    "Resuming your {drive_name}: {:.0} tons of {} to {destination}. {progress} \
-                     {hours_used:.1} hours used of {:.0}. It is {now}. Transmission is {mode}. \
-                     Weather: {report_lead}. Parked. {speed_control}{engine} At air ready, {} \
-                     releases the parking brake.",
-                    self.job.weight_tons,
-                    self.job.cargo.label,
-                    self.job.deadline_game_h,
-                    ctx.control_hint("parking_brake")
+                    "Resuming {drive_name}: {:.0} tons of {} to {destination}. {progress} \
+                     {hours_used:.1} of {:.0} hours. {now}. {transmission} {report_lead}. \
+                     {speed_control}{engine} {brake}",
+                    self.job.weight_tons, self.job.cargo.label, self.job.deadline_game_h,
                 );
+                let text = text.trim_end().to_string();
                 ctx.say_with(text, Say::queued());
             }
         } else {
@@ -259,10 +282,11 @@ impl DrivingState {
                 ctx.say_with(text, Say::queued());
             } else {
                 let engine = self.engine_entry_instruction(ctx);
+                let transmission = self.transmission_sentence();
                 let help = self.help_hint_tail(ctx);
                 let text = format!(
-                    "At the wheel. {objective}It is {now}. Transmission is {mode}. \
-                     Weather: {report_lead}. {engine} {help}"
+                    "At the wheel. {objective}It is {now}. {transmission} {report_lead}. {engine} \
+                     {help}"
                 );
                 ctx.say_with(text.trim_end().to_string(), Say::queued());
             }
@@ -283,6 +307,9 @@ impl DrivingState {
     /// `exit()`: hand the cab back -- horn off, liquid cues stopped, the
     /// radio's dial written to settings, the world's audio silenced.
     pub fn exit_drive(&mut self, ctx: &mut GameContext) {
+        // The drive is over or set aside: the wheel and the logbook are the
+        // player's again before anything is saved.
+        self.take_wheel_back(ctx);
         ctx.audio.horn_stop();
         // The siren's dead-man's switch only ticks from inside update(), so
         // once this state stops running it can never time itself out --
@@ -306,6 +333,9 @@ impl DrivingState {
         self.road_pan_applied = None;
         ctx.audio.stop_world();
         self.forget_stopped_loops();
+        // Off the music channel before anything new starts there; the
+        // station fading out keeps the voicing it started with.
+        ctx.audio.set_radio_voicing(None);
         ctx.audio.stop_music_with(600);
         ctx.apply_volumes();
     }

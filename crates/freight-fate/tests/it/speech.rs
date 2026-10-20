@@ -6,13 +6,12 @@
 //!
 //! Test names keep the Python names so the two suites diff by `grep`.
 
-use ff_core::speech_text::SpokenMessage;
 use freight_fate::speech::fakes::{FakeRegistry, FakeVoice};
 use freight_fate::speech::{
-    apply_speech_settings, pick_backend_gated, pick_event_backend, repick_backend_gated,
-    CaptureSpeech, NullSpeech, Repick, Speech, SpeechChannel, SpeechSink, VoiceFeatures,
-    VoiceRegistry, EVENT_BACKEND, REFRESH_INTERVAL_S,
+    apply_speech_settings, pick_backend_gated, pick_event_backend, CaptureSpeech, NullSpeech,
+    Speech, SpeechChannel, SpeechSink, VoiceFeatures, EVENT_BACKEND, REFRESH_INTERVAL_S,
 };
+use hearken::speech::SpokenMessage;
 
 const SPEAKING: VoiceFeatures = VoiceFeatures::SPEAKING;
 const ADJUSTABLE: VoiceFeatures = VoiceFeatures::ADJUSTABLE;
@@ -509,16 +508,60 @@ fn test_say_failure_with_no_live_voice_recovers_when_one_returns() {
     nvda.set_runtime_supported(true); // the screen reader is back
     s.poll(REFRESH_INTERVAL_S);
     assert_eq!(s.backend_name(), "NVDA");
+    assert!(nvda.spoken().is_empty()); // a switch is silent
+}
+
+/// ZDSR as Prism drives it: a screen reader with a braille call that fails
+/// when no display is attached.
+fn zdsr_without_display() -> (Speech, FakeVoice) {
+    let zdsr = FakeVoice::new("ZDSR", 101, VoiceFeatures::BRAILLING);
+    zdsr.set_fail_braille(true);
+    let sapi = FakeVoice::new("SAPI", 97, ADJUSTABLE);
+    let ctx = FakeRegistry::new(vec![zdsr.clone(), sapi]);
+    let speech = Speech::with_registry(Box::new(ctx), None);
+    assert_eq!(speech.backend_name(), "ZDSR");
+    (speech, zdsr)
+}
+
+#[test]
+fn a_failed_braille_call_does_not_drop_a_screen_reader_that_spoke() {
+    // AudioGames forum, 2026-10-10: with ZDSR and no braille display, every
+    // arrow key and every few idle seconds said "Speech is now using ZDSR."
+    // The braille half of each line failed after the speech half worked, so
+    // the line counted as a dead voice, was spoken again, and the health
+    // check rebound ZDSR and announced it.
+    let (mut s, zdsr) = zdsr_without_display();
+    s.say("Main menu", true);
+    s.say("Settings", true);
+    for _ in 0..3 {
+        s.poll(REFRESH_INTERVAL_S);
+    }
+    assert_eq!(s.backend_name(), "ZDSR");
     assert_eq!(
-        nvda.spoken(),
-        spoken(&[("Speech is now using NVDA.", false)])
+        zdsr.spoken(),
+        spoken(&[("Main menu", true), ("Settings", true)])
     );
+}
+
+#[test]
+fn rebinding_a_voice_that_dropped_out_is_silent() {
+    // A screen reader whose speech call reports failure is dropped and
+    // rebound by the health check; the rebind says nothing.
+    let (mut s, zdsr) = zdsr_without_display();
+    zdsr.set_fail_output(true);
+    s.say("Main menu", true);
+    zdsr.set_fail_output(false);
+    for _ in 0..3 {
+        s.poll(REFRESH_INTERVAL_S);
+    }
+    assert_eq!(s.backend_name(), "ZDSR");
+    assert!(zdsr.spoken().is_empty());
 }
 
 #[test]
 fn test_poll_returns_to_the_screen_reader_when_it_comes_back() {
     // The game fell back to SAPI while NVDA was closed; when NVDA reappears
-    // the periodic check must switch back and say so through the new voice.
+    // the periodic check must switch back, silently.
     let (mut s, nvda, sapi) = live_registry(false);
     s.set_main_backend(Some(sapi.boxed()));
     s.poll(REFRESH_INTERVAL_S);
@@ -526,10 +569,7 @@ fn test_poll_returns_to_the_screen_reader_when_it_comes_back() {
     nvda.set_runtime_supported(true);
     s.poll(REFRESH_INTERVAL_S);
     assert_eq!(s.backend_name(), "NVDA");
-    assert_eq!(
-        nvda.spoken(),
-        spoken(&[("Speech is now using NVDA.", false)])
-    );
+    assert!(nvda.spoken().is_empty());
 }
 
 #[test]
@@ -596,7 +636,7 @@ fn test_healthy_backend_is_kept_without_announcements() {
         s.poll(REFRESH_INTERVAL_S);
     }
     assert_eq!(s.backend_name(), "NVDA");
-    assert!(nvda.spoken().is_empty()); // no spurious "speech is now using" chatter
+    assert!(nvda.spoken().is_empty());
 }
 
 #[test]
@@ -604,7 +644,7 @@ fn test_poll_is_safe_without_prism() {
     let mut s = Speech::disabled(); // headless: no context at all
     s.poll(REFRESH_INTERVAL_S); // must not panic
     s.request_refresh();
-    assert!(!s.refresh(true));
+    assert!(!s.refresh());
     assert!(!s.available());
     assert_eq!(s.backend_name(), "none");
     assert_eq!(s.event_backend_name(), "none");
@@ -616,19 +656,14 @@ fn test_poll_is_safe_without_prism() {
 }
 
 #[test]
-fn narrator_route_is_announced_by_the_screen_readers_name() {
-    // The UIA backend is how the game reaches Narrator; players know the
-    // screen reader's name, not the plumbing's.
+fn narrator_route_is_picked_silently() {
     let uia = FakeVoice::new("UIA", 97, SPEAKING);
     let ctx = FakeRegistry::new(vec![uia.clone()]);
     let mut s = Speech::from_parts(Some(Box::new(ctx)), None, None);
     s.set_narrator_probe(narrator_on);
-    assert!(s.refresh(true));
+    assert!(s.refresh());
     assert_eq!(s.backend_name(), "UIA");
-    assert_eq!(
-        uia.spoken(),
-        spoken(&[("Speech is now using Narrator.", false)])
-    );
+    assert!(uia.spoken().is_empty());
 }
 
 #[test]
@@ -644,181 +679,6 @@ fn with_registry_runs_the_startup_selection() {
     let forced = Speech::with_registry(Box::new(ctx), Some("OneCore".to_string()));
     assert_eq!(forced.backend_name(), "OneCore");
     assert_eq!(forced.event_backend_name(), "SAPI");
-}
-
-// -- repick_backend_gated: the health check keeps the live backend -------------
-
-#[test]
-fn repick_keeps_the_current_backend_without_reacquiring_it() {
-    // The every-3-s health check used to acquire a fresh copy of the voice
-    // it already held: a rebuilt synthesizer (or, on iOS VoiceOver, a
-    // screen-changed notification) each time. Keep must cost no acquire.
-    let ctx = registry(true); // NVDA running and top-ranked
-    let current = ctx.voice("NVDA").unwrap().boxed();
-    let id = ctx.id_by_name("NVDA").unwrap();
-    ctx.reset_acquires();
-    let repick = repick_backend_gated(&ctx, None, narrator_off, Some((id, current.as_ref())));
-    assert!(matches!(repick, Repick::Keep), "got {repick:?}");
-    assert_eq!(ctx.acquire_count(), 0);
-}
-
-#[test]
-fn repick_keeps_when_the_display_name_differs_from_the_registry_name() {
-    // Prism's iOS VoiceOver registers as "VoiceOver" but answers
-    // "VoiceOver (iOS)" from name(). Matching the held voice by name never
-    // hit, so every refresh re-acquired and "switched" to it.
-    let voiceover = FakeVoice::new("VoiceOver", 103, SPEAKING);
-    voiceover.set_display_name("VoiceOver (iOS)");
-    let ctx = FakeRegistry::new(vec![voiceover.clone()]);
-    let current = voiceover.boxed();
-    assert_eq!(current.name(), "VoiceOver (iOS)");
-    let id = ctx.id_by_name("VoiceOver").unwrap();
-    ctx.reset_acquires();
-    let repick = repick_backend_gated(&ctx, None, narrator_off, Some((id, current.as_ref())));
-    assert!(matches!(repick, Repick::Keep), "got {repick:?}");
-    assert_eq!(ctx.acquire_count(), 0);
-}
-
-#[test]
-fn refresh_keeps_a_voice_whose_display_name_differs_from_its_registry_name() {
-    // The same mismatch through a whole Speech: several health checks in,
-    // the backend is still the held instance, nothing logged or announced.
-    let voiceover = FakeVoice::new("VoiceOver", 103, SPEAKING);
-    voiceover.set_display_name("VoiceOver (iOS)");
-    let ctx = FakeRegistry::new(vec![voiceover.clone()]);
-    let id = ctx.id_by_name("VoiceOver").unwrap();
-    let mut s = Speech::from_parts(Some(Box::new(ctx.clone())), None, None);
-    s.set_main_backend_with_id(Some(voiceover.boxed()), Some(id));
-    ctx.reset_acquires();
-    for _ in 0..3 {
-        s.poll(REFRESH_INTERVAL_S);
-    }
-    assert_eq!(s.backend_name(), "VoiceOver (iOS)");
-    assert!(
-        !voiceover
-            .spoken()
-            .iter()
-            .any(|(text, _)| text.contains("Speech is now using")),
-        "spoken: {:?}",
-        voiceover.spoken()
-    );
-}
-
-#[test]
-fn repick_switches_to_a_higher_priority_backend_that_started() {
-    // The game holds ONE_CORE because NVDA was not running; NVDA starts
-    // mid-session and the next check must hand speech to it.
-    let ctx = registry(false);
-    let current = ctx.voice("ONE_CORE").unwrap().boxed();
-    let current_id = ctx.id_by_name("ONE_CORE").unwrap();
-    ctx.voice("NVDA").unwrap().set_runtime_supported(true);
-    match repick_backend_gated(
-        &ctx,
-        None,
-        narrator_off,
-        Some((current_id, current.as_ref())),
-    ) {
-        Repick::Switch(_, backend) => assert_eq!(backend.name(), "NVDA"),
-        other => panic!("expected a switch to NVDA, got {other:?}"),
-    }
-}
-
-#[test]
-fn repick_moves_on_when_the_current_backend_dies() {
-    let nvda = FakeVoice::new("NVDA", 103, runtime(true));
-    let sapi = FakeVoice::new("SAPI", 97, SPEAKING);
-    let ctx = FakeRegistry::new(vec![nvda.clone(), sapi.clone()]);
-    let current = nvda.boxed();
-    let current_id = ctx.id_by_name("NVDA").unwrap();
-    nvda.set_runtime_supported(false);
-    match repick_backend_gated(
-        &ctx,
-        None,
-        narrator_off,
-        Some((current_id, current.as_ref())),
-    ) {
-        Repick::Switch(_, backend) => assert_eq!(backend.name(), "SAPI"),
-        other => panic!("expected a switch to SAPI, got {other:?}"),
-    }
-    sapi.set_runtime_supported(false);
-    assert!(matches!(
-        repick_backend_gated(
-            &ctx,
-            None,
-            narrator_off,
-            Some((current_id, current.as_ref()))
-        ),
-        Repick::Gone
-    ));
-}
-
-#[test]
-fn repick_keeps_when_the_override_names_the_current_backend() {
-    let ctx = registry(false);
-    let current = ctx.voice("SAPI").unwrap().boxed();
-    let current_id = ctx.id_by_name("SAPI").unwrap();
-    ctx.reset_acquires();
-    let repick = repick_backend_gated(
-        &ctx,
-        Some("SAPI"),
-        narrator_off,
-        Some((current_id, current.as_ref())),
-    );
-    assert!(matches!(repick, Repick::Keep), "got {repick:?}");
-    assert_eq!(ctx.acquire_count(), 0);
-}
-
-#[test]
-fn repick_does_not_keep_uia_when_narrator_is_off() {
-    // UIA's live check cannot tell Narrator apart from Windows itself, so a
-    // UIA keep would go on talking into notifications nobody reads aloud.
-    let uia = FakeVoice::new("UIA", 97, SPEAKING);
-    let ctx = FakeRegistry::new(vec![FakeVoice::new("OneCore", 98, SPEAKING), uia.clone()]);
-    let current = uia.boxed();
-    let current_id = ctx.id_by_name("UIA").unwrap();
-    match repick_backend_gated(
-        &ctx,
-        None,
-        narrator_off,
-        Some((current_id, current.as_ref())),
-    ) {
-        Repick::Switch(_, backend) => assert_eq!(backend.name(), "OneCore"),
-        other => panic!("expected a switch off UIA, got {other:?}"),
-    }
-}
-
-#[test]
-fn repick_behaves_like_pick_with_no_current_backend() {
-    let ctx = registry(false);
-    match repick_backend_gated(&ctx, None, narrator_off, None) {
-        Repick::Switch(_, backend) => assert_eq!(backend.name(), "ONE_CORE"),
-        other => panic!("expected a pick of ONE_CORE, got {other:?}"),
-    }
-    let silent = FakeRegistry::new(vec![FakeVoice::new("NVDA", 103, runtime(false))]);
-    assert!(matches!(
-        repick_backend_gated(&silent, None, narrator_off, None),
-        Repick::Gone
-    ));
-}
-
-#[test]
-fn refresh_does_not_retry_an_event_voice_the_registry_lacks() {
-    // An iOS-shaped registry: AVSpeech is the main voice, SAPI does not
-    // exist. The old refresh re-logged "Event speech backend SAPI not
-    // available" every 3 s forever; now the unresolvable preference is not
-    // retried. (Resolving the preference still walks the option list, which
-    // acquires the one backend; on Prism that is a registry-cached instance,
-    // so the refresh costs no rebuild.)
-    let av = FakeVoice::new("AVSpeech", 103, ADJUSTABLE);
-    let ctx = FakeRegistry::new(vec![av.clone()]);
-    let mut s = speech_on(&ctx, "AVSpeech");
-    s.select_event_backend(Some("SAPI")); // a Windows save's preference
-    assert_eq!(s.event_backend_name(), "none");
-    for _ in 0..3 {
-        s.poll(REFRESH_INTERVAL_S);
-    }
-    assert_eq!(s.backend_name(), "AVSpeech");
-    assert_eq!(s.event_backend_name(), "none");
 }
 
 // -- apply_speech_settings (GameContext.apply_speech) ---------------------------
@@ -942,7 +802,7 @@ fn capture_default_answers_like_the_headless_python_speech() {
     assert!(!capture.event_supports_rate());
     assert!(capture.event_backend_options().is_empty());
     assert!(capture.voice_names().is_empty());
-    assert!(!capture.refresh(true));
+    assert!(!capture.refresh());
     capture.select_event_backend(Some("SAPI"));
     assert!(!capture.has_separate_event_voice()); // nothing to bind headless
     assert_eq!(capture.event_backend_name(), "none");
@@ -1063,7 +923,7 @@ fn null_speech_swallows_everything() {
     assert_eq!(null.backend_name(), "none");
     assert!(!null.has_separate_event_voice());
     assert!(!null.say_adjustment_preview("speech_rate", "x", true));
-    assert!(!null.refresh(true));
+    assert!(!null.refresh());
     null.shutdown();
 }
 
@@ -1093,11 +953,11 @@ fn braille_only_puts_menu_lines_on_the_display_and_speaks_nothing() {
     assert_eq!(nvda.brailled(), vec!["Main menu".to_string()]);
     assert!(nvda.spoken().is_empty());
 
-    // Off again: back to speech plus braille through `output`.
+    // Off again: back to speech plus braille.
     speech.set_braille_only(false);
     speech.say("Back", true);
     assert_eq!(nvda.spoken(), spoken(&[("Back", true)]));
-    assert_eq!(nvda.brailled().len(), 1);
+    assert_eq!(nvda.brailled().len(), 2);
 }
 
 #[test]
@@ -1167,13 +1027,8 @@ fn braille_only_survives_a_voice_switch_and_returns_with_the_screen_reader() {
     speech.poll(REFRESH_INTERVAL_S);
     assert_eq!(speech.backend_name(), "NVDA");
     assert!(speech.supports_braille());
-    // The "Speech is now using NVDA." switch notice went to the display too.
-    assert_eq!(
-        nvda.brailled(),
-        vec!["Speech is now using NVDA.".to_string()]
-    );
     speech.say("Route planner", true);
-    assert_eq!(nvda.brailled().len(), 2);
+    assert_eq!(nvda.brailled(), vec!["Route planner".to_string()]);
     assert!(nvda.spoken().is_empty());
 }
 
@@ -1193,4 +1048,12 @@ fn apply_speech_settings_pushes_braille_only() {
     apply_speech_settings(&mut speech, &mut settings);
     speech.say("Main menu", true);
     assert_eq!(nvda.spoken(), spoken(&[("Main menu", true)]));
+}
+
+#[test]
+fn the_speech_environment_keeps_the_game_variable_names() {
+    let env = freight_fate::speech::env();
+    assert_eq!(env.no_speech, freight_fate::speech::NO_SPEECH_ENV);
+    assert_eq!(env.backend, freight_fate::speech::SPEECH_BACKEND_ENV);
+    assert_eq!(env.stream_transcript, "FREIGHT_FATE_STREAM_TRANSCRIPT");
 }

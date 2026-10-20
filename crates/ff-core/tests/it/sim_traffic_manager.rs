@@ -296,6 +296,35 @@ fn test_yielding_ramp_traffic_does_not_block_a_lane_change_to_the_right() {
 }
 
 #[test]
+fn test_a_ramp_vehicle_up_to_road_speed_still_joins_the_lane() {
+    // Relabelled cruising once it reached road speed, a vehicle still on the
+    // ramp used to stay there for good, beside the right lane and never in
+    // it.
+    let mut manager = manager(1);
+    manager.sync_environment(55.0, weather("great_lakes", 1).effects());
+    manager.vehicles = vec![v("merge", 0.0, 55.0, 1, "cruising", "car").with_lane(-1)];
+
+    manager.update(0.0, 0.5, 20.0, None, None);
+
+    assert_eq!(manager.vehicles[0].lane, 0);
+}
+
+#[test]
+fn test_slow_lead_is_called_only_once_it_can_be_heard() {
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("slow", 1.5, 41.0, 0, "following", "box truck")];
+    assert!(
+        manager.next_situation(0.0, 45.0).is_none(),
+        "a slow lead a mile and a half out is out of earshot, so it is not called yet"
+    );
+    let situation = manager
+        .next_situation(1.1, 45.0)
+        .expect("called once it is within half a mile");
+    assert_eq!(situation.kind, "following");
+    assert!(situation.message.normal.starts_with("Slow box truck"));
+}
+
+#[test]
 fn test_braking_vehicle_slows_and_creates_lead_situation() {
     let mut manager = manager(1);
     // The congestion it is braking for. The fixture used to name none, which
@@ -360,7 +389,7 @@ fn test_braking_vehicle_in_a_zone_paces_the_zone_speed() {
 #[test]
 fn test_next_situation_only_announces_vehicle_once() {
     let mut manager = manager(1);
-    manager.vehicles = vec![v("lead", 0.7, 42.0, 0, "following", "semi")];
+    manager.vehicles = vec![v("lead", 0.4, 42.0, 0, "following", "semi")];
     let first = manager.next_situation(0.0, 55.0);
     let second = manager.next_situation(0.0, 55.0);
     assert_eq!(first.expect("a situation").kind, "following");
@@ -370,7 +399,7 @@ fn test_next_situation_only_announces_vehicle_once() {
 #[test]
 fn test_next_situation_speaks_speed_units() {
     let mut manager = manager(1);
-    manager.vehicles = vec![v("lead", 0.7, 42.0, 0, "following", "semi")];
+    manager.vehicles = vec![v("lead", 0.4, 42.0, 0, "following", "semi")];
     let situation = manager.next_situation(0.0, 55.0).expect("a situation");
     assert!(situation.message.normal.contains("42 miles per hour"));
 }

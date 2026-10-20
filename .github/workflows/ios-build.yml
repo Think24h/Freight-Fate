@@ -7,8 +7,11 @@
 # Rust workflow builds for Windows and the nightly for desktops only.
 #
 # This is a compile check, not a release. It runs the same `cargo build` that
-# `tools/build_ios.py` does, and stops there: no BASS download, no app bundle,
-# no signing, no secrets, no artifacts.
+# `tools/build_ios.py` does, and stops there: no app bundle, no signing, no
+# artifacts, and no secrets.
+#
+# GitHub's hosted macos-26: this repository is public, so those minutes are
+# free, and the iOS SDK is the image's own Xcode.
 #
 # Not a required check. It is path filtered, and a required check that is
 # path filtered waits forever on a PR that skips it (see rust.yml).
@@ -94,7 +97,7 @@ jobs:
         run: |
           touch "$RUNNER_TEMP/ios-build-stamp"
           touch crates/freight-fate/ios/ff_touch.m
-          cargo build -p freight-fate --no-default-features --locked --target ${{ matrix.target }}
+          cargo build -p freight-fate --no-default-features --features visuals --locked --target ${{ matrix.target }}
 
       - name: Check ff_touch.m was compiled for ${{ matrix.target }}
         # Fails the job unless this run compiled ff_touch.m into an object

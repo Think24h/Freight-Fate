@@ -215,6 +215,10 @@ impl DrivingState {
             json!(self.trip.truck.preventable_damage_pct),
         );
         out.insert(
+            "equipment_event_logged".to_string(),
+            json!(self.equipment_event_logged),
+        );
+        out.insert(
             "cargo_damage_pct".to_string(),
             json!(self.trip.truck.cargo_damage_pct),
         );
@@ -250,6 +254,29 @@ impl DrivingState {
         );
         out.insert("engine_on".to_string(), json!(self.trip.truck.engine_on));
         out.insert("chains_on".to_string(), json!(self.trip.truck.chains_on));
+        out.insert(
+            "chain_checkpoint_hold".to_string(),
+            json!(self.chain_checkpoint_hold),
+        );
+        // [area, level] pairs; absent on older saves, which re-roll the same
+        // seeded staffing and find nothing cited.
+        let mut cited: Vec<(i64, i64)> = self.chain_law_cited.iter().copied().collect();
+        cited.sort_unstable();
+        out.insert("chain_law_cited".to_string(), json!(cited));
+        let mut written_up: Vec<&String> = self.written_up.iter().collect();
+        written_up.sort_unstable();
+        out.insert("written_up".to_string(), json!(written_up));
+        let mut staffed: Vec<(i64, i64, bool)> = self
+            .chain_checkpoint_staffed
+            .iter()
+            .map(|(&(area, level), &on)| (area, level, on))
+            .collect();
+        staffed.sort_unstable();
+        out.insert("chain_checkpoint_staffed".to_string(), json!(staffed));
+        out.insert(
+            "chain_wear_pct".to_string(),
+            json!(self.trip.truck.chain_wear_pct),
+        );
         out.insert("hos".to_string(), json!(hos_of(ctx).to_dict()));
         out.insert("fatigue".to_string(), json!(profile_of(ctx).fatigue));
         out.insert("hos_fine_count".to_string(), json!(self.hos_fine_count));
@@ -286,6 +313,10 @@ impl DrivingState {
         out.insert("surface_chain".to_string(), json!(self.surface_chain));
         out.insert("departure_chain".to_string(), json!(self.departure_chain));
         out.insert(
+            "facility_streets".to_string(),
+            json!(self.facility_streets_on),
+        );
+        out.insert(
             "planned_stop_key".to_string(),
             json!(self.trip.planned_stop_key),
         );
@@ -306,6 +337,9 @@ impl DrivingState {
                 Value::String(planned_stop_label)
             },
         );
+        if let Some(team) = &self.team {
+            out.insert("team".to_string(), team.snapshot(ctx));
+        }
         Value::Object(out)
     }
 
@@ -319,13 +353,19 @@ impl DrivingState {
         } else {
             DRIVE_PHASE_DELIVERY
         };
+        // The Facility streets setting the drive started under; a save from
+        // before the setting was driven on the streets.
+        let facility_streets = b(data, "facility_streets", true);
         let route = if phase == DRIVE_PHASE_PICKUP {
             let origin = job_payload_data.get("origin").and_then(Value::as_str)?;
             let location = job_payload_data
                 .get("origin_location")
                 .and_then(Value::as_str)
                 .unwrap_or_default();
-            let approach = ctx.world.facility_approach_route(origin, location).ok();
+            let approach = ctx
+                .world
+                .facility_approach_route_with(origin, location, facility_streets)
+                .ok();
             if s(data, "route_kind") == "deadhead_approach" {
                 // A relayed load: the corridor the save names, then the
                 // shipper's approach rebuilt fresh, joined as it was driven.
@@ -410,6 +450,7 @@ impl DrivingState {
             profile_mut_of(ctx).sync_calendar_hour_to(local_start);
         }
         state.resumed = true;
+        state.facility_streets_on = facility_streets;
         state.start_damage = f(data, "start_damage", state.start_damage);
         // A save from before the damage bands carries neither key: derive
         // the announced band from the damage it does carry, so a resumed
@@ -420,6 +461,7 @@ impl DrivingState {
         state.out_of_service_creep_s = f(data, "out_of_service_creep_s", 0.0);
         state.worst_damage_band = i(data, "worst_damage_band", state.damage_band as i64) as i32;
         state.trip.truck.preventable_damage_pct = f(data, "preventable_damage_pct", 0.0);
+        state.equipment_event_logged = b(data, "equipment_event_logged", false);
         state.trip.truck.cargo_damage_pct = f(data, "cargo_damage_pct", 0.0);
         state.cargo_cue_at = f(data, "cargo_cue_at", 0.0);
         state.cargo_coaching_said = b(data, "cargo_coaching_said", false);
@@ -435,6 +477,32 @@ impl DrivingState {
             .unwrap_or_else(|| state.maintenance_wear_levels());
         // Chains stay on the drives across a save; absent on older saves.
         state.trip.truck.chains_on = b(data, "chains_on", false);
+        state.chain_checkpoint_hold = b(data, "chain_checkpoint_hold", false);
+        state.chain_law_cited = data
+            .get("chain_law_cited")
+            .and_then(|v| serde_json::from_value::<Vec<(i64, i64)>>(v.clone()).ok())
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
+        // Absent on older saves: nothing written up yet.
+        state.written_up = data
+            .get("written_up")
+            .and_then(|v| serde_json::from_value::<Vec<String>>(v.clone()).ok())
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
+        state.chain_checkpoint_staffed = data
+            .get("chain_checkpoint_staffed")
+            .and_then(|v| serde_json::from_value::<Vec<(i64, i64, bool)>>(v.clone()).ok())
+            .unwrap_or_default()
+            .into_iter()
+            .map(|(area, level, on)| ((area, level), on))
+            .collect();
+        // The chain meter rides with the drive: the profile only catches up
+        // at a stop, so a set that snapped (or wore) since then came back as
+        // it was at the last stop. An older save keeps the profile's value.
+        state.trip.truck.chain_wear_pct =
+            f(data, "chain_wear_pct", state.trip.truck.chain_wear_pct);
         state.trailer_refused = b(data, "trailer_refused", false);
         state.trailer_repaired = b(data, "trailer_repaired", false);
         state.rig_buffs = data
@@ -449,6 +517,11 @@ impl DrivingState {
             .and_then(|value| serde_json::from_value(value).ok())
             .unwrap_or_default();
         state.drove_automatic = b(data, "drove_automatic", false);
+        // A team load resumes with the player at the wheel.
+        state.team = data
+            .get("team")
+            .and_then(Value::as_object)
+            .and_then(|team| crate::states::driving_team::TeamDrive::from_snapshot(ctx, team));
         // "speeding_strikes" was a required snapshot field until the silent
         // at-delivery speeding charge was removed. Snapshots written before
         // that still carry it; the key is simply no longer consulted.
