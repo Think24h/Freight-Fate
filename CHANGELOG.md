@@ -12,7 +12,7 @@
 - **A Visual display setting turns the window's drawing off to save battery.** It is under Settings, Gameplay, Controls; speech and sound stay the same.
 - **A co-driver can take the wheel on long loads.** Pause to ride along or sleep through their shift; their miles pay you less and earn half the experience.
 - **A co-driver can drive you out of the shipper.** On long loads the pickup menu offers it, with the pay terms in the row's help.
-- **Some long loads are now team loads.** They pay more, with no time for a 10-hour break; a co-driver shares the wheel.
+- **Some long loads are now team loads.** They pay more and plan no 10-hour sleep; near the end of your hours, the co-driver takes the wheel.
 - **A co-driver hands back once your 10-hour rest is in.** Press C to hear your rest so far and when they hand back.
 - **Team driving is explained the first time a load can be shared.** Job details say when a co-driver is offered.
 - **Career stats lists the co-drivers you have teamed with.** Open Co-drivers there for each one's loads with you and their story.

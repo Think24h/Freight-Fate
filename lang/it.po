@@ -18426,6 +18426,12 @@ msgstr ""
 "meteo e restrizioni."
 
 #. placeholders: {hours}
+msgid ""
+"Trip hours: about {hours} driving hours, with the co-driver taking turns "
+"instead of 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {hours}
 msgid "Trip hours: about {hours} driving hours."
 msgstr "Ore del viaggio: circa {hours} {hours:ora|ore} di guida."
 
@@ -23009,6 +23015,10 @@ msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
 msgstr ""
 "I gesti si possono spostare in Impostazioni, Gioco, Comandi, Gesti touch."
+
+#. placeholders: {name}
+msgid "{name} can take the wheel from the pause menu."
+msgstr ""
 
 msgid "for the corner"
 msgstr "per l'angolo"

@@ -102,9 +102,14 @@ pub fn pickup_snapshot(job: &Job, opts: &PickupSnapshotOptions) -> Map<String, V
 }
 
 /// `clock` is the driver's hours now, when hours of service are enforced:
-/// mid-shift, a fresh clock left out the sleep the law would force.
-pub fn route_planning_summary(route: &Route, clock: Option<&HosClock>) -> String {
-    let plan = plan_hos(route.miles(), Some(route), None, clock);
+/// mid-shift, a fresh clock left out the sleep the law would force. A team
+/// load (`team`) changes drivers where a solo driver sleeps, so its plan
+/// names no sleep.
+pub fn route_planning_summary(route: &Route, clock: Option<&HosClock>, team: bool) -> String {
+    let mut plan = plan_hos(route.miles(), Some(route), None, clock);
+    if team {
+        plan.sleeps = 0;
+    }
     let hos_summary = plan.summary();
     let usable = route.accessible_stop_details(false);
     let fuel_stops = usable
@@ -1411,7 +1416,7 @@ impl Menu for RouteSelectState {
                 i + 1,
                 route.describe(&ctx.settings.distance_text(route.miles(), false)),
                 Self::via_text(ctx, route),
-                route_planning_summary(route, clock.as_ref())
+                route_planning_summary(route, clock.as_ref(), self.job.team)
             );
             let mut vias = Self::vias(ctx, route);
             if vias.is_empty() {

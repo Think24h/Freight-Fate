@@ -18379,6 +18379,12 @@ msgstr ""
 "peajes, tiempo y restricciones."
 
 #. placeholders: {hours}
+msgid ""
+"Trip hours: about {hours} driving hours, with the co-driver taking turns "
+"instead of 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {hours}
 msgid "Trip hours: about {hours} driving hours."
 msgstr "Horas del viaje: unas {hours} horas de conducción."
 
@@ -22951,6 +22957,10 @@ msgid ""
 msgstr ""
 "Los gestos se pueden cambiar en Ajustes, Jugabilidad, Controles, Gestos "
 "táctiles."
+
+#. placeholders: {name}
+msgid "{name} can take the wheel from the pause menu."
+msgstr ""
 
 msgid "for the corner"
 msgstr "por la esquina"

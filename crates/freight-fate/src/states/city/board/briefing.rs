@@ -45,6 +45,13 @@ pub(super) fn hours_lines(ctx: &GameContext, job: &Job) -> Vec<String> {
     let hours = fmt_f(pickup_h + plan.drive_h, 1);
     let sleeps = plan.sleeps;
     let trip = match (sleeps, plan.breaks) {
+        // A team load's deadline has the drivers changing over where a solo
+        // driver would sleep: naming the sleeps planned a run the deadline
+        // cannot fit (player report, 2026-10-20).
+        (1.., _) if job.team => format!(
+            "Trip hours: about {hours} driving hours, with the co-driver taking turns instead of \
+             10-hour sleeps."
+        ),
         (0, 0) => format!("Trip hours: about {hours} driving hours."),
         (0, _) => format!("Trip hours: about {hours} driving hours, with a 30-minute break."),
         (1, _) => format!("Trip hours: about {hours} driving hours, with a 10-hour sleep."),

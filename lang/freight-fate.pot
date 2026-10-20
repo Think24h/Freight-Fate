@@ -20358,6 +20358,13 @@ msgstr ""
 
 #. placeholders: {hours}
 #: crates/freight-fate/src/states/city/board/briefing.rs
+msgid ""
+"Trip hours: about {hours} driving hours, with the co-driver taking turns "
+"instead of 10-hour sleeps."
+msgstr ""
+
+#. placeholders: {hours}
+#: crates/freight-fate/src/states/city/board/briefing.rs
 msgid "Trip hours: about {hours} driving hours."
 msgstr ""
 
@@ -25272,6 +25279,11 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_controls/hos_stops.rs
+msgid "{name} can take the wheel from the pause menu."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/info.rs
