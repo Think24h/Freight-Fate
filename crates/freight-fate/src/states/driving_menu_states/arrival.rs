@@ -1106,6 +1106,9 @@ impl ArrivalState {
     fn copy_summary(&mut self, ctx: &mut GameContext) {
         let mut parts = vec![format!("Freight Fate: {}.", self.menu.title)];
         parts.extend(self.summary_lines.clone());
+        // A blank line, then the hashtag, the way a social post ends.
+        parts.push(String::new());
+        parts.push("#FreightFateRuns".to_string());
         let text = parts.join("\n");
         if ctx.write_clipboard_text(&text) {
             ctx.audio.play("ui/menu_select");
