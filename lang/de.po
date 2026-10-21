@@ -23432,10 +23432,6 @@ msgstr "Die Spur {name} endet an der Baustelle voraus."
 msgid "The {name} lane is closed here."
 msgstr "Die Spur {name} ist hier gesperrt."
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Spur {name} belegt durch einen {vehicle}."
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Wechsel auf die Spur {lane_label}."
@@ -27405,6 +27401,10 @@ msgstr "Du bleibst auf der mittleren Spur."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Spur {name} wegen Baustelle gesperrt."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Spur {name} belegt durch einen {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Die Ladung schwappt seitlich. Nimm Gas weg."

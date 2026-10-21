@@ -23333,10 +23333,6 @@ msgstr "El carril {name} se cierra en la zona de obras de delante."
 msgid "The {name} lane is closed here."
 msgstr "El carril {name} está cerrado aquí."
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Carril de la {name} ocupado por un {vehicle}."
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Cambiando al carril {lane_label}."
@@ -27302,6 +27298,10 @@ msgstr "Sigues en el carril central."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Carril de la {name} cerrado por obras."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Carril de la {name} ocupado por un {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "La carga se va de lado. Afloja."

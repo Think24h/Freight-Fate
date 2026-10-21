@@ -20662,10 +20662,6 @@ msgstr "{name}车道在前方施工区封闭。"
 msgid "The {name} lane is closed here."
 msgstr "{name}车道在这里封闭。"
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "{name}车道被一辆{vehicle}挡住了。"
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "正在换到{lane_label}车道。"
@@ -24318,6 +24314,10 @@ msgstr "留在中间车道。"
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name}车道因施工封闭。"
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "{name}车道被一辆{vehicle}挡住了。"
 
 msgid "Load running sideways. Ease off."
 msgstr "货物在横向晃。收油。"

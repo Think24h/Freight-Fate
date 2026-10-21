@@ -20890,10 +20890,6 @@ msgstr "{name}車線は、この先の工事区間で閉鎖されます。"
 msgid "The {name} lane is closed here."
 msgstr "{name}車線はここで閉鎖されています。"
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "{name}の車線は{vehicle}でふさがっています。"
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "{lane_label}車線に移ります。"
@@ -24576,6 +24572,10 @@ msgstr "中央の車線を走り続けます。"
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name}の車線は工事で閉鎖されています。"
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "{name}の車線は{vehicle}でふさがっています。"
 
 msgid "Load running sideways. Ease off."
 msgstr "積荷が横に揺れています。アクセルを緩めてください。"

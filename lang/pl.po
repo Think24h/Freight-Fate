@@ -23235,10 +23235,6 @@ msgstr "{name} pas kończy się w strefie robót przed tobą."
 msgid "The {name} lane is closed here."
 msgstr "{name} pas jest tu zamknięty."
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "{name} pas zablokowany, {vehicle}."
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Zmiana na {lane_label} pas."
@@ -27243,6 +27239,10 @@ msgstr "Zostajesz na środkowym pasie."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name} pas zamknięty z powodu robót."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "{name} pas zablokowany, {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Ładunek przelewa się na bok. Zwolnij."

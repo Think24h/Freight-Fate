@@ -23251,10 +23251,6 @@ msgstr "A faixa {name} fecha na zona de obras à frente."
 msgid "The {name} lane is closed here."
 msgstr "A faixa {name} está fechada aqui."
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Faixa da {name} bloqueada por um {vehicle}."
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Mudando para a faixa {lane_label}."
@@ -27202,6 +27198,10 @@ msgstr "Mantendo a faixa do meio."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Faixa da {name} fechada por obras."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Faixa da {name} bloqueada por um {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Carga jogando para o lado. Alivie."

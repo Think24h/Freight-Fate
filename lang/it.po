@@ -23389,10 +23389,6 @@ msgstr "La corsia {name} si chiude al cantiere più avanti."
 msgid "The {name} lane is closed here."
 msgstr "La corsia {name} qui è chiusa."
 
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Corsia {name} bloccata da un {vehicle}."
-
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Passaggio alla corsia {lane_label}."
@@ -27360,6 +27356,10 @@ msgstr "Resti nella corsia centrale."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Corsia {name} chiusa per lavori."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Corsia {name} bloccata da un {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Il carico si sposta di lato. Rallenta."

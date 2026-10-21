@@ -14506,7 +14506,7 @@ msgstr ""
 msgid "traffic ahead"
 msgstr ""
 
-#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_lane_gap.rs
+#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "vehicle"
 msgstr ""
 
@@ -25739,11 +25739,6 @@ msgstr ""
 msgid "The {name} lane is closed here."
 msgstr ""
 
-#. placeholders: {name}, {vehicle}
-#: crates/freight-fate/src/states/driving_controls/keys.rs crates/freight-fate/src/states/driving_lane_gap.rs
-msgid "{name} lane blocked by a {vehicle}."
-msgstr ""
-
 #. placeholders: {lane_label}
 #: crates/freight-fate/src/states/driving_controls/keys.rs
 msgid "Changing to the {lane_label} lane."
@@ -30236,6 +30231,11 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "{name} lane closed for construction."
+msgstr ""
+
+#. placeholders: {name}, {vehicle}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{name} lane blocked by a {vehicle}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_liquid.rs
