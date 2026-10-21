@@ -9494,9 +9494,18 @@ msgstr "Historial: CDL {verb}, quedan {left}. Se resuelve {clears_text}."
 msgid "Record: clean."
 msgstr "Historial: limpio."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{count_word} {noun} en el último año"
+msgid "safety incident"
+msgstr "incidente de seguridad"
+
+msgid "safety incidents"
+msgstr "incidentes de seguridad"
+
+msgid "crashes"
+msgstr "accidentes"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} y {last}"
 
 msgid "major offense"
 msgstr "delito de tráfico"
@@ -9926,10 +9935,6 @@ msgstr "CDL estándar"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "la {endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} y {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -23328,6 +23333,10 @@ msgstr "El carril {name} se cierra en la zona de obras de delante."
 msgid "The {name} lane is closed here."
 msgstr "El carril {name} está cerrado aquí."
 
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Carril de la {name} ocupado por un {vehicle}."
+
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Cambiando al carril {lane_label}."
@@ -27293,10 +27302,6 @@ msgstr "Sigues en el carril central."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Carril de la {name} cerrado por obras."
-
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Carril de la {name} ocupado por un {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "La carga se va de lado. Afloja."
@@ -39773,9 +39778,6 @@ msgstr "orden de fuera de servicio"
 msgid "out-of-service orders"
 msgstr "órdenes de fuera de servicio"
 
-msgid "crashes"
-msgstr "accidentes"
-
 msgid "cargo claim"
 msgstr "reclamación de carga"
 
@@ -41732,6 +41734,9 @@ msgstr "cierra paréntesis"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{count_word} {noun} en el último año"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

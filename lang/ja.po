@@ -8176,9 +8176,18 @@ msgstr "記録：CDL{verb}、残り{left}。解除は{clears_text}です。"
 msgid "Record: clean."
 msgstr "記録：問題なし。"
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "過去1年間に{noun}{count_word}件"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "事故"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join}と{last}"
 
 msgid "major offense"
 msgstr "一発取消違反"
@@ -8594,10 +8603,6 @@ msgstr "標準のCDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join}と{last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -20885,6 +20890,10 @@ msgstr "{name}車線は、この先の工事区間で閉鎖されます。"
 msgid "The {name} lane is closed here."
 msgstr "{name}車線はここで閉鎖されています。"
 
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "{name}の車線は{vehicle}でふさがっています。"
+
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "{lane_label}車線に移ります。"
@@ -24567,10 +24576,6 @@ msgstr "中央の車線を走り続けます。"
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name}の車線は工事で閉鎖されています。"
-
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "{name}の車線は{vehicle}でふさがっています。"
 
 msgid "Load running sideways. Ease off."
 msgstr "積荷が横に揺れています。アクセルを緩めてください。"
@@ -35598,9 +35603,6 @@ msgstr "走行禁止命令"
 msgid "out-of-service orders"
 msgstr "走行禁止命令"
 
-msgid "crashes"
-msgstr "事故"
-
 msgid "cargo claim"
 msgstr "積荷の損害賠償請求"
 
@@ -37449,6 +37451,9 @@ msgstr "右かっこ"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大文字の{ch}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "過去1年間に{noun}{count_word}件"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

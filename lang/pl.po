@@ -9350,9 +9350,18 @@ msgstr ""
 msgid "Record: clean."
 msgstr "Kartoteka: czysta."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{noun} w ostatnim roku: {count_word}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "wypadki"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} i {last}"
 
 msgid "major offense"
 msgstr "rażące naruszenie"
@@ -9784,10 +9793,6 @@ msgstr "standardowe CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} i {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -23230,6 +23235,10 @@ msgstr "{name} pas kończy się w strefie robót przed tobą."
 msgid "The {name} lane is closed here."
 msgstr "{name} pas jest tu zamknięty."
 
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "{name} pas zablokowany, {vehicle}."
+
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Zmiana na {lane_label} pas."
@@ -27234,10 +27243,6 @@ msgstr "Zostajesz na środkowym pasie."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name} pas zamknięty z powodu robót."
-
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "{name} pas zablokowany, {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Ładunek przelewa się na bok. Zwolnij."
@@ -39652,9 +39657,6 @@ msgstr "nakaz unieruchomienia"
 msgid "out-of-service orders"
 msgstr "nakazy unieruchomienia"
 
-msgid "crashes"
-msgstr "wypadki"
-
 msgid "cargo claim"
 msgstr "reklamacja ładunku"
 
@@ -41629,6 +41631,9 @@ msgstr "prawy nawias"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "wielkie {ch}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{noun} w ostatnim roku: {count_word}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

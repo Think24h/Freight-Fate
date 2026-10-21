@@ -209,6 +209,9 @@
 
 ### Fixed
 
+- **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
+- **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
+- **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
 - **Resuming a saved trip no longer plays several police sirens at once.** Troopers you passed before saving stay quiet.
 - **A co-driver short of hours now parks before handing back when you have none left.** They stop at the last lot in reach, so you can finish your rest there.
 - **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.

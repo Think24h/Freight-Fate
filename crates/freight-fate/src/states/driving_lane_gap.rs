@@ -545,19 +545,26 @@ impl DrivingState {
                 parts.push(format!("{name} lane closed for construction."));
                 continue;
             }
-            match self.lane_gap_blocker(neighbour) {
+            match self.lane_blocked_text(neighbour) {
                 None => parts.push(format!("{name} lane open.")),
-                Some(blocker) => {
-                    let vehicle = if blocker.vehicle_class.is_empty() {
-                        "vehicle".to_string()
-                    } else {
-                        blocker.vehicle_class.clone()
-                    };
-                    parts.push(format!("{name} lane blocked by a {vehicle}."));
-                }
+                Some(blocked) => parts.push(blocked),
             }
         }
         parts.join(" ")
+    }
+
+    /// "Right lane blocked by a state trooper.", or None while that lane
+    /// is open: the L key's reading, and the answer to a lane change on
+    /// full lane keeping that has to wait.
+    pub fn lane_blocked_text(&self, lane_index: i64) -> Option<String> {
+        let blocker = self.lane_gap_blocker(lane_index)?;
+        let name = capitalize(lane_label(lane_index, self.lane.lane_count));
+        let vehicle = if blocker.vehicle_class.is_empty() {
+            "vehicle".to_string()
+        } else {
+            blocker.vehicle_class
+        };
+        Some(format!("{name} lane blocked by a {vehicle}."))
     }
 }
 

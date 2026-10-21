@@ -9438,9 +9438,18 @@ msgstr "Histórico: CDL {verb}, faltam {left}. Libera {clears_text}."
 msgid "Record: clean."
 msgstr "Histórico: limpo."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{count_word} {noun} no último ano"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "acidentes"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} e {last}"
 
 msgid "major offense"
 msgstr "infração gravíssima"
@@ -9872,10 +9881,6 @@ msgstr "CDL padrão"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "o {endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} e {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -23246,6 +23251,10 @@ msgstr "A faixa {name} fecha na zona de obras à frente."
 msgid "The {name} lane is closed here."
 msgstr "A faixa {name} está fechada aqui."
 
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Faixa da {name} bloqueada por um {vehicle}."
+
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Mudando para a faixa {lane_label}."
@@ -27193,10 +27202,6 @@ msgstr "Mantendo a faixa do meio."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Faixa da {name} fechada por obras."
-
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Faixa da {name} bloqueada por um {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Carga jogando para o lado. Alivie."
@@ -39549,9 +39554,6 @@ msgstr "ordem de impedimento de rodar"
 msgid "out-of-service orders"
 msgstr "ordens de impedimento de rodar"
 
-msgid "crashes"
-msgstr "acidentes"
-
 msgid "cargo claim"
 msgstr "reclamação de carga"
 
@@ -41525,6 +41527,9 @@ msgstr "fecha parêntese"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "{ch} maiúsculo"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{count_word} {noun} no último ano"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

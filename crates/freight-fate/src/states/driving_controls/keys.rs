@@ -332,6 +332,15 @@ impl DrivingState {
             }
             return;
         }
+        // Lane keeping on full makes the move, so it checks the lane first,
+        // the same reading the L key gives. A tap back right while lane
+        // keeping was still passing a trooper put the truck into its side
+        // (issue #356); the move waits for the lane to open instead.
+        if let Some(blocked) = self.lane_blocked_text(target) {
+            ctx.audio.play("ui/error");
+            ctx.say(&blocked);
+            return;
+        }
         self.lane_change_target = Some(target);
         self.pass_returning = false; // the driver's own move now
         self.keeping_lane_change = false;

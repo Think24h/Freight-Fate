@@ -9547,9 +9547,18 @@ msgstr "Akte: CDL {verb}, noch {left}. Die Sperre endet {clears_text}."
 msgid "Record: clean."
 msgstr "Akte: sauber."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{noun} im letzten Jahr: {count_word}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "Unfälle"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} und {last}"
 
 msgid "major offense"
 msgstr "Straftat"
@@ -9986,10 +9995,6 @@ msgstr "Standard-CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "die {endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} und {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -23427,6 +23432,10 @@ msgstr "Die Spur {name} endet an der Baustelle voraus."
 msgid "The {name} lane is closed here."
 msgstr "Die Spur {name} ist hier gesperrt."
 
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by a {vehicle}."
+msgstr "Spur {name} belegt durch einen {vehicle}."
+
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
 msgstr "Wechsel auf die Spur {lane_label}."
@@ -27396,10 +27405,6 @@ msgstr "Du bleibst auf der mittleren Spur."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Spur {name} wegen Baustelle gesperrt."
-
-#. placeholders: {name}, {vehicle}
-msgid "{name} lane blocked by a {vehicle}."
-msgstr "Spur {name} belegt durch einen {vehicle}."
 
 msgid "Load running sideways. Ease off."
 msgstr "Die Ladung schwappt seitlich. Nimm Gas weg."
@@ -39867,9 +39872,6 @@ msgstr "Stilllegungsanordnung"
 msgid "out-of-service orders"
 msgstr "Stilllegungsanordnungen"
 
-msgid "crashes"
-msgstr "Unfälle"
-
 msgid "cargo claim"
 msgstr "Ladungsschaden"
 
@@ -41855,6 +41857,9 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{noun} im letzten Jahr: {count_word}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
