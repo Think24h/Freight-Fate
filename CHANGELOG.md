@@ -98,6 +98,7 @@
 
 - **A copied delivery summary now ends with #FreightFateRuns.**
 - **The radio's right door speaker plays louder and sooner through the cab speakers.** The radio now sounds nearly centered, leaning only a little toward the driver.
+- **The one-mile call for your exit now gives the exit speed.** You still brake to it in the exit lane.
 - **From Bossa to Blues now plays in the menus from level 9 on,** alongside Million Mile Morning. It still plays on the road too.
 - **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
 - **The game window draws only when it changes,** so it uses less power.

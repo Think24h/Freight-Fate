@@ -568,6 +568,17 @@ impl DrivingState {
         // last word before the loop-back (agent drive into Payson,
         // 2026-09-19). See `exit_signal_instruction`.
         let mut owed = String::new();
+        // The ramp's speed, once, at the mile: the ramp line names it only
+        // after the gore, too late to plan the slowdown, and a driver who
+        // guessed 20 for every ramp or rolled on the one posted 20 had no
+        // other way to know (player report, 2026-10-20). The same number the
+        // ramp line speaks, so the two never disagree. Checked against every
+        // anchor crossed this frame: a compressed frame that jumps from two
+        // miles to half a mile still says it.
+        if crossed.contains(&1.0) {
+            let mph = self.spoken_exit_mph(self.armed_ramp_mph(Some(stop)));
+            owed.push_str(&format!(" Exit speed {}.", ctx.settings.speed_value(mph)));
+        }
         if ctx.settings.lane_is_manual() && !self.exit_signal_on {
             owed.push(' ');
             owed.push_str(&self.exit_signal_instruction());

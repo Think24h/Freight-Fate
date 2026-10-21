@@ -26256,6 +26256,10 @@ msgstr "Zjazd docelowy"
 msgid "Exit for {name}"
 msgstr "Zjazd do {name}"
 
+#. placeholders: {speed_value}
+msgid " Exit speed {speed_value}."
+msgstr " Prędkość na zjeździe {speed_value}."
+
 msgid " Traffic is tight."
 msgstr " Ruch jest gęsty."
 

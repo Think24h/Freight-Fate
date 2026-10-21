@@ -26220,6 +26220,10 @@ msgstr "Saída do destino"
 msgid "Exit for {name}"
 msgstr "Saída para {name}"
 
+#. placeholders: {speed_value}
+msgid " Exit speed {speed_value}."
+msgstr " Velocidade da saída {speed_value}."
+
 msgid " Traffic is tight."
 msgstr " O trânsito está apertado."
 

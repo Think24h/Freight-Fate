@@ -26407,6 +26407,10 @@ msgstr "Съезд к месту доставки"
 msgid "Exit for {name}"
 msgstr "Съезд к {name}"
 
+#. placeholders: {speed_value}
+msgid " Exit speed {speed_value}."
+msgstr " Скорость съезда {speed_value}."
+
 msgid " Traffic is tight."
 msgstr " Движение плотное."
 
