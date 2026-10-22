@@ -12987,18 +12987,6 @@ msgstr "Il percorso 1 evita {reason} e fa risparmiare {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Cantieri: {spots_text}."
 
-msgid "autumn"
-msgstr "autunno"
-
-msgid "spring"
-msgstr "primavera"
-
-msgid "summer"
-msgstr "estate"
-
-msgid "winter"
-msgstr "inverno"
-
 msgid "Monday"
 msgstr "lunedì"
 
@@ -13019,6 +13007,18 @@ msgstr "sabato"
 
 msgid "Sunday"
 msgstr "domenica"
+
+msgid "winter"
+msgstr "inverno"
+
+msgid "spring"
+msgstr "primavera"
+
+msgid "summer"
+msgstr "estate"
+
+msgid "autumn"
+msgstr "autunno"
 
 msgid "January"
 msgstr "gennaio"
@@ -33697,34 +33697,6 @@ msgstr ""
 "{sentence_start}, dalle {clock_text} alle {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "Il registro non ha ancora voci di servizio recenti."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Ultima voce: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"Il registro indica guida {duration_text}, in servizio senza guidare "
-"{duration_text2}, fuori servizio {duration_text3}, in cuccetta "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"Il registro indica guida {duration_text}, in servizio senza guidare "
-"{duration_text2}, fuori servizio {duration_text3}, in cuccetta "
-"{duration_text4}. Ultima voce: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41777,6 +41749,29 @@ msgstr "parentesi chiusa"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "{ch} maiuscola"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "Il registro non ha ancora voci di servizio recenti."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Ultima voce: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "Il registro indica guida {duration_text}, in servizio senza guidare "
+#~ "{duration_text2}, fuori servizio {duration_text3}, in cuccetta "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "Il registro indica guida {duration_text}, in servizio senza guidare "
+#~ "{duration_text2}, fuori servizio {duration_text3}, in cuccetta "
+#~ "{duration_text4}. Ultima voce: {entry_line}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

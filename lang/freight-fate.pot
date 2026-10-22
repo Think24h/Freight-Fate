@@ -12748,7 +12748,7 @@ msgstr ""
 msgid "once"
 msgstr ""
 
-#: crates/ff-core/src/settings.rs crates/ff-core/src/sim/lane.rs
+#: crates/ff-core/src/settings.rs
 msgid "partial"
 msgstr ""
 
@@ -14221,22 +14221,6 @@ msgid "Construction: {spots_text}."
 msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
-msgid "autumn"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs
-msgid "spring"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs crates/freight-fate/src/visuals/scene_drive.rs
-msgid "summer"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs crates/ff-core/src/sim/vehicle.rs crates/freight-fate/src/states/city/truck_status.rs crates/freight-fate/src/states/city_garage.rs
-msgid "winter"
-msgstr ""
-
-#: crates/ff-core/src/sim/season.rs
 msgid "Monday"
 msgstr ""
 
@@ -14262,6 +14246,22 @@ msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
 msgid "Sunday"
+msgstr ""
+
+#: crates/ff-core/src/sim/season.rs crates/ff-core/src/sim/vehicle.rs crates/freight-fate/src/states/city/truck_status.rs crates/freight-fate/src/states/city_garage.rs
+msgid "winter"
+msgstr ""
+
+#: crates/ff-core/src/sim/season.rs
+msgid "spring"
+msgstr ""
+
+#: crates/ff-core/src/sim/season.rs crates/freight-fate/src/visuals/scene_drive.rs
+msgid "summer"
+msgstr ""
+
+#: crates/ff-core/src/sim/season.rs
+msgid "autumn"
 msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
@@ -37230,32 +37230,6 @@ msgstr ""
 msgid ""
 "{sentence_start}, {clock_text} to {clock_text2}, {duration_text}, "
 "{location}{note}."
-msgstr ""
-
-#: crates/freight-fate/src/states/logbook.rs
-msgid "Logbook has no recent duty entries yet."
-msgstr ""
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/logbook.rs
-msgid "Latest entry: {entry_line}"
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/logbook.rs
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-#: crates/freight-fate/src/states/logbook.rs
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
 msgstr ""
 
 #: crates/freight-fate/src/states/logbook.rs

@@ -12812,18 +12812,6 @@ msgstr "Trasa 1 omija: {reason}, i oszczędza {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Roboty drogowe: {spots_text}."
 
-msgid "autumn"
-msgstr "jesień"
-
-msgid "spring"
-msgstr "wiosna"
-
-msgid "summer"
-msgstr "lato"
-
-msgid "winter"
-msgstr "zima"
-
 msgid "Monday"
 msgstr "poniedziałek"
 
@@ -12844,6 +12832,18 @@ msgstr "sobota"
 
 msgid "Sunday"
 msgstr "niedziela"
+
+msgid "winter"
+msgstr "zima"
+
+msgid "spring"
+msgstr "wiosna"
+
+msgid "summer"
+msgstr "lato"
+
+msgid "autumn"
+msgstr "jesień"
 
 msgid "January"
 msgstr "styczeń"
@@ -33607,34 +33607,6 @@ msgstr ""
 "{sentence_start}, od {clock_text} do {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "Dziennik pracy nie ma jeszcze ostatnich wpisów."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Ostatni wpis: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"Dziennik pracy pokazuje: jazda {duration_text}, na służbie bez jazdy "
-"{duration_text2}, poza służbą {duration_text3}, kabina sypialna "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"Dziennik pracy pokazuje: jazda {duration_text}, na służbie bez jazdy "
-"{duration_text2}, poza służbą {duration_text3}, kabina sypialna "
-"{duration_text4}. Ostatni wpis: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41629,6 +41601,29 @@ msgstr "prawy nawias"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "wielkie {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "Dziennik pracy nie ma jeszcze ostatnich wpisów."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Ostatni wpis: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "Dziennik pracy pokazuje: jazda {duration_text}, na służbie bez jazdy "
+#~ "{duration_text2}, poza służbą {duration_text3}, kabina sypialna "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "Dziennik pracy pokazuje: jazda {duration_text}, na służbie bez jazdy "
+#~ "{duration_text2}, poza służbą {duration_text3}, kabina sypialna "
+#~ "{duration_text4}. Ostatni wpis: {entry_line}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

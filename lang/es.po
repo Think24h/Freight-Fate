@@ -12959,18 +12959,6 @@ msgstr "La ruta 1 evita {reason} y ahorra {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Obras: {spots_text}."
 
-msgid "autumn"
-msgstr "otoño"
-
-msgid "spring"
-msgstr "primavera"
-
-msgid "summer"
-msgstr "verano"
-
-msgid "winter"
-msgstr "invierno"
-
 msgid "Monday"
 msgstr "lunes"
 
@@ -12991,6 +12979,18 @@ msgstr "sábado"
 
 msgid "Sunday"
 msgstr "domingo"
+
+msgid "winter"
+msgstr "invierno"
+
+msgid "spring"
+msgstr "primavera"
+
+msgid "summer"
+msgstr "verano"
+
+msgid "autumn"
+msgstr "otoño"
 
 msgid "January"
 msgstr "enero"
@@ -33646,34 +33646,6 @@ msgstr ""
 "{sentence_start}, de {clock_text} a {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "El libro de horas todavía no tiene entradas de servicio recientes."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Última entrada: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"El libro de horas muestra conduciendo {duration_text}, en servicio sin "
-"conducir {duration_text2}, fuera de servicio {duration_text3}, en la litera "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"El libro de horas muestra conduciendo {duration_text}, en servicio sin "
-"conducir {duration_text2}, fuera de servicio {duration_text3}, en la litera "
-"{duration_text4}. Última entrada: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41732,6 +41704,29 @@ msgstr "cierra paréntesis"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "El libro de horas todavía no tiene entradas de servicio recientes."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Última entrada: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "El libro de horas muestra conduciendo {duration_text}, en servicio sin "
+#~ "conducir {duration_text2}, fuera de servicio {duration_text3}, en la litera "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "El libro de horas muestra conduciendo {duration_text}, en servicio sin "
+#~ "conducir {duration_text2}, fuera de servicio {duration_text3}, en la litera "
+#~ "{duration_text4}. Última entrada: {entry_line}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
