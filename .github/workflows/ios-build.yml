@@ -7,7 +7,7 @@
 # Rust workflow builds for Windows and the nightly for desktops only.
 #
 # This is a compile check, not a release. It runs the same `cargo build` that
-# `tools/build_ios.py` does, and stops there: no app bundle, no signing, no
+# `cargo tools build-ios` does, and stops there: no app bundle, no signing, no
 # artifacts, and no secrets.
 #
 # GitHub's hosted macos-26: this repository is public, so those minutes are
@@ -54,7 +54,7 @@ jobs:
       matrix:
         include:
           # A device build (the TestFlight path) and the Apple Silicon
-          # Simulator build, the two targets tools/build_ios.py knows. They
+          # Simulator build, the two targets `cargo tools build-ios` knows. They
           # run side by side, so the second costs no wall time.
           - target: aarch64-apple-ios
             platform: IOS
@@ -63,7 +63,7 @@ jobs:
     env:
       CARGO_TERM_COLOR: always
       HOMEBREW_NO_AUTO_UPDATE: "1"
-      # tools/build_ios.py's MINIMUM_IOS.
+      # `cargo tools build-ios`'s MINIMUM_IOS.
       IPHONEOS_DEPLOYMENT_TARGET: "14.0"
       # Same escape hatch as the Mac nightly: the bundled SDL2 source
       # declares a cmake_minimum_required older than CMake 4 accepts.
@@ -91,7 +91,7 @@ jobs:
           cache-on-failure: true
 
       - name: Build freight-fate for ${{ matrix.target }}
-        # The same command tools/build_ios.py runs. Touching ff_touch.m makes
+        # The same command `cargo tools build-ios` runs. Touching ff_touch.m makes
         # build.rs compile it again even when the cache is warm, and the stamp
         # lets the next step tell this run's object from a cached one.
         run: |

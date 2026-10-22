@@ -1,23 +1,11 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Build output
 build/
 dist/
 
-# Virtual environments
+# Left in older checkouts by the deleted Python tooling
+__pycache__/
 .venv/
-venv/
-
-# Tooling caches
-.pytest_cache/
-.pytest_tmp*/
-.ruff_cache/
-.hypothesis/
 .route-cache/
-.coverage
-coverage.xml
-htmlcov/
 
 # Editors
 .vscode/
@@ -61,7 +49,7 @@ sound-source/
 # causing. 124 KB of generated tone, and the code that reads them is the only
 # thing that ever will.
 !crates/ff-core/src/cab_filter/fixtures/*.wav
-# The shipped audio is assets/sounds.pak (tools/pack_sounds.py).
+# The shipped audio is assets/sounds.pak (cargo tools pack-sounds).
 # music.pak is a private builder-local release asset downloaded when needed.
 assets/music.pak
 # Channel 3000's clips (tools/build_channel3000.py); downloaded like music.pak.
@@ -79,10 +67,9 @@ assets/sounds/**
 assets/sounds/engine_classic/**
 !assets/sounds/engine_classic/idle.ogg
 
-# Prototype/audition renders (regenerate from sound-test/*.py, all deterministic)
+# Prototype/audition renders
 sound-test/*.wav
 sound-test/render-cab/
-sound-test/__pycache__/
 
 # Portable save data (lives in the game directory)
 saves/

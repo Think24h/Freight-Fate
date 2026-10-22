@@ -142,7 +142,7 @@ fn shipped_pack(name: &str, what: &str) -> bool {
         eprintln!(
             "SKIPPING: no shipped {what}. {} is a leftover Git LFS pointer, not the \
              pack. The packs are plain files now: `git checkout -- assets/{name}` \
-             restores sounds.pak, and tools/build_release.py downloads music.pak.",
+             restores sounds.pak, and cargo tools build-release downloads music.pak.",
             path.display()
         );
     } else {

@@ -224,7 +224,7 @@ fn notify_save_listener(profile: &Profile) {
 }
 
 /// True when running as a packaged build rather than a source checkout: the
-/// executable has a `build_info.json` beside it (what `tools/build_release.py`
+/// executable has a `build_info.json` beside it (what `cargo tools build-release`
 /// stamps). A `cargo run` binary in `target/` has none and stays a source
 /// checkout.
 pub fn is_frozen() -> bool {
@@ -241,7 +241,7 @@ pub fn is_frozen() -> bool {
         .unwrap_or(false)
 }
 
-/// The version `tools/build_release.py` stamped into the build beside
+/// The version `cargo tools build-release` stamped into the build beside
 /// `executable`, if any (`freight_fate._baked_version`).
 pub fn baked_version_beside(executable: &Path) -> Option<String> {
     let info_path = crate::data::data_resources::resource_dir_for_executable(
@@ -264,7 +264,7 @@ pub fn baked_version() -> Option<String> {
 }
 
 /// `freight_fate.__version__`: the baked version in a packaged build, else the
-/// crate version (what `pyproject.toml` carried in Python).
+/// crate version (the workspace's `package-version` carries the same number).
 pub fn game_version() -> String {
     baked_version().unwrap_or_else(|| env!("CARGO_PKG_VERSION").to_string())
 }

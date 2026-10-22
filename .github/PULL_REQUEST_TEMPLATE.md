@@ -25,7 +25,7 @@
 - [ ] `cargo clippy --all-targets --locked -- -D warnings`
 - [ ] `cargo test -p ff-core -p freight-fate`
 - [ ] Adversarial battery: `cargo run -p freight-fate --bin freightfate -- --break-battery`
-- [ ] `uv run pytest` and `uv run ruff check tests tools` (Python tooling only)
+- [ ] `cargo test -p ff-tools` (build and release tooling only)
 
 ### In-game checks
 

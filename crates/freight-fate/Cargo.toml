@@ -40,13 +40,13 @@ required-features = ["visuals"]
 default = ["agent-server", "visuals"]
 # `--agent-server`: the MCP server that lets an agent play, including a
 # `--staging` mode that backs up to the staging site. Dev builds have it;
-# player builds leave it out, because tools/build_release.py builds with
+# player builds leave it out, because cargo tools build-release builds with
 # --no-default-features.
 agent-server = []
 # The visual display (`src/visuals/`): the road, dashboard, menus and
 # captions drawn in the game window, its fonts, and the Visual display row in
 # Settings. Player builds name it (`--features visuals` in
-# tools/build_release.py and tools/build_ios.py), since they leave the
+# cargo tools build-release and cargo tools build-ios), since they leave the
 # default features out. Without it the window stays a plain dark fill.
 #
 # `sdl2/unsafe_textures`: the display keeps one glyph-atlas texture for the

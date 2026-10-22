@@ -112,15 +112,13 @@ Want to help with code, docs, or world data? Start with
 
 ## Run from source
 
-Career 1.9 is a native Rust game. Python is not part of the game; it remains
-in this repository only for build, packaging, data-generation, and other
-maintainer tools under `tools/`.
+Career 1.9 is a native Rust game, and its build, packaging and data tools
+are Rust too (`cargo tools help` lists them).
 
 Install these prerequisites first:
 
 - [Git](https://git-scm.com/downloads)
 - [Rust through rustup](https://www.rust-lang.org/tools/install)
-- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [CMake](https://cmake.org/download/) 3.24 or newer: the Prism speech
   bridge, SDL2 and the Opus decoder are compiled from source.
 - On Windows, the Visual Studio Build Tools (see the standalone build
@@ -134,7 +132,6 @@ Then clone Career 1.9 and run the game:
 ```powershell
 git clone https://github.com/orinks-games/Freight-Fate.git
 cd Freight-Fate
-uv sync --group dev
 cargo run --release -p freight-fate
 ```
 
@@ -151,7 +148,7 @@ compile its bundled SDL2. Source builders do not need to add
 
 ## Build a standalone copy
 
-After installing Git, Rust, `uv`, and CMake (Prism is compiled from C++
+After installing Git, Rust and CMake (Prism is compiled from C++
 source), run the release builder for your platform from the repository root.
 On Windows, from PowerShell:
 
@@ -165,8 +162,8 @@ On macOS or Linux, from a terminal:
 ./build-release.sh
 ```
 
-Either script checks the prerequisites, installs the pinned Rust toolchain
-and the project's Python tooling, builds the native game, fetches and
+Either script checks the prerequisites, installs the pinned Rust toolchain,
+builds the native game, fetches and
 verifies the public music pack, checks the staged game, and writes
 the archive for that platform to `dist/`: the Windows portable zip, the
 macOS app zip, or the Linux tarball. Players using those archives and
@@ -186,7 +183,7 @@ For iPhone and iPad builds and the touch gestures, see `docs/ios.md`.
 
 ### Advanced maintainer overrides
 
-The release script passes extra options to `tools/build_release.py`. Maintainers
+The release script passes extra options to `cargo tools build-release`. Maintainers
 can use `--tag` or `--cargo-target-dir` when preparing a specific release.
 `FREIGHT_FATE_MUSIC_URL` and `FREIGHT_FATE_MUSIC_SHA256` remain emergency
 overrides for pinned release inputs.
@@ -417,43 +414,38 @@ cargo test -p ff-core
 cargo test -p freight-fate
 ```
 
-Python remains supported for repository tooling. When changing packaging,
-world-data generation, release notes, or another Python tool, set up its
-environment and run focused Python checks for that tool:
+When changing packaging, release notes, translations or another tool, run
+its tests too:
 
 ```bash
-uv sync --group dev
-uv run pytest tests/test_build_release_rust.py
-uv run ruff check tests tools
+cargo test -p ff-tools
 ```
 
-Do not add Python gameplay code or Python gameplay tests. The Python game was
-removed after its last release, `v1.8.8.1`; it survives only in git history.
+The Python game was removed after its last release, `v1.8.8.1`, and the
+Python tooling after it; both survive only in git history.
 
-The pre-push hook runs the release-note gate before publishing commits.
+Install the git hooks once per clone with
+`git config core.hooksPath .githooks`. The pre-push hook runs the release-note gate before publishing commits.
 User-facing changes need a player-facing `CHANGELOG.md` entry unless the
 entire change set is non-player-facing and uses `changelog: none` or
 `[skip changelog]`.
 
 ### World data
 
-The route tools edit `data/world_source/`, but the game loads the indexed
+`data/world_source/` is the tree you edit, but the game loads the indexed
 `data/world_data/` tree. After changing world data,
 regenerate the index so the two stay in sync:
 
 ```bash
-uv run python tools/index_world.py          # rewrite world_data/ from world_source/
-uv run python tools/index_world.py --check  # verify in sync (CI + pre-commit do this)
+cargo tools index-world          # rewrite world_data/ from world_source/
+cargo tools index-world --check  # verify in sync (CI and the commit hook do this)
 ```
 
-A pre-commit hook and a test both fail if `world_data/` drifts from the source,
+The commit hook and CI both fail if `world_data/` drifts from the source,
 so commit the regenerated `world_data/` files alongside your source edits.
 
 Both trees group legs by their starting state in files such as `legs/TX.json`
-and `legs/CA.json`. Tools do not edit these files directly:
-`tools/world_source.py` gives them `load_world()`, which returns the whole world
-as one dict, and `save_world(data)`, which writes only the shards that actually
-changed. A one-leg edit therefore changes only its state's file.
+and `legs/CA.json`, so a one-leg edit changes only its state's file.
 
 ### Playtesting
 
@@ -470,7 +462,7 @@ cargo test -p freight-fate
 A manual test scenario starts from the game binary itself:
 `cargo run --release -p freight-fate --bin freightfate -- --playtest-road --find <feature>`
 drops you at a road feature, and `-- --playtest-sandbox --launch` opens the full
-game in a throwaway save directory. `tools/playtest_watch.py` follows either
+game in a throwaway save directory. `cargo tools playtest-watch` follows either
 session's log.
 
 ### Changelog and snapshots

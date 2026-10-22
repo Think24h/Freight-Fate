@@ -309,7 +309,7 @@ pub fn extract_with(
 ///
 /// Windows and Linux archives hold a plain `FreightFate` folder; the
 /// macOS archive holds the `FreightFate.app` bundle (`ditto
-/// --keepParent` in `tools/build_release.py`).
+/// --keepParent` in `cargo tools build-release`).
 pub fn extracted_root(staging: &Path, archive_name: &str, env: &UpdaterEnv) -> io::Result<PathBuf> {
     if env.platform == Platform::MacOs {
         let bundle = staging.join(format!("{APP_NAME}.app"));

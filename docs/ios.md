@@ -126,19 +126,18 @@ controller settings as the desktop.
 
 ## Building
 
-You need a Mac with Xcode, the pinned Rust toolchain, `uv`, and CMake.
+You need a Mac with Xcode, the pinned Rust toolchain, and CMake.
 
 ```bash
 rustup target add aarch64-apple-ios aarch64-apple-ios-sim
-uv sync --group dev
-uv run python tools/build_ios.py --install --launch   # Simulator
+cargo tools build-ios --install --launch   # Simulator
 ```
 
 For a device, pass a signing identity and a provisioning profile for the
 bundle identifier `net.orinks.freightfate`:
 
 ```bash
-uv run python tools/build_ios.py --device \
+cargo tools build-ios --device \
     --sign-identity "Apple Development: ..." \
     --provisioning-profile path/to/profile.mobileprovision
 ```

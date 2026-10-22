@@ -1,6 +1,6 @@
 // The game is a windowed application, so the binary is linked into the
 // Windows GUI subsystem: no console window is ever created for it. The
-// Python build did the same (`tools/build_release.py` passes Nuitka
+// Python build did the same (`tools/build_release.py` passed Nuitka
 // `--windows-console-mode=disable`); the port had lost it, and a packaged
 // launch opened a black terminal beside the game. For a screen reader that
 // is a second window in the player's world, competing for focus, so this is
@@ -799,7 +799,7 @@ fn road_session(opts: &road::RoadOptions, headless: f64, args: &[String]) -> i32
     // the main menu reaches the REAL menu, with its working Exit.
     app.set_initial_state(road_builder(hit, args));
     if let Some(dir) = &sandbox_dir {
-        // Announce the live session so tools/playtest_watch.py can follow this
+        // Announce the live session so cargo tools playtest-watch can follow this
         // drive the same way it follows a sandbox launch.
         sandbox::open_session(dir, &log_path);
     }

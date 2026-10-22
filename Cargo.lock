@@ -748,6 +748,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "ff-tools"
+version = "1.9.0"
+dependencies = [
+ "base64 0.22.1",
+ "chrono",
+ "crc32fast",
+ "ff-core",
+ "flate2",
+ "hex",
+ "regex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tar",
+ "tempfile",
+ "ureq 3.4.0",
+ "zip",
+]
+
+[[package]]
 name = "fiat-crypto"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"

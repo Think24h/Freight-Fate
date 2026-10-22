@@ -21,7 +21,7 @@
 //! (see [`POSITION_CUE`]), so the cue never depends on the row matching.
 //!
 //! The catalogs are gettext PO files in the repository's `lang/` folder;
-//! `lang/README.md` is the translator's guide. `tools/l10n/extract.py`
+//! `lang/README.md` is the translator's guide. `cargo tools l10n-extract`
 //! rebuilds the template list (`lang/freight-fate.pot`) from the source.
 
 use std::borrow::Cow;

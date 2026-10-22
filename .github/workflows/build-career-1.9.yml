@@ -10,7 +10,7 @@ name: Career 1.9 snapshot
 #
 # Stable releases: push a `v*.*.*` tag. That trigger drops `--prerelease`,
 # takes the version from the tag, and writes notes via
-# `tools/release_notes.py stable`. Do not tag from this workflow.
+# `cargo tools release-notes stable`. Do not tag from this workflow.
 #
 # Runners (2026-10-17): GitHub's hosted runners, as in rust.yml. This
 # repository is public, so they cost nothing; Linux packages on 22.04 (x86_64
@@ -65,7 +65,6 @@ concurrency:
   cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 env:
-  PYTHON_VERSION: "3.12"
   # `dev` since the 1.9 cutover (2026-09-20). This built feat/career-1.9
   # while 1.9 was a side line; dev IS the 1.9 line now, and this is the
   # only workflow that knows how to build the Rust game, so it is the
@@ -124,6 +123,14 @@ jobs:
           fi
           echo "::warning::$msg"
 
+      # The release-notes, community-station, translation-kit and snapshot
+      # commands, built without the world feature so the game is not.
+      - name: Build the release tooling
+        run: |
+          rustup show
+          cargo build -p ff-tools --no-default-features --locked
+          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+
       - name: Check snapshot conditions
         id: check
         env:
@@ -177,7 +184,7 @@ jobs:
           if [ -n "$LATEST_STABLE_TAG" ]; then
             gh release view "$LATEST_STABLE_TAG" --json body -q .body > latest-stable-notes.md || true
           fi
-          python3 tools/release_notes.py should-build-nightly \
+          "$FF_TOOLS" release-notes should-build-nightly \
             --previous-tag "$LAST_TAG" \
             --exclude-notes previous-notes.md \
             --latest-stable-tag "$LATEST_STABLE_TAG" \
@@ -193,7 +200,7 @@ jobs:
         # build ships that, since players also download the list at launch.
         if: steps.check.outputs.should_build == 'true'
         run: |
-          python3 tools/fold_community_stations.py \
+          "$FF_TOOLS" fold-community-stations \
             || echo "::warning::Could not read the accepted stations; shipping the committed copy."
 
       - uses: actions/upload-artifact@v7
@@ -302,11 +309,6 @@ jobs:
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
       - name: Set up Rust and the build caches
         # CMake and ATL for Prism, the pinned toolchain, sccache and
         # rust-cache: the same setup rust.yml's jobs use.
@@ -343,7 +345,7 @@ jobs:
     needs: prepare
     if: needs.prepare.outputs.should_build == 'true'
     runs-on: macos-26
-    # Notarization waits up to 45 minutes (tools/build_release.py) and starts
+    # Notarization waits up to 45 minutes (`cargo tools build-release`) and starts
     # about 16 minutes in, so the job outlasts it and a slow Apple queue ends
     # in Apple's own verdict and log, not a GitHub timeout (v1.9.3 hit 60).
     timeout-minutes: 75
@@ -362,11 +364,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Set up Rust and the build caches
         uses: ./.github/actions/rust-setup
@@ -445,7 +442,7 @@ jobs:
         # probes (speech, audio device) that 2026-08-30 moved onto worker
         # threads; with them gone the launch proof is back. Bounded at 120 s
         # inside the builder, which dumps the game log on failure.
-        run: uv run python tools/build_release.py --rust --smoke --tag "${{ needs.prepare.outputs.tag }}"
+        run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
         # Every job here runs muted, so a Prism linked without its backends
@@ -514,11 +511,6 @@ jobs:
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
       - name: Set up Rust and the build caches
         # .github/actions/linux-deps installs what SDL2 and Prism compile
         # against: the whole desktop set of SDL2 backends (a backend whose
@@ -544,7 +536,7 @@ jobs:
         # --smoke boots the staged tarball payload for five frames with dummy
         # drivers, the same proof the Mac job gets. Staging refuses an
         # executable that links SDL2 dynamically.
-        run: uv run python tools/build_release.py --rust --smoke --tag "${{ needs.prepare.outputs.tag }}"
+        run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
         # Every job here runs muted, so a Prism linked without its backends
@@ -557,7 +549,7 @@ jobs:
 
       - name: Package the AppImage
         timeout-minutes: 15
-        run: uv run python tools/build_appimage.py --rust --tag "${{ needs.prepare.outputs.tag }}"
+        run: cargo tools build-appimage --tag "${{ needs.prepare.outputs.tag }}"
 
       - uses: actions/upload-artifact@v7
         with:
@@ -625,6 +617,14 @@ jobs:
           ref: ${{ needs.prepare.outputs.commit_sha }}
           fetch-depth: 0
 
+      # The release-notes, community-station, translation-kit and snapshot
+      # commands, built without the world feature so the game is not.
+      - name: Build the release tooling
+        run: |
+          rustup show
+          cargo build -p ff-tools --no-default-features --locked
+          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+
       - uses: actions/download-artifact@v7
         with:
           name: Windows
@@ -691,7 +691,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$COMMIT_SHA"
           # The translator's kit is one download beside the game archives,
           # not a folder inside each of them.
-          python3 tools/translation_kit.py --label "$TAG" --out release-assets
+          "$FF_TOOLS" translation-kit --label "$TAG" --out release-assets
           (cd release-assets && sha256sum FreightFate-*-windows-portable.zip FreightFate-*-macos-arm64.zip FreightFate-*-linux-x64.tar.gz FreightFate-*-linux-x86_64.AppImage FreightFate-*-linux-arm64.tar.gz FreightFate-*-linux-aarch64.AppImage FreightFate-*-translation-kit.zip > checksums.txt)
           (cd release-assets && sha256sum -c checksums.txt)
 
@@ -699,20 +699,20 @@ jobs:
             LAST_TAG=$(git tag --list "1.9-tester-*" --sort=-version:refname | grep -v "^$TAG$" | head -1)
             if [ -n "$LAST_TAG" ]; then
               gh release view "$LAST_TAG" --json body -q .body > previous-notes.md || true
-              python3 tools/release_notes.py nightly \
+              "$FF_TOOLS" release-notes nightly \
                 --previous-tag "$LAST_TAG" \
                 --exclude-notes previous-notes.md \
                 --output notes.md
             else
-              python3 tools/release_notes.py nightly --first-snapshot --output notes.md
+              "$FF_TOOLS" release-notes nightly --first-snapshot --output notes.md
             fi
           else
             # Stable notes: the matching ## version block, or Unreleased if
-            # that heading has not been cut yet (release_notes.stable_notes).
-            python3 tools/release_notes.py stable --version "$VERSION" --output notes.md
+            # that heading has not been cut yet.
+            "$FF_TOOLS" release-notes stable --version "$VERSION" --output notes.md
           fi
           test -s notes.md
-          python3 tools/release_notes.py check-size --input notes.md --max-characters 120000
+          "$FF_TOOLS" release-notes check-size --input notes.md --max-characters 120000
           test -s release-assets/checksums.txt
 
       - name: Create prerelease
@@ -739,7 +739,8 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 tools/prune_snapshots.py --keep 7
+        run: |
+          "$FF_TOOLS" prune-snapshots --keep 7
 
       # The 1.8 updater's developer-snapshot channel looks only at the 20
       # newest releases for a `nightly-YYYYMMDD` prerelease, and on a Mac
@@ -764,14 +765,14 @@ jobs:
           done
           (cd bridge-assets && sha256sum FreightFate-* > checksums.txt)
 
-          VERSION=$(python3 -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'].split('.dev')[0])")
-          python3 tools/release_notes.py stable --version "$VERSION" --output stable-notes.md
+          VERSION=$("$FF_TOOLS" version --release-line)
+          "$FF_TOOLS" release-notes stable --version "$VERSION" --output stable-notes.md
           {
             echo "Freight Fate 1.9 release candidate. Careers from 1.8 do not carry over to 1.9, so you start a new career; your 1.8 career files are left as they are."
             echo
             cat stable-notes.md
           } > bridge-notes.md
-          python3 tools/release_notes.py check-size --input bridge-notes.md --max-characters 125000
+          "$FF_TOOLS" release-notes check-size --input bridge-notes.md --max-characters 125000
 
           if gh release view "$BRIDGE" >/dev/null 2>&1; then
             gh release delete "$BRIDGE" -y --cleanup-tag

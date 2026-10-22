@@ -47,7 +47,7 @@ EXCLUDE:
   generic Icecast `host:port/mount`, `.m3u8` HLS.
 - **HTTP 200 ≠ playable.** You may `curl -sI` (or GET a couple seconds) to
   sanity-check the URL resolves and returns audio, but do not trust HTTP
-  alone — I run the authoritative stream check (`tools/check_radio_streams.py`) on every URL you return.
+  alone — I run the authoritative stream check (`cargo tools check-radio-streams`) on every URL you return.
   So: **never invent a URL. If you can't find a real one, omit the station.**
   It is far better to return 3 solid stations than 8 with guessed mounts.
 - Record where you got the URL in the `evidence` field (the listen-live page
