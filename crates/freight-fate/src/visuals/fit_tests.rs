@@ -25,6 +25,7 @@ fn every_language() -> Vec<(&'static str, Text)> {
         ("pl", include_str!("../../../../lang/pl.po")),
         ("pt_BR", include_str!("../../../../lang/pt_BR.po")),
         ("ru", include_str!("../../../../lang/ru.po")),
+        ("tr", include_str!("../../../../lang/tr.po")),
         ("zh_CN", include_str!("../../../../lang/zh_CN.po")),
     ];
     let mut out = vec![("en", Text::new())];
