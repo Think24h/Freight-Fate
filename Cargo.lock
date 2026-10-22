@@ -1017,7 +1017,7 @@ checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 [[package]]
 name = "hearken"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
  "hearken-app",
  "hearken-radio",
@@ -1027,7 +1027,7 @@ dependencies = [
 [[package]]
 name = "hearken-app"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
  "dirs",
  "env_logger",
@@ -1044,11 +1044,13 @@ dependencies = [
 [[package]]
 name = "hearken-audio"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
+ "cpal",
  "hearken-synth",
  "kira",
  "log",
+ "rtrb",
  "symphonia",
  "symphonia-adapter-libopus",
 ]
@@ -1056,7 +1058,7 @@ dependencies = [
 [[package]]
 name = "hearken-radio"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
  "hearken-audio",
  "icy-metadata",
@@ -1078,7 +1080,7 @@ dependencies = [
 [[package]]
 name = "hearken-speech"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
  "log",
  "prismer",
@@ -1089,7 +1091,7 @@ dependencies = [
 [[package]]
 name = "hearken-synth"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=d56387b1ec5c2ced465bc6122d685ca8dcf7abfb#d56387b1ec5c2ced465bc6122d685ca8dcf7abfb"
+source = "git+https://github.com/orinks-games/hearken?rev=1f03fa48c3cd0c76ed2bf077820bbbe8adc02021#1f03fa48c3cd0c76ed2bf077820bbbe8adc02021"
 dependencies = [
  "fundsp",
  "log",

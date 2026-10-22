@@ -210,6 +210,7 @@
 
 ### Fixed
 
+- **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
 - **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
 - **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
 - **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
