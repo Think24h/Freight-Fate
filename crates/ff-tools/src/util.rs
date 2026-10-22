@@ -241,8 +241,23 @@ pub fn file_sha256(path: &Path) -> Result<String> {
 }
 
 /// Read a UTF-8 text file, naming it in the error.
+///
+/// CRLF reads as LF, like Python's universal newlines: a Windows checkout
+/// converts line endings, and a spoken line or a byte compare against
+/// freshly rendered text must not see them.
 pub fn read_text(path: &Path) -> Result<String> {
-    std::fs::read_to_string(path).map_err(|e| format!("cannot read {}: {e}", path.display()))
+    let text = std::fs::read_to_string(path)
+        .map_err(|e| format!("cannot read {}: {e}", path.display()))?;
+    Ok(if text.contains('\r') {
+        text.replace("\r\n", "\n")
+    } else {
+        text
+    })
+}
+
+/// [`read_text`], or `None` when the file cannot be read.
+pub fn read_text_lf(path: &Path) -> Option<String> {
+    read_text(path).ok()
 }
 
 /// Write a text file, creating its folder, naming it in the error.

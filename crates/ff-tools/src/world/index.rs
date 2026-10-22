@@ -193,8 +193,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     .map_err(|e| format!("{e}\nusage: index-world [--check]"))?;
     let root = util::repo_root();
     let (files, stale) = plan()?;
-    let changed =
-        |path: &PathBuf, text: &String| std::fs::read_to_string(path).ok().as_ref() != Some(text);
+    let changed = |path: &PathBuf, text: &String| util::read_text_lf(path).as_ref() != Some(text);
     if args.flag("check") {
         let drifted: Vec<&PathBuf> = files
             .iter()

@@ -246,7 +246,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .unwrap_or_default()
         .to_string_lossy()
         .into_owned();
-    let current = std::fs::read_to_string(&output).unwrap_or_default();
+    let current = util::read_text_lf(&output).unwrap_or_default();
     let count = pyjson::loads(&text)
         .ok()
         .and_then(|v| v.get("stations").and_then(Value::as_array).map(Vec::len))
@@ -318,7 +318,7 @@ mod tests {
 
     #[test]
     fn the_committed_copy_is_in_the_shipped_shape() {
-        let text = std::fs::read_to_string(committed()).unwrap();
+        let text = util::read_text_lf(&committed()).unwrap();
         let catalog = pyjson::loads(&text).unwrap();
         let rows = Value::Object(crate::pyobj! {
             "stations" => catalog.get("stations").cloned().unwrap_or(Value::Array(Vec::new())),

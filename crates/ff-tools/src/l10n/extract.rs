@@ -459,7 +459,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let files = render_all()?;
     let stale: Vec<&(PathBuf, String)> = files
         .iter()
-        .filter(|(path, text)| std::fs::read_to_string(path).ok().as_ref() != Some(text))
+        .filter(|(path, text)| util::read_text_lf(path).as_ref() != Some(text))
         .collect();
     if args.flag("check") {
         for (path, _) in &stale {
@@ -518,7 +518,7 @@ mod tests {
     #[test]
     fn committed_language_files_are_current() {
         for (path, text) in render_all().unwrap() {
-            let committed = std::fs::read_to_string(&path).unwrap_or_default();
+            let committed = util::read_text_lf(&path).unwrap_or_default();
             assert!(
                 committed == text,
                 "{} is stale; run `cargo tools l10n-extract`",

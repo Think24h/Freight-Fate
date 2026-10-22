@@ -143,7 +143,7 @@ fn save_world(data: &Object, root: &Path) -> Result<usize> {
     std::fs::create_dir_all(root.join("legs")).map_err(|e| e.to_string())?;
     let mut written = 0;
     for (path, text) in &files {
-        if std::fs::read_to_string(path).ok().as_ref() != Some(text) {
+        if util::read_text_lf(path).as_ref() != Some(text) {
             util::write_text(path, text)?;
             written += 1;
         }
