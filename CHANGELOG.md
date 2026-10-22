@@ -40,6 +40,7 @@
 - **The game can speak Russian.** Choose Русский under Settings, Speech, Language; the radio stays in English.
 - **The game can speak Polish.** Choose Polski under Settings, Speech, Language; the radio stays in English.
 - **The game can speak Japanese.** Choose 日本語 under Settings, Speech, Language; the radio stays in English.
+- **The game can speak Turkish.** Choose Türkçe under Settings, Speech, Language; the radio stays in English.
 - **The game can speak Simplified Chinese.** Choose 简体中文 under Settings, Speech, Language; the radio stays in English. Thanks to wangru2025 ([PR 448](https://github.com/orinks-games/Freight-Fate/pull/448)).
 
 - **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
@@ -210,6 +211,10 @@
 ### Fixed
 
 - **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
+- **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
+- **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
+- **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
+- **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
 - **Resuming a saved trip no longer plays several police sirens at once.** Troopers you passed before saving stay quiet.
 - **A co-driver short of hours now parks before handing back when you have none left.** They stop at the last lot in reach, so you can finish your rest there.
 - **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.

@@ -9547,9 +9547,18 @@ msgstr "Akte: CDL {verb}, noch {left}. Die Sperre endet {clears_text}."
 msgid "Record: clean."
 msgstr "Akte: sauber."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{noun} im letzten Jahr: {count_word}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "Unfälle"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} und {last}"
 
 msgid "major offense"
 msgstr "Straftat"
@@ -9986,10 +9995,6 @@ msgstr "Standard-CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "die {endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} und {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -39839,9 +39844,6 @@ msgstr "Stilllegungsanordnung"
 msgid "out-of-service orders"
 msgstr "Stilllegungsanordnungen"
 
-msgid "crashes"
-msgstr "Unfälle"
-
 msgid "cargo claim"
 msgstr "Ladungsschaden"
 
@@ -41850,6 +41852,9 @@ msgstr "groß {ch}"
 #~ "Das Fahrtenbuch zeigt Fahren {duration_text}, im Dienst ohne Fahren "
 #~ "{duration_text2}, außer Dienst {duration_text3}, Schlafkoje "
 #~ "{duration_text4}. Letzter Eintrag: {entry_line}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{noun} im letzten Jahr: {count_word}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

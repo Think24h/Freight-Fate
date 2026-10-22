@@ -9350,9 +9350,18 @@ msgstr ""
 msgid "Record: clean."
 msgstr "Kartoteka: czysta."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{noun} w ostatnim roku: {count_word}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "wypadki"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} i {last}"
 
 msgid "major offense"
 msgstr "rażące naruszenie"
@@ -9784,10 +9793,6 @@ msgstr "standardowe CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} i {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -39624,9 +39629,6 @@ msgstr "nakaz unieruchomienia"
 msgid "out-of-service orders"
 msgstr "nakazy unieruchomienia"
 
-msgid "crashes"
-msgstr "wypadki"
-
 msgid "cargo claim"
 msgstr "reklamacja ładunku"
 
@@ -41624,6 +41626,9 @@ msgstr "wielkie {ch}"
 #~ "Dziennik pracy pokazuje: jazda {duration_text}, na służbie bez jazdy "
 #~ "{duration_text2}, poza służbą {duration_text3}, kabina sypialna "
 #~ "{duration_text4}. Ostatni wpis: {entry_line}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{noun} w ostatnim roku: {count_word}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

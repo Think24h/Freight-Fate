@@ -9331,9 +9331,18 @@ msgstr ""
 msgid "Record: clean."
 msgstr "История: чистая."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{noun} за последний год: {count_word}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "аварий"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} и {last}"
 
 msgid "major offense"
 msgstr "грубое нарушение"
@@ -9763,10 +9772,6 @@ msgstr "стандартные права CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} и {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -39835,9 +39840,6 @@ msgstr "запрет на движение"
 msgid "out-of-service orders"
 msgstr "запретов на движение"
 
-msgid "crashes"
-msgstr "аварий"
-
 msgid "cargo claim"
 msgstr "претензия по грузу"
 
@@ -41836,6 +41838,9 @@ msgstr "заглавная {ch}"
 #~ "По журналу: водил {duration_text}, на смене без вождения {duration_text2}, "
 #~ "вне смены {duration_text3}, на спальном месте {duration_text4}. Последняя "
 #~ "запись: {entry_line}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{noun} за последний год: {count_word}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

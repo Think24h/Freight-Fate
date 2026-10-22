@@ -8176,9 +8176,18 @@ msgstr "記録：CDL{verb}、残り{left}。解除は{clears_text}です。"
 msgid "Record: clean."
 msgstr "記録：問題なし。"
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "過去1年間に{noun}{count_word}件"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "事故"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join}と{last}"
 
 msgid "major offense"
 msgstr "一発取消違反"
@@ -8594,10 +8603,6 @@ msgstr "標準のCDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join}と{last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -35572,9 +35577,6 @@ msgstr "走行禁止命令"
 msgid "out-of-service orders"
 msgstr "走行禁止命令"
 
-msgid "crashes"
-msgstr "事故"
-
 msgid "cargo claim"
 msgstr "積荷の損害賠償請求"
 
@@ -37444,6 +37446,9 @@ msgstr "大文字の{ch}"
 #~ msgstr ""
 #~ "運転日誌：運転{duration_text}、運転以外の勤務{duration_text2}、非勤務{duration_text3}、スリーパー{dur"
 #~ "ation_text4}。最新の記録：{entry_line}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "過去1年間に{noun}{count_word}件"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

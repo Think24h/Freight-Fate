@@ -8142,9 +8142,18 @@ msgstr "记录：CDL被{verb}，还剩{left}。{clears_text}解除。"
 msgid "Record: clean."
 msgstr "记录：干净。"
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "过去一年{count_word}次{noun}"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "次事故"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join}和{last}"
 
 msgid "major offense"
 msgstr "重大违法"
@@ -8560,10 +8569,6 @@ msgstr "标准CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join}和{last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -35010,9 +35015,6 @@ msgstr "次停驶令"
 msgid "out-of-service orders"
 msgstr "次停驶令"
 
-msgid "crashes"
-msgstr "次事故"
-
 msgid "cargo claim"
 msgstr "次货物索赔"
 
@@ -36856,6 +36858,9 @@ msgstr "大写{ch}"
 #~ msgstr ""
 #~ "日志显示驾驶{duration_text}，值班未驾驶{duration_text2}，下班{duration_text3}，卧铺{duration_t"
 #~ "ext4}。最新记录：{entry_line}"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "过去一年{count_word}次{noun}"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
