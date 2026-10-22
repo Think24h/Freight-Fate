@@ -103,6 +103,10 @@ pub fn set_open_url_override(f: Option<OpenUrl>) {
 /// been called, which outside the real game means a test reached for the
 /// live web. The address is recorded in [`refused_urls`] first.
 pub fn open_url(url: &str) -> bool {
+    if !is_web_address(url) {
+        log::warn!("refusing to open a non-web address in the browser: {url}");
+        return false;
+    }
     if let Some(f) = OPEN_URL_OVERRIDE.with(|slot| slot.borrow().clone()) {
         return f(url);
     }
@@ -110,6 +114,17 @@ pub fn open_url(url: &str) -> bool {
         refuse(url);
     }
     webbrowser::open(url).is_ok()
+}
+
+/// Only an `http` or `https` page may be handed to the system.
+///
+/// The activation page's address comes back from the site, and the system
+/// opens whatever it is given: a `file:` path or another app's URL scheme
+/// would launch that instead of a browser.
+pub fn is_web_address(url: &str) -> bool {
+    url::Url::parse(url).is_ok_and(|parsed| {
+        matches!(parsed.scheme(), "http" | "https") && parsed.host_str().is_some()
+    })
 }
 
 #[cold]

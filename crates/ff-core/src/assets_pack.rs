@@ -265,7 +265,10 @@ impl SoundPack {
         payload.drain(..PACK_MAGIC.len());
         mask_in_place(&mut payload);
         let archive = ZipArchive::new(Cursor::new(payload))?;
-        let names: Vec<String> = archive.file_names().map(str::to_string).collect();
+        let names = archive
+            .file_names()
+            .map(|name| name.map(|name| name.into_owned()))
+            .collect::<Result<Vec<String>, _>>()?;
         let name_set = names.iter().cloned().collect();
         Ok(Self {
             archive: Mutex::new(archive),

@@ -209,6 +209,7 @@
 
 ### Fixed
 
+- **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
 - **Resuming a saved trip no longer plays several police sirens at once.** Troopers you passed before saving stay quiet.
 - **A co-driver short of hours now parks before handing back when you have none left.** They stop at the last lot in reach, so you can finish your rest there.
 - **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.
