@@ -842,7 +842,7 @@ def test_career_19_snapshot_builds_an_apple_silicon_macos_release():
     named_steps = {
         step["name"]: (index, step) for index, step in enumerate(steps) if "name" in step
     }
-    assert any(step.get("uses") == "astral-sh/setup-uv@v8.2.0" for step in steps)
+    assert any(step.get("uses", "").startswith("astral-sh/setup-uv@") for step in steps)
     setup = named_steps["Set up Rust and the build caches"][1]
     assert setup["uses"] == "./.github/actions/rust-setup"
     # No brewed SDL anywhere in the job: Homebrew's sdl2 is sdl2-compat,

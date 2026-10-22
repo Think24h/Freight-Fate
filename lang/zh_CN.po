@@ -11328,18 +11328,6 @@ msgstr "路线1避开{reason}，能省{minutes_words}。"
 msgid "Construction: {spots_text}."
 msgstr ""
 
-msgid "autumn"
-msgstr "秋季"
-
-msgid "spring"
-msgstr "春季"
-
-msgid "summer"
-msgstr "夏季"
-
-msgid "winter"
-msgstr "冬季"
-
 msgid "Monday"
 msgstr "星期一"
 
@@ -11360,6 +11348,18 @@ msgstr "星期六"
 
 msgid "Sunday"
 msgstr "星期日"
+
+msgid "winter"
+msgstr "冬季"
+
+msgid "spring"
+msgstr "春季"
+
+msgid "summer"
+msgstr "夏季"
+
+msgid "autumn"
+msgstr "秋季"
 
 msgid "January"
 msgstr "一月"
@@ -30053,32 +30053,6 @@ msgstr ""
 "{sentence_start}，{clock_text}到{clock_text2}，{duration_text}，{location}{note}"
 "。"
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "日志里还没有最近的值班记录。"
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "最新记录：{entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"日志显示驾驶{duration_text}，值班未驾驶{duration_text2}，下班{duration_text3}，卧铺{duration_t"
-"ext4}。"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"日志显示驾驶{duration_text}，值班未驾驶{duration_text2}，下班{duration_text3}，卧铺{duration_t"
-"ext4}。最新记录：{entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -36863,6 +36837,27 @@ msgstr "右括号"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大写{ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "日志里还没有最近的值班记录。"
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "最新记录：{entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "日志显示驾驶{duration_text}，值班未驾驶{duration_text2}，下班{duration_text3}，卧铺{duration_t"
+#~ "ext4}。"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "日志显示驾驶{duration_text}，值班未驾驶{duration_text2}，下班{duration_text3}，卧铺{duration_t"
+#~ "ext4}。最新记录：{entry_line}"
 
 #~ msgid "{count_word} {noun} in the last year"
 #~ msgstr "过去一年{count_word}次{noun}"

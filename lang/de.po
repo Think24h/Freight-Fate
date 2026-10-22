@@ -13030,18 +13030,6 @@ msgstr "Route 1 umgeht {reason} und spart {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Baustellen: {spots_text}."
 
-msgid "autumn"
-msgstr "Herbst"
-
-msgid "spring"
-msgstr "Frühling"
-
-msgid "summer"
-msgstr "Sommer"
-
-msgid "winter"
-msgstr "Winter"
-
 msgid "Monday"
 msgstr "Montag"
 
@@ -13062,6 +13050,18 @@ msgstr "Samstag"
 
 msgid "Sunday"
 msgstr "Sonntag"
+
+msgid "winter"
+msgstr "Winter"
+
+msgid "spring"
+msgstr "Frühling"
+
+msgid "summer"
+msgstr "Sommer"
+
+msgid "autumn"
+msgstr "Herbst"
 
 msgid "January"
 msgstr "Januar"
@@ -33764,34 +33764,6 @@ msgstr ""
 "{sentence_start}, {clock_text} bis {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "Im Fahrtenbuch gibt es noch keine aktuellen Dienstzeiten."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Letzter Eintrag: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"Das Fahrtenbuch zeigt Fahren {duration_text}, im Dienst ohne Fahren "
-"{duration_text2}, außer Dienst {duration_text3}, Schlafkoje "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"Das Fahrtenbuch zeigt Fahren {duration_text}, im Dienst ohne Fahren "
-"{duration_text2}, außer Dienst {duration_text3}, Schlafkoje "
-"{duration_text4}. Letzter Eintrag: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41857,6 +41829,29 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "Im Fahrtenbuch gibt es noch keine aktuellen Dienstzeiten."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Letzter Eintrag: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "Das Fahrtenbuch zeigt Fahren {duration_text}, im Dienst ohne Fahren "
+#~ "{duration_text2}, außer Dienst {duration_text3}, Schlafkoje "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "Das Fahrtenbuch zeigt Fahren {duration_text}, im Dienst ohne Fahren "
+#~ "{duration_text2}, außer Dienst {duration_text3}, Schlafkoje "
+#~ "{duration_text4}. Letzter Eintrag: {entry_line}"
 
 #~ msgid "{count_word} {noun} in the last year"
 #~ msgstr "{noun} im letzten Jahr: {count_word}"

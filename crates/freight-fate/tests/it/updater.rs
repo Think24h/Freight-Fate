@@ -14,9 +14,9 @@ use freight_fate::states::base::{Menu, State};
 use freight_fate::states::update::{UpdateDownloadState, UpdatePromptState};
 use freight_fate::updater::{
     self, build_info_from_dict, check_for_update_with, dev_update_from, flatten_markdown,
-    parse_version, pick_asset, resolve_channel, snapshot_update_from, stable_update_from,
-    write_apply_script, Architecture, BuildInfo, Platform, UpdateInfo, UpdaterEnv, APPIMAGE_SUFFIX,
-    APPIMAGE_SUFFIX_AARCH64, TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
+    parse_version, pick_asset, quote_for_script, resolve_channel, snapshot_update_from,
+    stable_update_from, write_apply_script, Architecture, BuildInfo, Platform, UpdateInfo,
+    UpdaterEnv, APPIMAGE_SUFFIX, APPIMAGE_SUFFIX_AARCH64, TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
 };
 
 fn release_with(
@@ -910,6 +910,12 @@ fn test_flatten_markdown_handles_empty_body() {
 
 // -- apply script -------------------------------------------------------------
 
+/// A path as the POSIX apply scripts write it, escaped for sh. On Windows a
+/// temp path's backslashes come out doubled.
+fn sh(path: &std::path::Path) -> String {
+    quote_for_script(&path.display().to_string(), false)
+}
+
 #[test]
 fn test_write_apply_script_waits_for_pid_and_relaunches() {
     let tmp = tempfile::tempdir().unwrap();
@@ -964,6 +970,39 @@ fn test_write_apply_script_windows_template_is_the_bat() {
         install.display()
     )));
     assert!(text.ends_with("del \"%~f0\"\n"));
+}
+
+/// An install folder with a percent sign or a dollar sign must reach the
+/// apply script as that folder, not as whatever cmd or sh expands it to.
+#[test]
+fn test_apply_script_paths_survive_shell_expansion() {
+    assert_eq!(
+        quote_for_script(r"C:\Games\100% Trucks\FreightFate", true),
+        r"C:\Games\100%% Trucks\FreightFate"
+    );
+    assert_eq!(
+        quote_for_script("/home/sam/$HOME `id` \\x \"q\"", false),
+        "/home/sam/\\$HOME \\`id\\` \\\\x \\\"q\\\""
+    );
+    assert_eq!(
+        quote_for_script("/home/sam/Games/FreightFate", false),
+        "/home/sam/Games/FreightFate"
+    );
+
+    let tmp = tempfile::tempdir().unwrap();
+    let staging = tmp.path().join("staging");
+    fs::create_dir(&staging).unwrap();
+    let new_root = staging.join("FreightFate");
+    let install = tmp.path().join("100% $HOME");
+    let bat =
+        write_apply_script(&new_root, &install, &staging, 7, &env_on(Platform::Windows)).unwrap();
+    let text = fs::read_to_string(&bat).unwrap();
+    assert!(text.contains("100%% $HOME"));
+    assert!(!text.contains("100% $HOME"));
+    let sh =
+        write_apply_script(&new_root, &install, &staging, 7, &env_on(Platform::Linux)).unwrap();
+    let text = fs::read_to_string(&sh).unwrap();
+    assert!(text.contains("100% \\$HOME"));
 }
 
 #[test]
@@ -1029,11 +1068,11 @@ fn test_write_apply_script_macos_swaps_whole_bundle() {
     .unwrap();
     let text = fs::read_to_string(&script).unwrap();
     assert!(text.contains("4242"));
-    assert!(text.contains(&new_root.display().to_string()));
+    assert!(text.contains(&sh(&new_root)));
     // the old bundle is parked, not deleted, until the new one is in place
-    assert!(text.contains(&format!("mv \"{0}\" \"{0}.old\"", install.display())));
-    assert!(text.contains(&format!("mv \"{0}.old\" \"{0}\"", install.display())));
-    assert!(text.contains(&format!("open \"{}\"", install.display())));
+    assert!(text.contains(&format!("mv \"{0}\" \"{0}.old\"", sh(&install))));
+    assert!(text.contains(&format!("mv \"{0}.old\" \"{0}\"", sh(&install))));
+    assert!(text.contains(&format!("open \"{}\"", sh(&install))));
     assert_eq!(script.parent().unwrap(), tmp.path()); // outside the staging dir it deletes
 }
 
@@ -1420,6 +1459,32 @@ fn test_stage_update_unpacks_a_zip_and_drops_the_archive() {
     assert!(!archive.exists());
 }
 
+/// An archive entry that climbs out of the staging folder must never land
+/// outside it, whatever else the unpack does with it.
+#[test]
+fn test_stage_update_keeps_a_climbing_zip_entry_inside_staging() {
+    let tmp = tempfile::tempdir().unwrap();
+    let staging = tmp.path().join("staging");
+    fs::create_dir(&staging).unwrap();
+    let archive = staging.join("FreightFate-9.9.9-windows-portable.zip");
+    {
+        use std::io::Write;
+        let file = fs::File::create(&archive).unwrap();
+        let mut zip = zip::ZipWriter::new(file);
+        let options = zip::write::SimpleFileOptions::default();
+        zip.add_directory("FreightFate/", options).unwrap();
+        zip.start_file("FreightFate/build_info.json", options)
+            .unwrap();
+        zip.write_all(b"{}").unwrap();
+        zip.start_file("../../escaped.txt", options).unwrap();
+        zip.write_all(b"outside").unwrap();
+        zip.finish().unwrap();
+    }
+    let _ = updater::stage_update(&archive, &staging, &env_on(Platform::Windows));
+    assert!(!tmp.path().join("escaped.txt").exists());
+    assert!(!staging.join("escaped.txt").exists());
+}
+
 #[test]
 fn test_stage_update_unpacks_a_tarball() {
     let tmp = tempfile::tempdir().unwrap();
@@ -1490,20 +1555,17 @@ fn test_write_apply_script_appimage_swaps_the_file() {
     // staged next to the target so the final rename is atomic
     assert!(text.contains(&format!(
         "cp \"{}\" \"{}.update-new\"",
-        new_root.display(),
-        install.display()
+        sh(&new_root),
+        sh(&install)
     )));
-    assert!(text.contains(&format!("chmod +x \"{}.update-new\"", install.display())));
-    assert!(text.contains(&format!(
-        "mv -f \"{0}.update-new\" \"{0}\"",
-        install.display()
-    )));
+    assert!(text.contains(&format!("chmod +x \"{}.update-new\"", sh(&install))));
+    assert!(text.contains(&format!("mv -f \"{0}.update-new\" \"{0}\"", sh(&install))));
     // relaunches the new AppImage file, never the dead mount path
-    assert!(text.contains(&format!("\"{}\" &", install.display())));
+    assert!(text.contains(&format!("\"{}\" &", sh(&install))));
     assert_eq!(script.parent().unwrap(), tmp.path()); // outside the staging dir it deletes
                                                       // the mounted payload is never touched: no folder copy, no purge
     assert!(!text.contains("cp -a"));
-    assert!(!text.contains(&format!("rm -rf \"{}\"", install.display())));
+    assert!(!text.contains(&format!("rm -rf \"{}\"", sh(&install))));
 }
 
 #[test]
@@ -1527,7 +1589,7 @@ fn test_apply_and_restart_appimage_targets_running_appimage() {
     assert_eq!(spawned[0][0], "/bin/sh");
     assert_eq!(spawned[0][1], script.display().to_string());
     let text = fs::read_to_string(&script).unwrap();
-    assert!(text.contains(&appimage.display().to_string()));
+    assert!(text.contains(&sh(&appimage)));
 }
 
 #[test]

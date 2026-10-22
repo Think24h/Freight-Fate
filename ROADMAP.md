@@ -700,6 +700,13 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [ ] (Found along the way) Sign release archives so the updater can
+      check them against a key built into the game, not only against the
+      checksum GitHub lists next to the file.
+      [October 22 audit](#october-22-repository-size-and-security-audit)
+- [ ] (Found along the way) Decide whether to rewrite history to drop the
+      retired music files, which take about 440 MB of the repository.
+      [October 22 audit](#october-22-repository-size-and-security-audit)
 - [x] Driving speech audit (owner, 2026-10-03, from a player report): quiet
       and urgent only no longer call out traffic, a line either rung leaves
       out makes no sound, and quiet says cruise, keeper and work zone
@@ -3390,6 +3397,27 @@ the outside temperature.
       describes would let the engine open up too.
 - [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
+
+### October 22 repository size and security audit
+
+- [x] Update unpacking: the zip reader moved to a release that refuses
+      entries and links pointing outside the update folder, and TLS
+      libraries and root certificates were bumped past this month's
+      advisories.
+- [x] The apply script escapes the install folder, so a folder named with
+      a percent sign (Windows) or a dollar sign (Linux, macOS) no longer
+      sends the update somewhere else.
+- [x] The browser only opens http and https addresses; the activation
+      address comes from the site and is checked before it is opened.
+- [x] Third-party GitHub Actions in the release jobs are pinned to commits.
+- [ ] (Found along the way) Release signing: the updater trusts GitHub's
+      HTTPS and the asset checksum GitHub publishes. A signature checked
+      against a public key in the game would survive a compromised release
+      upload.
+- [ ] (Found along the way) History rewrite: about 440 MB of the 800 MB
+      repository is music deleted in August 2026; a filter-repo pass
+      measured 346 MB. It needs a force push and fresh clones, so it waits
+      for the owner.
 
 ## 2.0 planned -- the working week and home
 

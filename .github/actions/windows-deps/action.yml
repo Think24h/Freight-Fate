@@ -5,7 +5,7 @@ runs:
   steps:
     # prism-sys asks CMake for C23. The Windows image's CMake does not map
     # C23 onto MSVC, so use a current CMake that does (/std:clatest).
-    - uses: lukka/get-cmake@latest
+    - uses: lukka/get-cmake@da37b03df250c343a90268c30948f7814f31d88e # latest, pinned 2026-10-22
     # prism-sys's SAPI and screen-reader backends include atlbase.h, and
     # the Windows image ships Visual Studio without the ATL component.
     # Restore ATL from the cache when the MSVC version matches; otherwise

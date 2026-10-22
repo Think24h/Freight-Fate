@@ -13116,18 +13116,6 @@ msgstr "L'itinéraire 1 évite {reason} et fait gagner {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Travaux : {spots_text}."
 
-msgid "autumn"
-msgstr "automne"
-
-msgid "spring"
-msgstr "printemps"
-
-msgid "summer"
-msgstr "été"
-
-msgid "winter"
-msgstr "hiver"
-
 msgid "Monday"
 msgstr "lundi"
 
@@ -13148,6 +13136,18 @@ msgstr "samedi"
 
 msgid "Sunday"
 msgstr "dimanche"
+
+msgid "winter"
+msgstr "hiver"
+
+msgid "spring"
+msgstr "printemps"
+
+msgid "summer"
+msgstr "été"
+
+msgid "autumn"
+msgstr "automne"
 
 msgid "January"
 msgstr "janvier"
@@ -33963,34 +33963,6 @@ msgstr ""
 "{sentence_start}, de {clock_text} à {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "Le carnet de route n'a pas encore d'entrées de service récentes."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Dernière entrée : {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"Le carnet de route indique conduite {duration_text}, en service sans "
-"conduire {duration_text2}, hors service {duration_text3}, couchette "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"Le carnet de route indique conduite {duration_text}, en service sans "
-"conduire {duration_text2}, hors service {duration_text3}, couchette "
-"{duration_text4}. Dernière entrée : {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -42115,6 +42087,29 @@ msgstr "parenthèse droite"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "majuscule {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "Le carnet de route n'a pas encore d'entrées de service récentes."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Dernière entrée : {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "Le carnet de route indique conduite {duration_text}, en service sans "
+#~ "conduire {duration_text2}, hors service {duration_text3}, couchette "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "Le carnet de route indique conduite {duration_text}, en service sans "
+#~ "conduire {duration_text2}, hors service {duration_text3}, couchette "
+#~ "{duration_text4}. Dernière entrée : {entry_line}"
 
 #~ msgid "{count_word} {noun} in the last year"
 #~ msgstr "{count_word} {noun} au cours de la dernière année"

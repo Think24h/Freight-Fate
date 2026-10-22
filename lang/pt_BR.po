@@ -12905,18 +12905,6 @@ msgstr "A rota 1 evita {reason} e economiza {minutes_words}."
 msgid "Construction: {spots_text}."
 msgstr "Obras: {spots_text}."
 
-msgid "autumn"
-msgstr "outono"
-
-msgid "spring"
-msgstr "primavera"
-
-msgid "summer"
-msgstr "verão"
-
-msgid "winter"
-msgstr "inverno"
-
 msgid "Monday"
 msgstr "segunda-feira"
 
@@ -12937,6 +12925,18 @@ msgstr "sábado"
 
 msgid "Sunday"
 msgstr "domingo"
+
+msgid "winter"
+msgstr "inverno"
+
+msgid "spring"
+msgstr "primavera"
+
+msgid "summer"
+msgstr "verão"
+
+msgid "autumn"
+msgstr "outono"
 
 msgid "January"
 msgstr "janeiro"
@@ -33515,34 +33515,6 @@ msgstr ""
 "{sentence_start}, das {clock_text} às {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "O diário de bordo ainda não tem registros de serviço recentes."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Último registro: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"O diário de bordo mostra dirigindo {duration_text}, em serviço sem dirigir "
-"{duration_text2}, fora de serviço {duration_text3}, cabine-leito "
-"{duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"O diário de bordo mostra dirigindo {duration_text}, em serviço sem dirigir "
-"{duration_text2}, fora de serviço {duration_text3}, cabine-leito "
-"{duration_text4}. Último registro: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41527,6 +41499,29 @@ msgstr "fecha parêntese"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "{ch} maiúsculo"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "O diário de bordo ainda não tem registros de serviço recentes."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Último registro: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "O diário de bordo mostra dirigindo {duration_text}, em serviço sem dirigir "
+#~ "{duration_text2}, fora de serviço {duration_text3}, cabine-leito "
+#~ "{duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "O diário de bordo mostra dirigindo {duration_text}, em serviço sem dirigir "
+#~ "{duration_text2}, fora de serviço {duration_text3}, cabine-leito "
+#~ "{duration_text4}. Último registro: {entry_line}"
 
 #~ msgid "{count_word} {noun} in the last year"
 #~ msgstr "{count_word} {noun} no último ano"

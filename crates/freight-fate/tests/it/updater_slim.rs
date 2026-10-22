@@ -244,7 +244,10 @@ fn the_partial_download_unpacks_to_everything_but_the_packs() {
     assert_eq!(path, dest.path().join(FULL));
 
     let mut zip = ZipArchive::new(fs::File::open(&path).unwrap()).unwrap();
-    let mut names: Vec<String> = zip.file_names().map(str::to_string).collect();
+    let mut names: Vec<String> = zip
+        .file_names()
+        .map(|name| name.unwrap().into_owned())
+        .collect();
     names.sort();
     let mut expected: Vec<String> = others().iter().map(|(n, _)| n.to_string()).collect();
     expected.sort();

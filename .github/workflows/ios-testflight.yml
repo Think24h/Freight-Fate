@@ -114,7 +114,7 @@ jobs:
           echo "Bundle id: $bundle_id"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -124,7 +124,7 @@ jobs:
           rustup target add aarch64-apple-ios
 
       - name: Cache cargo registry and target directory
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           shared-key: ios-testflight
           cache-on-failure: true

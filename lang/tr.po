@@ -12528,18 +12528,6 @@ msgstr "Rota 1 şunu atlatıyor: {reason}. {minutes_words} kazandırır."
 msgid "Construction: {spots_text}."
 msgstr "Yol çalışması: {spots_text}."
 
-msgid "autumn"
-msgstr "sonbahar"
-
-msgid "spring"
-msgstr "ilkbahar"
-
-msgid "summer"
-msgstr "yaz"
-
-msgid "winter"
-msgstr "kış"
-
 msgid "Monday"
 msgstr "Pazartesi"
 
@@ -12560,6 +12548,18 @@ msgstr "Cumartesi"
 
 msgid "Sunday"
 msgstr "Pazar"
+
+msgid "winter"
+msgstr "kış"
+
+msgid "spring"
+msgstr "ilkbahar"
+
+msgid "summer"
+msgstr "yaz"
+
+msgid "autumn"
+msgstr "sonbahar"
 
 msgid "January"
 msgstr "Ocak"
@@ -32826,33 +32826,6 @@ msgstr ""
 "{sentence_start}, {clock_text} ile {clock_text2} arası, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "Sürüş defterinde henüz yakın tarihli görev kaydı yok."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Son kayıt: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"Sürüş defteri: sürüş {duration_text}, sürüş dışı görev {duration_text2}, "
-"görev dışı {duration_text3}, kabin yatağı {duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"Sürüş defteri: sürüş {duration_text}, sürüş dışı görev {duration_text2}, "
-"görev dışı {duration_text3}, kabin yatağı {duration_text4}. Son kayıt: "
-"{entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -40716,3 +40689,25 @@ msgstr "sağ parantez"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "büyük {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "Sürüş defterinde henüz yakın tarihli görev kaydı yok."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Son kayıt: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "Sürüş defteri: sürüş {duration_text}, sürüş dışı görev {duration_text2}, "
+#~ "görev dışı {duration_text3}, kabin yatağı {duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "Sürüş defteri: sürüş {duration_text}, sürüş dışı görev {duration_text2}, "
+#~ "görev dışı {duration_text3}, kabin yatağı {duration_text4}. Son kayıt: "
+#~ "{entry_line}"

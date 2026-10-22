@@ -210,6 +210,7 @@
 
 ### Fixed
 
+- **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
 - **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
 - **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
 - **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.

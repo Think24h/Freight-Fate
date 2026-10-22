@@ -12791,18 +12791,6 @@ msgstr "Маршрут 1 объезжает {reason} и экономит {minute
 msgid "Construction: {spots_text}."
 msgstr "Ремонт дороги: {spots_text}."
 
-msgid "autumn"
-msgstr "осень"
-
-msgid "spring"
-msgstr "весна"
-
-msgid "summer"
-msgstr "лето"
-
-msgid "winter"
-msgstr "зима"
-
 msgid "Monday"
 msgstr "понедельник"
 
@@ -12823,6 +12811,18 @@ msgstr "суббота"
 
 msgid "Sunday"
 msgstr "воскресенье"
+
+msgid "winter"
+msgstr "зима"
+
+msgid "spring"
+msgstr "весна"
+
+msgid "summer"
+msgstr "лето"
+
+msgid "autumn"
+msgstr "осень"
 
 msgid "January"
 msgstr "январь"
@@ -33808,33 +33808,6 @@ msgstr ""
 "{sentence_start}, с {clock_text} до {clock_text2}, {duration_text}, "
 "{location}{note}."
 
-msgid "Logbook has no recent duty entries yet."
-msgstr "В журнале пока нет недавних записей о смене."
-
-#. placeholders: {entry_line}
-#. one sentence of a longer line
-msgid "Latest entry: {entry_line}"
-msgstr "Последняя запись: {entry_line}"
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}
-#. one sentence of a longer line
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
-msgstr ""
-"По журналу: водил {duration_text}, на смене без вождения {duration_text2}, "
-"вне смены {duration_text3}, на спальном месте {duration_text4}."
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}, {duration_text4}, {entry_line}
-msgid ""
-"Logbook shows driving {duration_text}, on duty not driving "
-"{duration_text2}, off duty {duration_text3}, sleeper berth "
-"{duration_text4}. Latest entry: {entry_line}"
-msgstr ""
-"По журналу: водил {duration_text}, на смене без вождения {duration_text2}, "
-"вне смены {duration_text3}, на спальном месте {duration_text4}. Последняя "
-"запись: {entry_line}"
-
 msgid ""
 "Use up and down arrows to review logbook lines. Enter repeats the current "
 "line. Escape goes back."
@@ -41843,6 +41816,28 @@ msgstr "закрывающая скобка"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "заглавная {ch}"
+
+#~ msgid "Logbook has no recent duty entries yet."
+#~ msgstr "В журнале пока нет недавних записей о смене."
+
+#~ msgid "Latest entry: {entry_line}"
+#~ msgstr "Последняя запись: {entry_line}"
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth {duration_text4}."
+#~ msgstr ""
+#~ "По журналу: водил {duration_text}, на смене без вождения {duration_text2}, "
+#~ "вне смены {duration_text3}, на спальном месте {duration_text4}."
+
+#~ msgid ""
+#~ "Logbook shows driving {duration_text}, on duty not driving "
+#~ "{duration_text2}, off duty {duration_text3}, sleeper berth "
+#~ "{duration_text4}. Latest entry: {entry_line}"
+#~ msgstr ""
+#~ "По журналу: водил {duration_text}, на смене без вождения {duration_text2}, "
+#~ "вне смены {duration_text3}, на спальном месте {duration_text4}. Последняя "
+#~ "запись: {entry_line}"
 
 #~ msgid "{count_word} {noun} in the last year"
 #~ msgstr "{noun} за последний год: {count_word}"

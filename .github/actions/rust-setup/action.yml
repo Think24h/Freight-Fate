@@ -59,12 +59,12 @@ runs:
     # rust-cache keeps the dependencies' artefacts in the target directory,
     # which also holds the C builds (SDL2, Prism) sccache cannot see. It
     # turns incremental compilation off, which sccache needs.
-    - uses: mozilla-actions/sccache-action@v0.0.9
+    - uses: mozilla-actions/sccache-action@7d986dd989559c6ecdb630a3fd2557667be217ad # v0.0.9
     - shell: bash
       run: |
         echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
         echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
-    - uses: Swatinem/rust-cache@v2
+    - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
       with:
         shared-key: ${{ inputs.cache-key }}
         cache-on-failure: true
