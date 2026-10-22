@@ -149,3 +149,10 @@ data/world_data/us/gameplay/curve_osm.jsonl
 
 # Local code-review reports (paad); findings land in commits and ROADMAP instead.
 paad/
+
+# Apple signing material made on a developer's machine. Keep it out of
+# commits even when someone runs `git add -A` at the repository root.
+*.certSigningRequest
+*.p12
+*.mobileprovision
+*.cer
