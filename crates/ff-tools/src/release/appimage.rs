@@ -269,7 +269,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         println!("AppImage packaging only runs on Linux.");
         return Ok(1);
     }
-    let staged = super::build_dir();
+    let staged = super::staged_dir();
     if !staged.join(super::APP_NAME).exists() {
         println!(
             "Staged build not found at {}; run `cargo tools build-release` first.",

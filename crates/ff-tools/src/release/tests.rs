@@ -49,3 +49,14 @@ fn native_libraries_skip_build_leftovers() {
     let libs = rust_native_libraries(dir.path(), &["dll"]);
     assert_eq!(libs, vec![dir.path().join("SDL2.dll")]);
 }
+
+#[test]
+fn appimage_launcher_runs_the_staged_executable() {
+    // The AppImage copies the staged folder to opt/freightfate, and AppRun
+    // execs the game executable inside it. Copying build/ instead put the
+    // staged folder itself at opt/freightfate/FreightFate.
+    let apprun = std::fs::read_to_string(util::repo_root().join("tools/appimage/AppRun"))
+        .expect("AppRun is committed");
+    assert!(apprun.contains(&format!("\"$HERE/opt/freightfate/{APP_NAME}\"")));
+    assert_eq!(staged_dir(), build_dir().join(APP_NAME));
+}

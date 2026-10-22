@@ -114,6 +114,12 @@ pub fn build_dir() -> PathBuf {
     util::repo_root().join("build")
 }
 
+/// The folder `build-release` stages the game into, `build/FreightFate`.
+/// On Linux and Windows the executable sits inside it under the same name.
+pub fn staged_dir() -> PathBuf {
+    build_dir().join(APP_NAME)
+}
+
 /// The version a developer snapshot reports: `[workspace.metadata.release]
 /// package-version` in the root Cargo.toml (`1.9.0.dev0`). It carries the
 /// `.devN` the crate version cannot, so a snapshot never calls itself the
@@ -893,13 +899,7 @@ fn build_rust(
     util::run(&mut cargo_build_command(target_dir))?;
     let profile_dir = cargo_profile_dir(target_dir);
     let baked = bake_world_data(target_dir, None)?;
-    let build = stage_rust_build(
-        &profile_dir,
-        &build_dir().join(APP_NAME),
-        &baked,
-        platform,
-        label,
-    )?;
+    let build = stage_rust_build(&profile_dir, &staged_dir(), &baked, platform, label)?;
     let resource_root = if is_app(&build) {
         build.join("Contents").join("Resources")
     } else {
