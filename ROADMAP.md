@@ -45,7 +45,8 @@ bookmarks usable.
       where it leaves for the speech channels, from gettext PO files in
       `lang/` matched as templates, so the code stays English. Settings,
       Speech, Language picks the language (Automatic follows the system on
-      a fresh install; an existing settings file keeps English). Radio and
+      a fresh install; an existing settings file keeps English). Turkish
+      joined the nine on 2026-10-22 (issue 397). Radio and
       recordings stay English. `lang/README.md` is the translator's guide;
       corrections come as pull requests or the Translation correction issue
       form. Languages land one pull request each. A language added as a
@@ -707,6 +708,18 @@ Everything found before 2026-09-25 moved to
       (player report, 2026-10-20): it had been said only past the gore, too
       late to plan for, and a ramp posted 20 rolled a truck. Same number as
       the ramp line; the approach still never asks the truck to slow.
+- [x] Issue sweep, 2026-10-21: with lane keeping on full a tap change waits
+      while the lane is taken (issue 356); the Record line counts safety
+      incidents and crashes (issue 347); UTF-16 playlists load (issue 355).
+- [ ] Sound stops for the session after a Bluetooth headset connects or
+      disconnects (issue 483). Kira's cpal stream manager, which Hearken
+      uses for the default device, unwraps the new stream on a device
+      change and gives up when no default device is there at the moment of
+      a disconnect, so one failed reopen silences the game for good. The
+      fix is Hearken's own device backend, which retries the reopen every
+      half second (orinks-games/hearken PR 9); the game picks it up with
+      `cargo update -p hearken` once that merges, then needs a Bluetooth
+      check by ear on Windows.
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [ ] A listening pass by the owner on a ride-along shift: the co-driver's
       notes, the hazard calls, and how often they speak.

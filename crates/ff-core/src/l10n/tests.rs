@@ -262,6 +262,7 @@ fn a_captured_number_takes_the_languages_separators() {
     assert_eq!(localize_number("de", "3:15"), None);
     assert_eq!(localize_number("de", "12,34"), None);
     assert_eq!(localize_number("ja", "25,000"), None);
+    assert_eq!(localize_number("tr", "1,250.5").as_deref(), Some("1.250,5"));
     let catalog = Catalog::from_po(
         "de",
         "msgid \"{count} dollars\"\nmsgstr \"{count} Dollar\"\n",

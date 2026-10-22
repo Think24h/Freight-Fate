@@ -20,6 +20,7 @@ program.
 | `pl.po` | Polish |
 | `zh_CN.po` | Simplified Chinese |
 | `ja.po` | Japanese |
+| `tr.po` | Turkish |
 
 To play in one of them, open Settings, then Speech; Language is the first
 row. Left and Right change it. Automatic follows your system language.
@@ -122,7 +123,7 @@ msgstr "Осталось {count} {count:миля|мили|миль}."
 
 The forms are in this order:
 
-- Spanish, Portuguese, Italian, German: singular, plural.
+- Spanish, Portuguese, Italian, German, Turkish: singular, plural.
 - French: singular (0 and 1), plural.
 - Russian: one (1, 21, 31), few (2 to 4, 22 to 24), many (5 to 20, 25).
 - Polish: one (1 only), few (2 to 4, 22 to 24), many (the rest).

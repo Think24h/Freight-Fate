@@ -1225,21 +1225,38 @@ pub fn standing_text<P: StandingProfile + ?Sized>(profile: &P) -> String {
         );
     }
     let citations = record.citations_in_window(game_hours);
+    let incidents = record.safety_incidents_within(game_hours, REVIEW_WINDOW_DAYS);
+    let crashes = record.crashes_within(game_hours, REVIEW_WINDOW_DAYS);
     let serious = record.serious_in_window(game_hours);
     let majors = record.major_count();
-    if citations == 0 && serious == 0 && majors == 0 {
+    if citations == 0 && incidents == 0 && crashes == 0 && serious == 0 && majors == 0 {
         return "Record: clean.".to_string();
     }
     let mut parts = Vec::new();
     // Plain citations were never spoken here, which is how a driver with a
     // string of them came to ask what the record was for (owner, 2026-09-12).
-    if citations != 0 {
-        let noun = if citations == 1 {
-            "citation"
-        } else {
-            "citations"
+    // A safety incident and a crash are on the record too: the list below
+    // this line names them, and the line said "clean" over them (issue #347).
+    let mut last_year = Vec::new();
+    for (count, one, many) in [
+        (citations, "citation", "citations"),
+        (incidents, "safety incident", "safety incidents"),
+        (crashes, "crash", "crashes"),
+    ] {
+        if count != 0 {
+            let noun = if count == 1 { one } else { many };
+            last_year.push(format!("{} {noun}", count_word(count)));
+        }
+    }
+    if !last_year.is_empty() {
+        let join = match last_year.split_last() {
+            Some((last, rest)) if !rest.is_empty() => {
+                let join = rest.join(", ");
+                format!("{join} and {last}")
+            }
+            _ => last_year.concat(),
         };
-        parts.push(format!("{} {noun} in the last year", count_word(citations)));
+        parts.push(format!("{join} in the last year"));
     }
     if serious != 0 {
         let noun = if serious == 1 {

@@ -122,6 +122,11 @@ pub const LANGUAGES: &[Language] = &[
         name: "Japanese",
         autonym: "日本語",
     },
+    Language {
+        code: "tr",
+        name: "Turkish",
+        autonym: "Türkçe",
+    },
 ];
 
 /// Languages a translator added as a file alone, beyond [`LANGUAGES`].

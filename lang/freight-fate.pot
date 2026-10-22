@@ -10212,9 +10212,21 @@ msgstr ""
 msgid "Record: clean."
 msgstr ""
 
-#. placeholders: {count_word}, {noun}
 #: crates/ff-core/src/models/enforcement.rs
-msgid "{count_word} {noun} in the last year"
+msgid "safety incident"
+msgstr ""
+
+#: crates/ff-core/src/models/enforcement.rs
+msgid "safety incidents"
+msgstr ""
+
+#: crates/ff-core/src/models/enforcement.rs crates/freight-fate/src/states/online_states/profile.rs
+msgid "crashes"
+msgstr ""
+
+#. placeholders: {join}, {last}
+#: crates/ff-core/src/models/enforcement.rs crates/ff-core/src/models/jobs/catalog.rs crates/freight-fate/src/duty_watch.rs
+msgid "{join} and {last}"
 msgstr ""
 
 #: crates/ff-core/src/models/enforcement.rs crates/freight-fate/src/states/online_states/profile.rs
@@ -10338,7 +10350,7 @@ msgstr ""
 msgid "major"
 msgstr ""
 
-#: crates/ff-core/src/models/enforcement/record.rs crates/freight-fate/src/states/online_states/profile.rs
+#: crates/ff-core/src/models/enforcement/record.rs crates/ff-core/src/models/enforcement.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "crash"
 msgstr ""
 
@@ -10740,11 +10752,6 @@ msgstr ""
 #. placeholders: {endorsement_label}
 #: crates/ff-core/src/models/jobs/catalog.rs
 msgid "the {endorsement_label}"
-msgstr ""
-
-#. placeholders: {join}, {last}
-#: crates/ff-core/src/models/jobs/catalog.rs crates/freight-fate/src/duty_watch.rs
-msgid "{join} and {last}"
 msgstr ""
 
 #. placeholders: {f}
@@ -43052,10 +43059,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "out-of-service orders"
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states/profile.rs
-msgid "crashes"
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs

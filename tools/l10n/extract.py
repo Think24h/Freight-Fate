@@ -51,6 +51,7 @@ LANGUAGES = {
     ),
     "zh_CN": ("Simplified Chinese", "nplurals=1; plural=0;"),
     "ja": ("Japanese", "nplurals=1; plural=0;"),
+    "tr": ("Turkish", "nplurals=2; plural=(n != 1);"),
 }
 
 CRATES = ["ff-core", "freight-fate"]

@@ -9522,9 +9522,18 @@ msgstr "Registro: CDL {verb}, ancora {left}. Si risolve {clears_text}."
 msgid "Record: clean."
 msgstr "Registro: pulito."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{count_word} {noun} nell'ultimo anno"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "incidenti"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} e {last}"
 
 msgid "major offense"
 msgstr "infrazione gravissima"
@@ -9958,10 +9967,6 @@ msgstr "CDL standard"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} e {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -39795,9 +39800,6 @@ msgstr "ordine di fuori servizio"
 msgid "out-of-service orders"
 msgstr "ordini di fuori servizio"
 
-msgid "crashes"
-msgstr "incidenti"
-
 msgid "cargo claim"
 msgstr "reclamo sul carico"
 
@@ -41777,6 +41779,9 @@ msgstr "parentesi chiusa"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "{ch} maiuscola"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{count_word} {noun} nell'ultimo anno"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

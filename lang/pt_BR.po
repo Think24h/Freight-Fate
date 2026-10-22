@@ -9438,9 +9438,18 @@ msgstr "Histórico: CDL {verb}, faltam {left}. Libera {clears_text}."
 msgid "Record: clean."
 msgstr "Histórico: limpo."
 
-#. placeholders: {count_word}, {noun}
-msgid "{count_word} {noun} in the last year"
-msgstr "{count_word} {noun} no último ano"
+msgid "safety incident"
+msgstr ""
+
+msgid "safety incidents"
+msgstr ""
+
+msgid "crashes"
+msgstr "acidentes"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} e {last}"
 
 msgid "major offense"
 msgstr "infração gravíssima"
@@ -9872,10 +9881,6 @@ msgstr "CDL padrão"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "o {endorsement_label}"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} e {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -39549,9 +39554,6 @@ msgstr "ordem de impedimento de rodar"
 msgid "out-of-service orders"
 msgstr "ordens de impedimento de rodar"
 
-msgid "crashes"
-msgstr "acidentes"
-
 msgid "cargo claim"
 msgstr "reclamação de carga"
 
@@ -41525,6 +41527,9 @@ msgstr "fecha parêntese"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "{ch} maiúsculo"
+
+#~ msgid "{count_word} {noun} in the last year"
+#~ msgstr "{count_word} {noun} no último ano"
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "
