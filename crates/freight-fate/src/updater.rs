@@ -11,7 +11,7 @@
 //! setting follow a distinct family, `1.9-tester-YYYYMMDD`, so a 1.9 tester is
 //! never offered a 1.8 nightly and a 1.8 snapshot never picks a 1.9 tester.
 //! The packaged build carries a `build_info.json` next to the executable
-//! (written by `tools/build_release.py`) recording its tag, channel, and build
+//! (written by `cargo tools build-release`) recording its tag, channel, and build
 //! date; that is how a snapshot knows a newer snapshot exists even though the
 //! project version number has not changed.
 //!

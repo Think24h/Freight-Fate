@@ -8,8 +8,10 @@ authoring time.
 **Career 1.9 is a native Rust game.** The Cargo workspace under `crates/`
 (`ff-core`, `freight-fate`) is the shipping
 runtime, on both `dev` and `main`. The Python game is gone (its last release
-is the `v1.8.8.1` tag, and 1.8 gets no further releases); `tools/` stays
-Python for baking, packaging, and data generation. The world data tree is
+is the `v1.8.8.1` tag, and 1.8 gets no further releases), and so is the
+Python tooling: building, packaging, translations and data indexing are the
+`ff-tools` crate, run as `cargo tools <command>` (`cargo tools help` lists
+them). The world data tree is
 `data/`, the sounds and packs are under `assets/`. Write gameplay changes in
 Rust.
 
@@ -154,8 +156,7 @@ code, in the same change:
 
 ## Commands
 
-The gameplay runtime is Rust; the tooling around it is Python. Which one you
-need depends on what you touched.
+Everything is Rust: the game, and the tooling around it in `ff-tools`.
 
 ### Rust -- gameplay, and what CI gates
 
@@ -189,8 +190,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
 [Clippy documentation](https://doc.rust-lang.org/stable/clippy/).
 
 - Setup: install `rustup` (the pinned toolchain and its `rustfmt`/Clippy
-  components come from `rust-toolchain.toml` via `rustup show`), then
-  `uv sync`. CMake 3.24+ is needed (Prism, SDL2 and libopus compile from
+  components come from `rust-toolchain.toml` via `rustup show`). CMake 3.24+ is needed (Prism, SDL2 and libopus compile from
   source); Linux also needs ALSA's headers (`libasound2-dev`) and GCC 13,
   macOS the Xcode Command Line Tools. The engine is Hearken: one workspace
   dependency, the `hearken` facade crate, fetched by Cargo from
@@ -274,7 +274,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   --agent-server` when live gameplay verification is authorized. It provides
   MCP tools over standard input/output. It is the `agent-server` Cargo
   feature, on by default and left out of player builds
-  (`tools/build_release.py` builds with `--no-default-features`), so a
+  (`cargo tools build-release` builds with `--no-default-features`), so a
   packaged build in `target/release` has no agent server until the next
   plain `cargo build`. Use `listen`, `menu`, `press`,
   `select`, `pedal`, `hold`, `release`, and `wait_for` to play one sandboxed
@@ -315,7 +315,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   (free for this public repository; owner rule 2026-10-17: Blacksmith's paid
   minutes are for the private repositories) in Hearken's and Echo Parlor's
   shape: a no-build checks job (fmt, the
-  translation files, `tools/check_test_targets.py`, the Hearken leaf-type
+  translation files, `cargo tools test-targets`, the Hearken leaf-type
   grep) that finishes in well under a minute, clippy once on Linux, and the
   game's tests on Windows and Linux in parallel (ff-core, which is headless,
   on Linux only). A manual dispatch or a `v*` tag adds the tests on macOS.
@@ -336,46 +336,39 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   workflow lists, then the same commands); a run there with `~/.asoundrc` routing
   ALSA's default device to PulseAudio has real sound and speech.
 
-### Python -- tools, data, packaging
+### Tools -- build, release, data, translations
 
-- Setup: `uv sync --group dev`
-- Tests: `uv run pytest` -- about six seconds now, so just run all of it.
-  `pyproject.toml` already sets `-n auto` and a 120 s per-test timeout, so
-  a bare `pytest` is a full-CPU xdist run; that is why only one may be in
-  flight. A single file is `uv run pytest tests/test_build_release_rust.py`.
-  **The suite covers the Python tooling and nothing else**: the build, bake,
-  indexing and release tooling under `tools/` (the world loader is the
-  `tools/ffworld/` package), plus the workflow and sound-pack guards. There
-  is no Python game left to test: `cargo test` proves the game, so do NOT
-  add a gameplay test here -- write it in Rust. A slow sweep test still needs
-  its own `@pytest.mark.timeout`; under xdist the thread timeout kills the
-  worker and reads as "node down".
-- Lint: `uv run ruff check tests tools`
-- Byte-compile check: `uv run python -m compileall tests tools`
+- `cargo tools help` lists every command. The ones CI runs on a light job
+  (release notes, the changelog gate, translations, the test-target check)
+  build without the game: `cargo run -p ff-tools --no-default-features --
+  <command>`.
+- Tests: `cargo test -p ff-tools`. CI runs them on Windows and Linux under
+  the required `test (windows-latest)` and `test (ubuntu-latest)` checks.
+- Git hooks: `git config core.hooksPath .githooks` once per clone (cargo fmt
+  and the world index check on commit, the changelog gate on push).
 
 ### Translations
 
 - Spoken text is translated at the speech boundary (`ff_core::l10n`, wired in
   `GameContext::say`/`say_event` through `app/language.rs`), so code stays in
   English. After changing any player-facing string, run
-  `uv run python tools/l10n/extract.py`; `tests/test_l10n.py` fails while
-  `lang/` is stale. `uv run python tools/l10n/check.py --stats` checks the
+  `cargo tools l10n-extract`; CI's `l10n-extract --check` fails while
+  `lang/` is stale. `cargo tools l10n-check --stats` checks the
   language files. A line assembled from pieces the extractor cannot see goes
   in `lang/extra.pot` as a template.
 - Headless runs stay English. `FREIGHT_FATE_LANG=es` forces a language for a
   run (harness and agent server included), and `FREIGHT_FATE_L10N_MISSES=path`
   writes every line no translation matched.
 
-### Both
+### Running tests
 
 - Headless runs: set `FREIGHT_FATE_NO_SPEECH=1` (CI also uses
   `SDL_VIDEODRIVER=dummy` and `SDL_AUDIODRIVER=dummy`).
 - **Exactly one test run in flight anywhere, ever.** Parallel agents each
-  starting `pytest -n auto`, or each building the Cargo workspace at full
-  job count, is the recurring way this machine falls over. Cap concurrent
+  building the Cargo workspace at full job count is the recurring way this machine falls over. Cap concurrent
   agents' builds with `CARGO_BUILD_JOBS`.
 - Never pipe a test run to `tail`: the shell reports the pipeline's status,
-  so `pytest | tail` exits 0 while pytest is failing. Redirect to a file and
+  so `cargo test | tail` exits 0 while the tests fail. Redirect to a file and
   read the count.
 
 ## Accessibility expectations
@@ -415,21 +408,21 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
 
 ## World and route data
 
-- The build tools edit `data/world_source/`; the game loads the indexed
+- `data/world_source/` is the edited tree; the game loads the indexed
   `data/world_data/` tree. After editing the source, regenerate with
-  `uv run python tools/index_world.py` and verify with `--check` -- CI and
+  `cargo tools index-world` and verify with `--check` -- CI and
   tests expect the two in sync.
-- Never read or write the source files directly. Go through
-  `tools/world_source.py`: `load_world()` returns the whole world as one dict,
-  `save_world(data)` writes it back as per-state shards. Both trees are
-  sharded by the state a leg starts in (`legs/TX.json`) so a one-leg edit is a
-  small reviewable diff instead of a 60 MB blob.
+- Both trees are sharded by the state a leg starts in (`legs/TX.json`) so a
+  one-leg edit is a small reviewable diff instead of a 60 MB blob. Keep a
+  leg in the shard of the state it starts in.
 - Data must be deterministic and load offline. Add source notes for
   real-world facilities, stops, and limits. No raw OpenStreetMap tags in
   player-facing names.
 - Enriching a leg (real checkpoints, truck-stop POIs, fine grades) or
   finishing a new corridor: follow `docs/map-enrichment-recipe.md` exactly --
-  it encodes the judgment rules and the spoken-text invariants.
+  it encodes the judgment rules and the spoken-text invariants. The Python
+  map tools it names were deleted (they are in git history); port the one a
+  job needs into `ff-tools` before using it.
 - The shipped game reads a single baked container, not the JSON tree. After
   a data change re-bake it with `cargo run -p ff-core --bin ff-bake --
   --data-dir data --out dist/freight_fate/data/world.ffdata`,
@@ -437,8 +430,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   `--check`, which re-bakes to a temp file and compares bytes.
 - After data changes run the world and route tests: the `data_*` and `sim_*`
   cases in `crates/ff-core/tests/it/` -- e.g. `cargo test -p ff-core
-  data_world`. On the Python side only the tooling that BUILDS the data is
-  tested (`tests/test_index_world.py`).
+  data_world`.
 
 ### Provenance: read, derived, or assumed -- never blurred
 
@@ -449,7 +441,7 @@ reads as a survey.
 
 - **Say which KIND of value it is.** `source` must state **read** (upstream
   asserts it), **derived** (name the input and the formula), or **assumed**
-  (a fallback, because upstream is silent). Model: `tools/toll_rates.py`.
+  (a fallback, because upstream is silent).
 - **A silent upstream is not a reading.** Filling a gap is fine; shipping the
   fill in the same shape as the real readings is what hides it. Prefer a
   published statutory or design value to a guess, and label it either way.
@@ -500,9 +492,9 @@ single call over ~30 seconds (full suites, the adversarial battery, OSM
 scans, release builds, world re-bakes). Then go do something that needs
 neither the CPU nor the result -- never sit in a foreground `until ... sleep`
 loop waiting for a background task, which throws away the whole point. At
-most four background agents; exactly ONE pytest run in flight anywhere, ever.
+most four background agents; exactly ONE test run in flight anywhere, ever.
 And never pipe a test run to `tail`: the shell reports the pipeline's status,
-so `pytest | tail` exits 0 while pytest is failing. Redirect to a file and
+so `cargo test | tail` exits 0 while the tests fail. Redirect to a file and
 read the count.
 
 **A manual playtest means the OWNER drives it.** Speech on, at the wheel,
@@ -517,7 +509,7 @@ command to paste is half the job. Start it -- `cargo run --release -p
 freight-fate --bin freightfate -- --playtest-road --find <feature>` for a
 road feature, `... -- --playtest-sandbox --launch` for anything needing
 dispatch, a dock or the menus -- in the background, and put
-`tools/playtest_watch.py` on that session's log under the Monitor tool so its
+`cargo tools playtest-watch` on that session's log under the Monitor tool so its
 stdout becomes live notifications. It reports errors and any network call
 immediately (a sandboxed session must never reach the site), checks in every
 few minutes on where the drive got to, and summarises when the game exits.

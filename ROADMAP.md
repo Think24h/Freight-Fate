@@ -23,7 +23,7 @@
 > flight on the `feat/career-1.9` branch -- driving realism between the exits
 > (discrete lanes, ramp terminals, congestion, real surface streets) plus the
 > highway-spider world expansion, roadside narration, and real time zones.
-> `pyproject` is set to 1.9.0 so developer snapshots report it; the stable tag
+> The package version is set to 1.9.0 so developer snapshots report it; the stable tag
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
@@ -703,6 +703,8 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.
+- [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
+      when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)
 - [ ] (Found along the way) Decide whether to rewrite history to drop the
       retired music files, which take about 440 MB of the repository.
@@ -1667,6 +1669,25 @@ its status or release decision.
       and failure-hook flags went too, and a Linux install no longer needs
       Speech Dispatcher to start (the nightly's Debian, Ubuntu and openSUSE
       boots now run without its client library).
+
+### October 22 the tools are Rust
+
+- [x] Every live Python tool is a command of the `ff-tools` crate, run as
+      `cargo tools <command>`: the release build, AppImage, iOS build and
+      TestFlight signing, release notes and the changelog gate, snapshot
+      pruning, the translation kit, translation extraction and checks, the
+      world index, the radio stream sweeps, sound packing and the playtest
+      watcher. Translation extraction and the world index produce the
+      committed files byte for byte.
+- [x] The Python is deleted: `tools/*.py`, the Python tests, `sound-test/`'s
+      scripts, `pyproject.toml` and `uv.lock`. CI runs `cargo test -p
+      ff-tools` under the same required check names, and the git hooks are
+      plain scripts in `.githooks/`.
+- [ ] (Found along the way) The map, sound and city-data tools (OSM
+      extraction, curve and grade bakes, interchanges, tolls, city services,
+      audio rendering, the imported radio catalog) were deleted, not ported.
+      They are in git history. Port each into `ff-tools` when a data
+      refresh needs it.
 
 ### September 21 the Python sunset
 

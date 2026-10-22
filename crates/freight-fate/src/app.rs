@@ -67,7 +67,7 @@ pub const FPS: u32 = 60;
 pub const BG_COLOR: (u8, u8, u8) = (12, 12, 16);
 
 /// The game's version (`freight_fate.__version__`): the version
-/// `tools/build_release.py` stamped into `build_info.json` beside the
+/// `cargo tools build-release` stamped into `build_info.json` beside the
 /// executable when there is one, else this crate's.
 pub fn version() -> &'static str {
     static VERSION: OnceLock<String> = OnceLock::new();

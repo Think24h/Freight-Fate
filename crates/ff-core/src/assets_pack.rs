@@ -14,14 +14,14 @@
 //! offset when it starts, so the several hundred megabytes of music stay on
 //! disk instead of in the game's memory for the whole session.
 //! In a source checkout `assets/sounds.pak` is an ordinary committed file and
-//! `assets/music.pak` is downloaded by `tools/build_release.py`. Tests can explicitly disable the default packs and exercise the loose-file
+//! `assets/music.pak` is downloaded by `cargo tools build-release`. Tests can explicitly disable the default packs and exercise the loose-file
 //! fallback.
 //!
 //! A third pack, `channel3000.pak`, carries Channel 3000's clips under
 //! `c3k/`. It is never read into memory or opened at startup: see
 //! [`streamed`], which opens it on the first `c3k/` lookup.
 //!
-//! `tools/pack_sounds.py` writes both packs; the audio engine reads them
+//! `cargo tools pack-sounds` writes both packs; the audio engine reads them
 //! through [`open_default`], which returns one object that routes a lookup to
 //! whichever pack carries that name -- callers do not need to know the packs
 //! are split. The pack payload is deterministic for identical inputs.
@@ -192,7 +192,7 @@ fn stem(name: &str) -> &str {
 /// `include`, when given, keeps only pack-relative names it accepts --
 /// the base tree and overlay are still merged first (by full stem
 /// precedence, exactly as with no filter), so an overlay entry routes to
-/// whichever pack its own path belongs to. `tools/pack_sounds.py` calls
+/// whichever pack its own path belongs to. `cargo tools pack-sounds` calls
 /// this twice, once per prefix, to split `music/` into its own pack.
 pub fn write_pack(
     sounds_dir: &Path,
@@ -809,7 +809,7 @@ mod tests {
     //! of the Python file (pack-then-loose resolution, the engine-ring rule,
     //! the licensed overlay on lookup) drive the audio module, which is the
     //! game crate's; the pack format, split, loader and prefetch are pinned
-    //! here. The `tools/pack_sounds.py` split test stays Python.
+    //! here, and `cargo tools pack-sounds` tests its own split.
     use super::*;
 
     fn write_fixture_sounds(tmp: &Path) -> PathBuf {
@@ -989,7 +989,7 @@ mod tests {
 
     #[test]
     fn test_pack_include_filter_splits_by_prefix() {
-        // What tools/pack_sounds.py does twice to split music/ into its own pack.
+        // What cargo tools pack-sounds does twice to split music/ into its own pack.
         let tmp = tempfile::tempdir().unwrap();
         let sounds = write_fixture_sounds(tmp.path());
         let is_music = |name: &str| name.starts_with("music/");
@@ -1038,13 +1038,13 @@ mod tests {
             eprintln!(
                 "SKIPPING {}: it is a leftover Git LFS pointer, not the pack. The \
                  packs are plain files now: `git checkout -- assets/{name}` restores \
-                 sounds.pak, and tools/build_release.py downloads music.pak.",
+                 sounds.pak, and cargo tools build-release downloads music.pak.",
                 path.display()
             );
         } else {
             eprintln!(
                 "SKIPPING {}: not present (sounds.pak is committed; music.pak is \
-                 builder-local and tools/build_release.py downloads it)",
+                 builder-local and cargo tools build-release downloads it)",
                 path.display()
             );
         }
@@ -1145,7 +1145,7 @@ mod tests {
         if !committed_pack(&path) {
             return;
         }
-        // Only the header: tools/build_release.py checks the download against
+        // Only the header: cargo tools build-release checks the download against
         // DEFAULT_MUSIC_SHA256 before every release build.
         let mut head = [0u8; 6];
         std::fs::File::open(&path)

@@ -1,6 +1,5 @@
 //! Port of `tests/test_updater.py`: update discovery, channel resolution,
-//! notes flattening, apply scripts. The `tools/build_release.py` tests in
-//! that file stay Python (the build tooling is not ported).
+//! notes flattening, apply scripts.
 
 use std::cell::RefCell;
 use std::fs;
@@ -327,7 +326,7 @@ fn test_build_info_malformed_falls_back_to_stable_version() {
 
 #[test]
 fn test_build_info_stamp_marks_stable_and_nightly_channels() {
-    // `stamp_build_info` (tools/build_release.py) writes tag, channel and
+    // `stamp_build_info` (cargo tools build-release) writes tag, channel and
     // built_at; the reader derives the channel from the tag when the stamp
     // leaves it out or garbles it.
     let stable = build_info_from_dict(
@@ -353,10 +352,6 @@ fn test_build_info_stamp_marks_stable_and_nightly_channels() {
     assert_eq!(tester.tag, "1.9-tester-20260828");
     assert_eq!(tester.channel, "dev");
 }
-
-#[test]
-#[ignore = "tools/build_release.py stays Python"]
-fn test_build_info_stamp_bakes_the_real_package_version() {}
 
 #[test]
 fn test_nuitka_standalone_folder_counts_as_packaged_build() {

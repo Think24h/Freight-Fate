@@ -1,11 +1,7 @@
 //! The learn-sounds catalog: every entry plays something real and says
 //! what it means.
 //!
-//! The Python file's asset-resolution sweeps (`_resolves`, the `ast`
-//! scan of every string literal in `src/`, the ontology/CHANGELOG/help
-//! text reads) walk the Python source tree and the loose sound tree;
-//! those stay Python until the game crate owns asset lookup. The data
-//! invariants are all pinned here.
+//! The data invariants are pinned here.
 use super::*;
 use std::collections::HashSet;
 
