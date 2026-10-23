@@ -41339,7 +41339,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Hours, fatigue, and rest stops"
-msgstr ""
+msgstr "Giờ lái xe, mệt mỏi và điểm nghỉ"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -41437,7 +41437,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Career, equipment, and money"
-msgstr ""
+msgstr "Sự nghiệp, thiết bị và tiền bạc"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -41605,7 +41605,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Escape returns."
-msgstr ""
+msgstr "Nhấn Escape để quay lại."
 
 #. placeholders: {control_status}
 #. one sentence of a longer line
@@ -41623,7 +41623,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Up and Down choose an app; Enter opens it."
-msgstr ""
+msgstr "Dùng Up và Down để chọn ứng dụng; nhấn Enter để mở."
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -41698,7 +41698,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Radio and playlists"
-msgstr ""
+msgstr "Đài phát thanh và danh sách phát"
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -41819,7 +41819,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Settings and accessibility"
-msgstr ""
+msgstr "Cài đặt và trợ năng"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -41898,7 +41898,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Online sharing and backups"
-msgstr ""
+msgstr "Chia sẻ trực tuyến và sao lưu"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -41947,7 +41947,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Common questions"
-msgstr ""
+msgstr "Câu hỏi thường gặp"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -42001,7 +42001,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Open weigh station ahead means every truck must pull in."
-msgstr ""
+msgstr "Có trạm cân bắt buộc phía trước; mọi xe tải đều phải vào trạm."
 
 #. placeholders: {control_take_exit}, {control_rest}
 #. one sentence of a longer line
@@ -42014,7 +42014,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Why did I get a citation at a weigh station?"
-msgstr ""
+msgstr "Vì sao tôi bị phạt tại trạm cân?"
 
 #. placeholders: {control_take_exit}, {control_rest}
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -42027,12 +42027,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Some states hold trucks below the car limit."
-msgstr ""
+msgstr "Một số bang áp dụng giới hạn tốc độ cho xe tải thấp hơn xe con."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Why is the limit 55 on a fast highway?"
-msgstr ""
+msgstr "Vì sao giới hạn tốc độ là 55 trên đường cao tốc?"
 
 #. placeholders: {control_speed_limit}
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -42062,12 +42062,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Keep driving and follow the turnaround guidance."
-msgstr ""
+msgstr "Tiếp tục lái xe và làm theo hướng dẫn quay đầu."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "What now?"
-msgstr ""
+msgstr "Bây giờ làm gì?"
 
 #. placeholders: {control_route}
 #. one sentence of a longer line
@@ -42085,7 +42085,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "How do I know when a hill ends?"
-msgstr ""
+msgstr "Làm sao biết khi nào hết dốc?"
 
 #. placeholders: {control_grade}
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -42152,7 +42152,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Controller"
-msgstr ""
+msgstr "Tay cầm điều khiển"
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -42343,7 +42343,7 @@ msgstr ""
 #. placeholders: {page}, {HELP_PAGES}, {title}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "Page {page} of {HELP_PAGES}: {title}."
-msgstr ""
+msgstr "Trang {page} trên {HELP_PAGES}: {title}."
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
@@ -42366,12 +42366,12 @@ msgstr ""
 #. placeholders: {controls}, {page_title}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "How to play. {controls} {page_title}"
-msgstr ""
+msgstr "Hướng dẫn chơi. {controls} {page_title}"
 
 #. placeholders: {title}, {page}, {HELP_PAGES}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid "How to play - {title} ({page}/{HELP_PAGES})"
-msgstr ""
+msgstr "Hướng dẫn chơi - {title} ({page}/{HELP_PAGES})"
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
@@ -42427,12 +42427,12 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid "Restore a cloud backup"
-msgstr ""
+msgstr "Khôi phục bản sao lưu đám mây"
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_hub.rs
 msgid "Restore a cloud backup."
-msgstr ""
+msgstr "Khôi phục bản sao lưu đám mây."
 
 #. placeholders: {waiting}
 #: crates/freight-fate/src/states/online_hub.rs
@@ -42496,7 +42496,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs crates/freight-fate/src/states/online_states/directory.rs
 msgid "Driver directory"
-msgstr ""
+msgstr "Danh bạ tài xế"
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
@@ -42525,7 +42525,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "Your profile"
-msgstr ""
+msgstr "Hồ sơ của bạn"
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
@@ -42637,7 +42637,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_offer.rs
 msgid "Before you set off."
-msgstr ""
+msgstr "Trước khi khởi hành."
 
 #. placeholders: {current}
 #: crates/freight-fate/src/states/online_offer.rs
@@ -42675,15 +42675,15 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_offer.rs
 msgid "Not now"
-msgstr ""
+msgstr "Để sau"
 
 #: crates/freight-fate/src/states/online_offer.rs
 msgid "Start driving. You can connect later from Online."
-msgstr ""
+msgstr "Bắt đầu lái xe. Bạn có thể kết nối sau trong mục Trực tuyến."
 
 #: crates/freight-fate/src/states/online_offer.rs
 msgid "Set up now"
-msgstr ""
+msgstr "Thiết lập ngay"
 
 #: crates/freight-fate/src/states/online_offer.rs
 msgid ""
@@ -42760,7 +42760,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Your activation code is {user_code}."
-msgstr ""
+msgstr "Mã kích hoạt của bạn là {user_code}."
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Still contacting orinks.net for an activation code."
@@ -42783,7 +42783,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Your activation code is {code}."
-msgstr ""
+msgstr "Mã kích hoạt của bạn là {code}."
 
 #. placeholders: {code}, {verification_uri}
 #: crates/freight-fate/src/states/online_states.rs
@@ -42814,7 +42814,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid "The browser could not be opened."
-msgstr ""
+msgstr "Không thể mở trình duyệt."
 
 #. placeholders: {code}, {verification_uri}
 #: crates/freight-fate/src/states/online_states.rs
@@ -42836,7 +42836,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Activation code copied to the clipboard."
-msgstr ""
+msgstr "Đã sao chép mã kích hoạt vào bộ nhớ tạm."
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid ""
@@ -42871,7 +42871,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Your careers now back up to that account."
-msgstr ""
+msgstr "Các sự nghiệp của bạn hiện được sao lưu vào tài khoản đó."
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "profile-sharing"
@@ -42898,7 +42898,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Say my activation code again"
-msgstr ""
+msgstr "Đọc lại mã kích hoạt của tôi"
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Spells the activation code letter by letter."
@@ -42906,7 +42906,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Copy my activation code"
-msgstr ""
+msgstr "Sao chép mã kích hoạt của tôi"
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Puts the activation code on the clipboard."
@@ -42943,7 +42943,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Back in Freight Fate."
-msgstr ""
+msgstr "Đã quay lại Freight Fate."
 
 #. placeholders: {current}
 #: crates/freight-fate/src/states/online_states.rs
@@ -42956,7 +42956,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Could not reach orinks.net. Try again."
-msgstr ""
+msgstr "Không thể kết nối với orinks.net. Hãy thử lại."
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid ""
@@ -42976,7 +42976,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Setup canceled. Nothing was saved."
-msgstr ""
+msgstr "Đã hủy thiết lập. Không có gì được lưu."
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Profile sharing"
@@ -43032,7 +43032,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "updated just now"
-msgstr ""
+msgstr "vừa cập nhật"
 
 #. placeholders: {minutes}
 #: crates/freight-fate/src/states/online_states/board.rs
@@ -43045,11 +43045,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "Checking the drivers list"
-msgstr ""
+msgstr "Đang kiểm tra danh sách tài xế"
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "The drivers list could not be reached"
-msgstr ""
+msgstr "Không thể truy cập danh sách tài xế"
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid ""
@@ -43059,7 +43059,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "No drivers are on duty right now"
-msgstr ""
+msgstr "Hiện không có tài xế nào đang làm việc"
 
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "activity"
@@ -43071,7 +43071,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "went off duty"
-msgstr ""
+msgstr "đã hết ca"
 
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs
 msgid "Opens this driver's public profile."
@@ -43103,7 +43103,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "Last on duty less than an hour ago"
-msgstr ""
+msgstr "Lần cuối làm việc cách đây chưa đầy một giờ"
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "an hour ago"
@@ -43115,7 +43115,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "yesterday"
-msgstr ""
+msgstr "hôm qua"
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "last week"
@@ -43145,7 +43145,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "On duty"
-msgstr ""
+msgstr "Đang làm việc"
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "Not seen on duty yet"
@@ -43157,7 +43157,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "Checking the driver directory."
-msgstr ""
+msgstr "Đang kiểm tra danh bạ tài xế."
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "Checking the driver directory"
@@ -43186,11 +43186,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "The driver directory could not be reached."
-msgstr ""
+msgstr "Không thể truy cập danh bạ tài xế."
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "No drivers have a public profile yet."
-msgstr ""
+msgstr "Chưa có tài xế nào có hồ sơ công khai."
 
 #. placeholders: {total}, {else}
 #: crates/freight-fate/src/states/online_states/directory.rs
@@ -43207,7 +43207,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "none on duty"
-msgstr ""
+msgstr "không có ai đang làm việc"
 
 #. placeholders: {n}
 #: crates/freight-fate/src/states/online_states/directory.rs
@@ -43224,19 +43224,19 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "cargo claim"
-msgstr ""
+msgstr "yêu cầu bồi thường hàng hóa"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "cargo claims"
-msgstr ""
+msgstr "các yêu cầu bồi thường hàng hóa"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "preventable equipment damage incident"
-msgstr ""
+msgstr "sự cố hư hỏng thiết bị có thể phòng tránh"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "preventable equipment damage incidents"
-msgstr ""
+msgstr "các sự cố hư hỏng thiết bị có thể phòng tránh"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "carrier termination"
@@ -43252,7 +43252,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Off duty"
-msgstr ""
+msgstr "Ngoài ca làm việc"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "No career shared yet"
@@ -43261,11 +43261,11 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Current career: {name}"
-msgstr ""
+msgstr "Sự nghiệp hiện tại: {name}"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Career ended: CDL disqualified for life"
-msgstr ""
+msgstr "Sự nghiệp kết thúc: giấy phép lái xe thương mại bị tước vĩnh viễn"
 
 #. placeholders: {employment}
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43290,17 +43290,17 @@ msgstr ""
 #. placeholders: {truck}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Assigned truck: {truck}"
-msgstr ""
+msgstr "Xe tải được giao: {truck}"
 
 #. placeholders: {truck}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Owned truck: {truck}"
-msgstr ""
+msgstr "Xe tải sở hữu: {truck}"
 
 #. placeholders: {truck}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Truck: {truck}"
-msgstr ""
+msgstr "Xe tải: {truck}"
 
 #. placeholders: {tier}
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43309,27 +43309,27 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Current career resume"
-msgstr ""
+msgstr "Tóm tắt sự nghiệp hiện tại"
 
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Lifetime deliveries: {whole}"
-msgstr ""
+msgstr "Tổng số lần giao hàng: {whole}"
 
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Lifetime miles: {whole}"
-msgstr ""
+msgstr "Tổng số dặm: {whole}"
 
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "On time: {whole} percent"
-msgstr ""
+msgstr "Giao đúng giờ: {whole} phần trăm"
 
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Damage free: {whole} percent"
-msgstr ""
+msgstr "Không hư hỏng: {whole} phần trăm"
 
 #. placeholders: {safety_record_text}
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43349,21 +43349,21 @@ msgstr ""
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Longest haul: {whole} miles"
-msgstr ""
+msgstr "Chuyến chở hàng dài nhất: {whole} dặm"
 
 #. placeholders: {money_text}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Lifetime career earnings: {money_text}"
-msgstr ""
+msgstr "Tổng thu nhập sự nghiệp: {money_text}"
 
 #. placeholders: {money_text}
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Net worth: {money_text}"
-msgstr ""
+msgstr "Tài sản ròng: {money_text}"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Endorsements: none yet"
-msgstr ""
+msgstr "Chưa có chứng chỉ bổ sung"
 
 #. placeholders: {join}
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43372,7 +43372,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "No achievements yet"
-msgstr ""
+msgstr "Chưa có thành tích nào"
 
 #. placeholders: {whole}
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43402,7 +43402,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "No road journal entries yet"
-msgstr ""
+msgstr "Chưa có mục nhật ký đường bộ nào"
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states/profile.rs
@@ -43416,7 +43416,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Driver profile"
-msgstr ""
+msgstr "Hồ sơ tài xế"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "online-profile"
@@ -43434,15 +43434,15 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Your profile could not be reached"
-msgstr ""
+msgstr "Không thể truy cập hồ sơ của bạn"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "The profile could not be reached"
-msgstr ""
+msgstr "Không thể truy cập hồ sơ"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Checking the profile"
-msgstr ""
+msgstr "Đang kiểm tra hồ sơ"
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid ""
@@ -43451,11 +43451,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Save file changed outside the game"
-msgstr ""
+msgstr "Tệp lưu đã bị thay đổi bên ngoài trò chơi"
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Enter continues to your career."
-msgstr ""
+msgstr "Nhấn Enter để tiếp tục sự nghiệp."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/save_notice.rs
@@ -43481,11 +43481,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Continue to your career."
-msgstr ""
+msgstr "Tiếp tục sự nghiệp."
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Career from an earlier version"
-msgstr ""
+msgstr "Sự nghiệp từ phiên bản cũ"
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid ""
@@ -43524,19 +43524,19 @@ msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Start a new career"
-msgstr ""
+msgstr "Bắt đầu sự nghiệp mới"
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "A fresh 1.9 career with a new driver name."
-msgstr ""
+msgstr "Sự nghiệp phiên bản 1.9 mới với tên tài xế mới."
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Back to the career list"
-msgstr ""
+msgstr "Quay lại danh sách sự nghiệp"
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Back to the saved careers, nothing changed."
-msgstr ""
+msgstr "Quay lại danh sách sự nghiệp đã lưu; không có thay đổi nào."
 
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Your driving record"
@@ -43563,7 +43563,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Nothing was reset or taken."
-msgstr ""
+msgstr "Không có gì bị đặt lại hoặc xóa."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/save_notice.rs
@@ -43586,7 +43586,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/save_notice.rs
 msgid "Save file updated."
-msgstr ""
+msgstr "Đã cập nhật tệp lưu."
 
 #. placeholders: {current_text}
 #: crates/freight-fate/src/states/save_notice.rs
@@ -43642,12 +43642,12 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/text_entry.rs
 msgid "Press Escape to cancel."
-msgstr ""
+msgstr "Nhấn Escape để hủy."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/text_entry.rs
 msgid "Type, then press Enter."
-msgstr ""
+msgstr "Nhập nội dung, sau đó nhấn Enter."
 
 #. placeholders: {heading}
 #: crates/freight-fate/src/states/text_entry.rs
@@ -43699,7 +43699,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "Could not reach the update server."
-msgstr ""
+msgstr "Không thể kết nối với máy chủ cập nhật."
 
 #. placeholders: {describe_error}
 #: crates/freight-fate/src/states/update.rs
@@ -43734,7 +43734,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "Freight Fate version {version}."
-msgstr ""
+msgstr "Phiên bản Freight Fate {version}."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
@@ -43744,7 +43744,7 @@ msgstr ""
 #. placeholders: {version}
 #: crates/freight-fate/src/states/update.rs
 msgid "You are up to date. Freight Fate version {version}."
-msgstr ""
+msgstr "Trò chơi đã được cập nhật. Phiên bản Freight Fate {version}."
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Update available"
@@ -43809,11 +43809,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Download and restart"
-msgstr ""
+msgstr "Tải xuống và khởi động lại"
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Download, then restart into the new version."
-msgstr ""
+msgstr "Tải xuống, sau đó khởi động lại để dùng phiên bản mới."
 
 #: crates/freight-fate/src/states/update.rs
 msgid "What's new"
@@ -43891,7 +43891,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "The download stopped."
-msgstr ""
+msgstr "Quá trình tải xuống đã dừng."
 
 #. placeholders: {as_secs}
 #: crates/freight-fate/src/states/update.rs
@@ -43941,7 +43941,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Download complete. Unpacking the update."
-msgstr ""
+msgstr "Đã tải xong. Đang giải nén bản cập nhật."
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Unpacking the update took too long."
@@ -44017,7 +44017,7 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
 msgid "Escape cancels."
-msgstr ""
+msgstr "Nhấn Escape để hủy."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
@@ -44034,7 +44034,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "The download failed."
-msgstr ""
+msgstr "Tải xuống thất bại."
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
@@ -44064,7 +44064,7 @@ msgstr ""
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Update canceled."
-msgstr ""
+msgstr "Đã hủy cập nhật."
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Unpacking the update."
@@ -44082,7 +44082,7 @@ msgstr ""
 #. placeholders: {title}
 #: crates/freight-fate/src/states/update.rs
 msgid "Downloading {title}"
-msgstr ""
+msgstr "Đang tải xuống {title}"
 
 #: crates/freight-fate/src/states/update.rs
 msgid "Escape cancels, Tab reads progress."
@@ -44166,7 +44166,7 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/hud.rs crates/freight-fate/src/visuals/signs.rs
 msgid "SPEED"
-msgstr ""
+msgstr "TỐC ĐỘ"
 
 #: crates/freight-fate/src/visuals/hud.rs crates/freight-fate/src/visuals/signs.rs
 msgid "LIMIT"
@@ -44187,11 +44187,11 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "PARK BRAKE"
-msgstr ""
+msgstr "PHANH ĐỖ"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "ENGINE OFF"
-msgstr ""
+msgstr "ĐỘNG CƠ TẮT"
 
 #. placeholders: {factor}
 #: crates/freight-fate/src/visuals/hud.rs
@@ -44210,23 +44210,23 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "CHECK ENGINE"
-msgstr ""
+msgstr "KIỂM TRA ĐỘNG CƠ"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "TRAFFIC BOTH SIDES"
-msgstr ""
+msgstr "CÓ XE Ở CẢ HAI BÊN"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "TRAFFIC LEFT"
-msgstr ""
+msgstr "CÓ XE BÊN TRÁI"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "TRAFFIC RIGHT"
-msgstr ""
+msgstr "CÓ XE BÊN PHẢI"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "FUEL"
-msgstr ""
+msgstr "NHIÊN LIỆU"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "AIR"
@@ -44239,26 +44239,26 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "TRUCK"
-msgstr ""
+msgstr "XE TẢI"
 
 #. placeholders: {truck_damage}
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "{truck_damage}% damage"
-msgstr ""
+msgstr "Hư hỏng {truck_damage}%"
 
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "CARGO"
-msgstr ""
+msgstr "HÀNG HÓA"
 
 #. placeholders: {cargo_damage}
 #: crates/freight-fate/src/visuals/hud.rs
 msgid "{cargo_damage}% damage"
-msgstr ""
+msgstr "Hư hỏng {cargo_damage}%"
 
 #. placeholders: {distance_value}, {distance_unit_text}
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "{distance_value} {distance_unit_text} left"
-msgstr ""
+msgstr "Còn {distance_value} {distance_unit_text}"
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "1/2 MILE"
@@ -44270,11 +44270,11 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "TOLL"
-msgstr ""
+msgstr "TRẠM THU PHÍ"
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "ALL TRUCKS"
-msgstr ""
+msgstr "TẤT CẢ XE TẢI"
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "WEIGH STATION"
@@ -44282,7 +44282,7 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "REST AREA"
-msgstr ""
+msgstr "KHU NGHỈ"
 
 #: crates/freight-fate/src/visuals/scene_drive.rs
 msgid "1 MILE"
@@ -44295,7 +44295,7 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/screens.rs
 msgid "Escape to go back"
-msgstr ""
+msgstr "Nhấn Escape để quay lại"
 
 #: crates/freight-fate/src/visuals/screens.rs
 msgid "Arrows to move  ·  Enter to choose  ·  Escape to go back"
@@ -44327,7 +44327,7 @@ msgstr ""
 
 #: crates/freight-fate/src/visuals/signs.rs
 msgid "WELCOME TO"
-msgstr ""
+msgstr "CHÀO MỪNG ĐẾN VỚI"
 
 #: data/buffs.json
 msgid "Energy drink"
@@ -44532,7 +44532,7 @@ msgstr ""
 #. A number and its unit, as the readouts build them.
 #: lang/extra.pot
 msgid "{count} miles"
-msgstr ""
+msgstr "{count} dặm"
 
 #: lang/extra.pot
 msgid "{count} mile"
@@ -44556,7 +44556,7 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "{count} hours"
-msgstr ""
+msgstr "{count} giờ"
 
 #: lang/extra.pot
 msgid "{count} hour"
@@ -44564,7 +44564,7 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "{count} minutes"
-msgstr ""
+msgstr "{count} phút"
 
 #: lang/extra.pot
 msgid "{count} minute"
@@ -44580,7 +44580,7 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "{count} miles per hour"
-msgstr ""
+msgstr "{count} dặm một giờ"
 
 #: lang/extra.pot
 msgid "{count} kilometers per hour"
@@ -44603,27 +44603,27 @@ msgstr ""
 #. street's own name and is never translated.
 #: lang/extra.pot
 msgid "In {distance}, turn left onto {street}."
-msgstr ""
+msgstr "Sau {distance}, rẽ trái vào {street}."
 
 #: lang/extra.pot
 msgid "In {distance}, turn right onto {street}."
-msgstr ""
+msgstr "Sau {distance}, rẽ phải vào {street}."
 
 #: lang/extra.pot
 msgid "In {distance}, continue onto {street}."
-msgstr ""
+msgstr "Sau {distance}, tiếp tục đi vào {street}."
 
 #: lang/extra.pot
 msgid "Turn left onto {street}"
-msgstr ""
+msgstr "Rẽ trái vào {street}"
 
 #: lang/extra.pot
 msgid "Turn right onto {street}"
-msgstr ""
+msgstr "Rẽ phải vào {street}"
 
 #: lang/extra.pot
 msgid "Continue onto {street}"
-msgstr ""
+msgstr "Tiếp tục đi vào {street}"
 
 #: lang/extra.pot
 msgid "a service road"
@@ -44632,11 +44632,11 @@ msgstr ""
 #. A stop ahead on the highway. {stop_name} is the stop's own name.
 #: lang/extra.pot
 msgid "{stop_name} at exit {exit} in {distance}."
-msgstr ""
+msgstr "{stop_name} tại lối ra {exit}, còn {distance}."
 
 #: lang/extra.pot
 msgid "{stop_name} in {distance}."
-msgstr ""
+msgstr "{stop_name}, còn {distance}."
 
 #: lang/extra.pot
 msgid "Passing {city}."
