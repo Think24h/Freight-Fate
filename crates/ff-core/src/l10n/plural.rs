@@ -142,3 +142,15 @@ pub fn localize_number(language: &str, text: &str) -> Option<String> {
     }
     Some(out)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::plural_index;
+
+    #[test]
+    fn vietnamese_uses_one_plural_form_for_every_count() {
+        for count in [0.0, 1.0, 2.0, 5.0, 21.0, 1.5] {
+            assert_eq!(plural_index("vi", count), 0, "count {count}");
+        }
+    }
+}
