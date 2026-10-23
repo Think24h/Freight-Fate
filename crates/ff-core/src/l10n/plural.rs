@@ -26,7 +26,7 @@ pub fn plural_index(language: &str, n: f64) -> usize {
     let i = n.abs().trunc() as u64;
     let base = language.split(['_', '-']).next().unwrap_or(language);
     match base {
-        "zh" | "ja" | "ko" => 0,
+        "zh" | "ja" | "ko" | "vi" => 0,
         "fr" => usize::from(i > 1),
         "ru" | "uk" => {
             if !integer {
